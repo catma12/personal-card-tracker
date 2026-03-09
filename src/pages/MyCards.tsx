@@ -167,7 +167,7 @@ export default function MyCards() {
                 <TableRow>
                   <TableHead>Card</TableHead>
                   <TableHead>Issuer</TableHead>
-                  <TableHead>Network</TableHead>
+                  
                   <TableHead>Type</TableHead>
                   <TableHead>Opened</TableHead>
                   <TableHead>Annual Fee</TableHead>
@@ -179,7 +179,7 @@ export default function MyCards() {
                   <TableRow key={card.id}>
                     <TableCell className="font-medium">{card.name}</TableCell>
                     <TableCell>{card.issuer}</TableCell>
-                    <TableCell><Badge variant="secondary">{card.network}</Badge></TableCell>
+                    
                     <TableCell className="capitalize">{card.cardType}</TableCell>
                     <TableCell className="font-mono text-xs">{formatDate(card.openDate, 'MMM yyyy')}</TableCell>
                     <TableCell>${card.annualFee}{card.annualFee > 0 && <span className="text-xs text-muted-foreground ml-1">/{getMonthName(card.annualFeeMonth).slice(0,3)}</span>}</TableCell>
@@ -192,7 +192,7 @@ export default function MyCards() {
                   </TableRow>
                 ))}
                 {filtered.length === 0 && (
-                  <TableRow><TableCell colSpan={7} className="text-center py-8 text-muted-foreground">No cards found</TableCell></TableRow>
+                  <TableRow><TableCell colSpan={5} className="text-center py-8 text-muted-foreground">No cards found</TableCell></TableRow>
                 )}
               </TableBody>
             </Table>
