@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react';
 import { useCards } from '@/context/CardContext';
 import { CardBenefit, CreditResetType, BenefitValueType } from '@/types/cards';
-import { getBenefitStatus, formatDate } from '@/lib/dateUtils';
-import { addMonths, format, parseISO } from 'date-fns';
+import { getBenefitStatus, formatDate, getNextPeriodStart } from '@/lib/dateUtils';
+import { addMonths, format, parseISO, endOfMonth, endOfQuarter } from 'date-fns';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -54,21 +54,40 @@ function formatBenefitProgress(b: CardBenefit) {
 }
 
 function getNextResetDate(b: CardBenefit, cardOpenDate?: string): string | null {
+  if (b.creditType === 'one-time') return null;
+  const next = getNextPeriodStart(b.creditType, cardOpenDate);
+  return format(next, 'MMM d, yyyy');
+}
+
+function getAutoExpirationDate(creditType: CreditResetType, cardOpenDate?: string): string | null {
   const now = new Date();
-  const currentYear = now.getFullYear();
-
-  if (b.creditType === 'anniversary-year' && cardOpenDate) {
-    const open = parseISO(cardOpenDate);
-    const anniversaryMonth = open.getMonth();
-    const anniversaryDay = open.getDate();
-    let next = new Date(currentYear, anniversaryMonth, anniversaryDay);
-    if (next <= now) next = new Date(currentYear + 1, anniversaryMonth, anniversaryDay);
-    return format(next, 'MMM d, yyyy');
+  switch (creditType) {
+    case 'monthly':
+      return format(endOfMonth(now), 'yyyy-MM-dd');
+    case 'quarterly':
+      return format(endOfQuarter(now), 'yyyy-MM-dd');
+    case 'semi-annual': {
+      const month = now.getMonth();
+      const year = now.getFullYear();
+      return month < 6 ? format(new Date(year, 5, 30), 'yyyy-MM-dd') : format(new Date(year, 11, 31), 'yyyy-MM-dd');
+    }
+    case 'annual':
+      return format(new Date(now.getFullYear(), 11, 31), 'yyyy-MM-dd');
+    case 'anniversary-year': {
+      if (!cardOpenDate) return format(new Date(now.getFullYear(), 11, 31), 'yyyy-MM-dd');
+      const open = parseISO(cardOpenDate);
+      let anniv = new Date(now.getFullYear(), open.getMonth(), open.getDate());
+      if (anniv <= now) anniv = new Date(now.getFullYear() + 1, open.getMonth(), open.getDate());
+      // Day before anniversary = expiration
+      const exp = new Date(anniv);
+      exp.setDate(exp.getDate() - 1);
+      return format(exp, 'yyyy-MM-dd');
+    }
+    case 'one-time':
+      return null;
+    default:
+      return format(endOfMonth(now), 'yyyy-MM-dd');
   }
-
-  if (b.resetDate) return format(parseISO(b.resetDate), 'MMM d, yyyy');
-
-  return null;
 }
 
 export default function Credits() {
@@ -222,7 +241,10 @@ export default function Credits() {
                                 </div>
                                 <div className="mt-1 flex flex-wrap gap-x-4 gap-y-0.5">
                                   {resetDate && <p className="text-xs text-muted-foreground">Resets {resetDate}</p>}
-                                  {b.expirationDate && <p className="text-xs text-muted-foreground">Expires {formatDate(b.expirationDate)}</p>}
+                                  {(() => {
+                                    const expDate = b.expirationDate || getAutoExpirationDate(b.creditType, group.openDate);
+                                    return expDate ? <p className="text-xs text-muted-foreground">Expires {formatDate(expDate)}</p> : null;
+                                  })()}
                                 </div>
                                 {b.notes && <p className="text-xs text-muted-foreground mt-1">{b.notes}</p>}
                               </div>
@@ -242,6 +264,25 @@ export default function Credits() {
           });
         })()}
         {filtered.length === 0 && <p className="text-center py-8 text-muted-foreground">No benefits found</p>}
+        
+        {/* Cards without any benefits tracked */}
+        {(() => {
+          const cardIdsWithBenefits = new Set(benefits.map(b => b.cardId));
+          const cardsWithout = activeCards.filter(c => !cardIdsWithBenefits.has(c.id));
+          if (cardsWithout.length === 0) return null;
+          return (
+            <div className="mt-4 p-4 rounded-lg border border-dashed border-muted-foreground/30 bg-muted/20">
+              <p className="text-sm font-medium text-muted-foreground mb-2">Cards without tracked benefits</p>
+              <div className="flex flex-wrap gap-2">
+                {cardsWithout.map(c => (
+                  <Badge key={c.id} variant="outline" className="cursor-pointer hover:bg-accent" onClick={() => { setForm({...emptyBenefit, cardId: c.id}); setEditing(null); setDialogOpen(true); }}>
+                    + {c.name}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>

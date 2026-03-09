@@ -3,7 +3,8 @@ import { useCards } from '@/context/CardContext';
 import { knownCards, EligibilityRule, WelcomeOffer, OFFER_DATA_LAST_UPDATED } from '@/data/knownCards';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Shield, ShieldCheck, ShieldX, ShieldAlert, Info, Gift, TrendingUp, ExternalLink, Star } from 'lucide-react';
+import { Shield, ShieldCheck, ShieldX, ShieldAlert, Info, Gift, TrendingUp, ExternalLink, Star, Search } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 import { differenceInMonths, parseISO, format } from 'date-fns';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -34,6 +35,7 @@ export default function EligibilityPage() {
   const [statusFilter, setStatusFilter] = useState<EligibilityStatus | 'all'>('all');
   const [issuerFilter, setIssuerFilter] = useState<string>('all');
   const [offerFilter, setOfferFilter] = useState<'all' | 'highest' | 'not-highest' | 'starred'>('all');
+  const [searchQuery, setSearchQuery] = useState('');
   const [starredOffers, setStarredOffers] = useState<Set<string>>(new Set());
 
   // Load starred offers
@@ -190,6 +192,10 @@ export default function EligibilityPage() {
 
   const filtered = useMemo(() => {
     return eligibility.filter(e => {
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        if (!e.cardName.toLowerCase().includes(q) && !e.issuer.toLowerCase().includes(q)) return false;
+      }
       if (statusFilter !== 'all' && e.status !== statusFilter) return false;
       if (issuerFilter !== 'all' && e.issuer !== issuerFilter) return false;
       if (offerFilter === 'highest' && !e.isHighestOffer) return false;
@@ -197,7 +203,7 @@ export default function EligibilityPage() {
       if (offerFilter === 'starred' && !starredOffers.has(e.cardName)) return false;
       return true;
     });
-  }, [eligibility, statusFilter, issuerFilter, offerFilter, starredOffers]);
+  }, [eligibility, statusFilter, issuerFilter, offerFilter, starredOffers, searchQuery]);
 
   const statusIcon = (s: EligibilityStatus) => {
     switch (s) {
@@ -275,6 +281,15 @@ export default function EligibilityPage() {
       </div>
 
       <div className="flex items-center gap-3 flex-wrap">
+        <div className="relative flex-1 min-w-[200px]">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Search cards..."
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            className="pl-9"
+          />
+        </div>
         <Select value={issuerFilter} onValueChange={setIssuerFilter}>
           <SelectTrigger className="w-[200px]">
             <SelectValue placeholder="Filter by bank" />
