@@ -873,6 +873,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'travel',
+    currentOffer: { amount: '75,000 miles', spendRequirement: '$4,000 in 3 months' },
+    highestHistoricalOffer: { amount: '75,000 miles', spendRequirement: '$4,000 in 3 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 48, description: 'Not eligible if you received a Venture or Venture X bonus in the last 48 months.' },
