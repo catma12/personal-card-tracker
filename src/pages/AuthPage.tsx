@@ -88,8 +88,8 @@ export default function AuthPage() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Loading...' : isSignUp ? 'Create Account' : 'Sign In'}
+            <Button type="submit" className="w-full" disabled={submitting}>
+              {submitting ? 'Loading...' : isSignUp ? 'Create Account' : 'Sign In'}
             </Button>
           </form>
           <div className="mt-4 text-center">
