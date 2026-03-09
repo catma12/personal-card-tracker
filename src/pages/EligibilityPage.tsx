@@ -191,9 +191,9 @@ export default function EligibilityPage() {
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Bonus Eligibility</h1>
+          <h1 className="text-2xl font-bold">Welcome Bonus & Eligibility</h1>
           <p className="text-sm text-muted-foreground">
-            Check whether you're eligible for signup bonuses based on your current cards and issuer rules
+            Check current welcome offers and whether you're eligible based on your cards and issuer rules
           </p>
         </div>
         <p className="text-xs text-muted-foreground">
