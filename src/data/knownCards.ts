@@ -780,6 +780,8 @@ export const knownCards: KnownCardInfo[] = [
     benefits: [
       { name: 'Travel Portal Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, notes: '$300 credit for Capital One Travel bookings.' },
       { name: '10K Anniversary Bonus Miles', creditType: 'annual', valueType: 'points', totalAmount: 10000, notes: '10,000 bonus miles on anniversary.' },
+      { name: 'Priority Pass Lounge Access', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Unlimited Priority Pass lounge access for cardholder + 2 guests.' },
+      { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Up to $100 every 4 years.' },
     ],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 48, description: 'Not eligible if you received a Venture X or Venture bonus in the last 48 months.' },
