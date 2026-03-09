@@ -52,6 +52,25 @@ function formatBenefitProgress(b: CardBenefit) {
   return `$${b.amountUsed} / $${b.totalAmount}`;
 }
 
+function getNextResetDate(b: CardBenefit, cardOpenDate?: string): string | null {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+
+  if (b.creditType === 'anniversary-year' && cardOpenDate) {
+    const open = parseISO(cardOpenDate);
+    const anniversaryMonth = open.getMonth();
+    const anniversaryDay = open.getDate();
+    // Find next anniversary
+    let next = new Date(currentYear, anniversaryMonth, anniversaryDay);
+    if (next <= now) next = new Date(currentYear + 1, anniversaryMonth, anniversaryDay);
+    return format(next, 'MMM d, yyyy');
+  }
+
+  if (b.resetDate) return format(parseISO(b.resetDate), 'MMM d, yyyy');
+
+  return null;
+}
+
 export default function Credits() {
   const { cards, benefits, addBenefit, updateBenefit, deleteBenefit, getCardById } = useCards();
   const [search, setSearch] = useState('');
