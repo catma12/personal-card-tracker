@@ -50,7 +50,7 @@ export const sampleCards: CreditCard[] = [
     cardType: 'personal',
     status: 'active',
     openDate: d(year - 1, 1, 5),
-    annualFee: 695,
+    annualFee: 895,
     annualFeeMonth: 1,
     lastAnnualFeeDate: d(year, 1, 5),
     countsToward524: true,
@@ -68,13 +68,13 @@ export const sampleCards: CreditCard[] = [
     cardType: 'personal',
     status: 'active',
     openDate: d(year - 1, 5, 20),
-    annualFee: 250,
+    annualFee: 325,
     annualFeeMonth: 5,
     countsToward524: true,
     category: 'travel',
     decision: 'keep',
     tags: ['dining', 'groceries'],
-    notes: '4x dining, 4x groceries. $10/mo Uber, $10/mo dining credits.',
+    notes: '4x dining, 4x groceries. $10/mo Uber, $10/mo dining, $7/mo Dunkin credits.',
   },
   {
     id: 'marriott-boundless',
@@ -90,7 +90,7 @@ export const sampleCards: CreditCard[] = [
     category: 'hotel',
     decision: 'undecided',
     tags: ['hotel', 'marriott'],
-    notes: 'Free night certificate up to 35K points.',
+    notes: '35K Free Night Certificate on anniversary.',
   },
   {
     id: 'united-explorer',
@@ -146,68 +146,94 @@ export const sampleBenefits: CardBenefit[] = [
   // Amex Platinum credits
   {
     id: 'b1', cardId: 'amex-plat', name: 'Uber Credit',
-    creditType: 'monthly', totalAmount: 15, amountUsed: 15,
-    lastUsedDate: d(year, today.getMonth() + 1, 5), notes: '$15/mo, $20 in December',
+    creditType: 'monthly', valueType: 'dollar', totalAmount: 15, amountUsed: 15,
+    lastUsedDate: d(year, today.getMonth() + 1, 5), notes: '$15/mo, $35 in December.',
   },
   {
     id: 'b2', cardId: 'amex-plat', name: 'Digital Entertainment Credit',
-    creditType: 'monthly', totalAmount: 20, amountUsed: 20,
-    lastUsedDate: d(year, today.getMonth() + 1, 1), notes: 'Audible, Disney+, Peacock, etc.',
+    creditType: 'monthly', valueType: 'dollar', totalAmount: 20, amountUsed: 20,
+    lastUsedDate: d(year, today.getMonth() + 1, 1), notes: 'Audible, Disney+, Peacock, ESPN+, etc.',
   },
   {
     id: 'b3', cardId: 'amex-plat', name: 'Saks Credit (H1)',
-    creditType: 'semi-annual', totalAmount: 50, amountUsed: 0,
-    expirationDate: d(year, 6, 30), notes: '$50 Jan–Jun, $50 Jul–Dec',
+    creditType: 'semi-annual', valueType: 'dollar', totalAmount: 50, amountUsed: 0,
+    expirationDate: d(year, 6, 30), notes: '$50 Jan–Jun at Saks.',
   },
   {
     id: 'b4', cardId: 'amex-plat', name: 'Airline Incidental Credit',
-    creditType: 'annual', totalAmount: 200, amountUsed: 75,
-    resetDate: d(year, 1, 1), notes: 'Select one airline per year.',
+    creditType: 'annual', valueType: 'dollar', totalAmount: 200, amountUsed: 75,
+    resetDate: d(year, 1, 1), notes: 'Select one airline per calendar year.',
   },
   {
     id: 'b5', cardId: 'amex-plat', name: 'Global Entry / TSA PreCheck Credit',
-    creditType: 'one-time', totalAmount: 100, amountUsed: 100,
+    creditType: 'one-time', valueType: 'dollar', totalAmount: 100, amountUsed: 100,
     lastUsedDate: d(year - 1, 6, 15), notes: 'Every 4 years. Used for Global Entry.',
+  },
+  {
+    id: 'b5b', cardId: 'amex-plat', name: 'Walmart+ Credit',
+    creditType: 'monthly', valueType: 'dollar', totalAmount: 12.95, amountUsed: 12.95,
+    lastUsedDate: d(year, today.getMonth() + 1, 1), notes: 'Walmart+ membership credit.',
+  },
+  {
+    id: 'b5c', cardId: 'amex-plat', name: 'Hotel Credit',
+    creditType: 'semi-annual', valueType: 'dollar', totalAmount: 100, amountUsed: 0,
+    expirationDate: d(year, 6, 30), notes: '$100 per half for Fine Hotels + Resorts or Hotel Collection.',
   },
   // Amex Gold
   {
     id: 'b6', cardId: 'amex-gold', name: 'Uber Cash Credit',
-    creditType: 'monthly', totalAmount: 10, amountUsed: 0,
+    creditType: 'monthly', valueType: 'dollar', totalAmount: 10, amountUsed: 0,
     notes: '$10/mo Uber Cash.',
   },
   {
     id: 'b7', cardId: 'amex-gold', name: 'Dining Credit',
-    creditType: 'monthly', totalAmount: 10, amountUsed: 10,
+    creditType: 'monthly', valueType: 'dollar', totalAmount: 10, amountUsed: 10,
     lastUsedDate: d(year, today.getMonth() + 1, 12), notes: 'Grubhub, Seamless, etc.',
+  },
+  {
+    id: 'b7b', cardId: 'amex-gold', name: 'Dunkin\' Credit',
+    creditType: 'monthly', valueType: 'dollar', totalAmount: 7, amountUsed: 0,
+    notes: '$7/mo at Dunkin\'.',
   },
   // Chase Sapphire Reserve
   {
     id: 'b8', cardId: 'csr', name: 'Travel Credit',
-    creditType: 'anniversary-year', totalAmount: 300, amountUsed: 180,
+    creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, amountUsed: 180,
     notes: '$300 annual travel credit, resets on card anniversary.',
   },
   // Marriott Boundless
   {
-    id: 'b9', cardId: 'marriott-boundless', name: 'Free Night Certificate',
-    creditType: 'annual', totalAmount: 1, amountUsed: 0,
+    id: 'b9', cardId: 'marriott-boundless', name: '35K Free Night Certificate',
+    creditType: 'annual', valueType: 'certificate', totalAmount: 35000, amountUsed: 0,
     expirationDate: d(year, 12, 31),
-    notes: 'Free night up to 35K points. Expires end of year.',
+    notes: 'Free night certificate up to 35K points. Awarded on anniversary.',
   },
   // United Quest
   {
     id: 'b10', cardId: 'united-quest', name: 'United Purchase Credit',
-    creditType: 'anniversary-year', totalAmount: 125, amountUsed: 50,
+    creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 125, amountUsed: 50,
     notes: '$125 back on United purchases.',
+  },
+  {
+    id: 'b10b', cardId: 'united-quest', name: '5K Award Miles Back',
+    creditType: 'annual', valueType: 'points', totalAmount: 5000, amountUsed: 0,
+    notes: '5,000 miles back on saver award flights, up to 2x/year.',
+  },
+  // United Explorer
+  {
+    id: 'b10c', cardId: 'united-explorer', name: 'United Club Passes',
+    creditType: 'annual', valueType: 'certificate', totalAmount: 2, amountUsed: 0,
+    notes: '2 United Club one-time passes per year.',
   },
   // Venture X
   {
     id: 'b11', cardId: 'venture-x', name: 'Travel Portal Credit',
-    creditType: 'anniversary-year', totalAmount: 300, amountUsed: 0,
+    creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, amountUsed: 0,
     notes: '$300 credit for Capital One Travel bookings.',
   },
   {
-    id: 'b12', cardId: 'venture-x', name: 'Anniversary Miles Bonus',
-    creditType: 'annual', totalAmount: 10000, amountUsed: 0,
+    id: 'b12', cardId: 'venture-x', name: '10K Anniversary Bonus Miles',
+    creditType: 'annual', valueType: 'points', totalAmount: 10000, amountUsed: 0,
     notes: '10,000 bonus miles on anniversary.',
   },
 ];

@@ -26,11 +26,14 @@ export interface CreditCard {
   notes: string;
 }
 
+export type BenefitValueType = 'dollar' | 'points' | 'certificate';
+
 export interface CardBenefit {
   id: string;
   cardId: string;
   name: string;
   creditType: CreditResetType;
+  valueType: BenefitValueType;
   totalAmount: number;
   amountUsed: number;
   resetDate?: string;

@@ -3,7 +3,7 @@ import { getChase524Count, getNextAnnualFee, getMonthlyCreditsAvailable, getUnus
 import { CreditCard, Target, Gift, AlertTriangle, DollarSign, Clock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 
 const CHART_COLORS = [
@@ -26,21 +26,12 @@ export default function Dashboard() {
   const expiringBenefits = getExpiringBenefits(benefits, 30);
   const upcomingFees = getUpcomingAnnualFees(cards, 30);
 
+  const totalAnnualFees = activeCards.reduce((sum, c) => sum + c.annualFee, 0);
+
   // Charts data
   const issuerData = Object.entries(
     activeCards.reduce((acc, c) => { acc[c.issuer] = (acc[c.issuer] || 0) + 1; return acc; }, {} as Record<string, number>)
   ).map(([name, value]) => ({ name, value }));
-
-  const feeByYear: Record<string, number> = {};
-  activeCards.forEach(c => {
-    const year = new Date(c.openDate).getFullYear().toString();
-    feeByYear[year] = (feeByYear[year] || 0) + c.annualFee;
-  });
-  const feeData = Object.entries(feeByYear).map(([name, value]) => ({ name, value }));
-
-  const monthlyBenefits = benefits.filter(b => b.creditType === 'monthly');
-  const monthlyUsed = monthlyBenefits.reduce((s, b) => s + b.amountUsed, 0);
-  const monthlyTotal = monthlyBenefits.reduce((s, b) => s + b.totalAmount, 0);
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -72,6 +63,15 @@ export default function Dashboard() {
         <div className="stat-card">
           <div className="flex items-center gap-2 mb-2">
             <DollarSign className="h-4 w-4 text-warning" />
+            <span className="stat-label">Total Annual Fees</span>
+          </div>
+          <div className="stat-value text-lg">${totalAnnualFees.toLocaleString()}</div>
+          <p className="text-xs text-muted-foreground mt-1">{activeCards.filter(c => c.annualFee > 0).length} cards with fees</p>
+        </div>
+
+        <div className="stat-card">
+          <div className="flex items-center gap-2 mb-2">
+            <DollarSign className="h-4 w-4 text-warning" />
             <span className="stat-label">Next Annual Fee</span>
           </div>
           <div className="stat-value text-lg">{nextFeeCard ? `$${nextFeeCard.annualFee}` : '—'}</div>
@@ -92,14 +92,7 @@ export default function Dashboard() {
             <span className="stat-label">Unused Credits</span>
           </div>
           <div className="stat-value">${unusedCredits}</div>
-        </div>
-
-        <div className="stat-card">
-          <div className="flex items-center gap-2 mb-2">
-            <AlertTriangle className="h-4 w-4 text-warning" />
-            <span className="stat-label">Expiring Soon</span>
-          </div>
-          <div className="stat-value">{expiringBenefits.length}</div>
+          <p className="text-xs text-muted-foreground mt-1">dollar credits only</p>
         </div>
       </div>
 
@@ -127,7 +120,10 @@ export default function Dashboard() {
                 <div>
                   <p className="text-sm font-medium">{b.name}</p>
                   <p className="text-xs text-muted-foreground">
-                    ${b.totalAmount - b.amountUsed} remaining · Expires {b.expirationDate ? formatDate(b.expirationDate) : 'soon'}
+                    {b.valueType === 'dollar'
+                      ? `$${b.totalAmount - b.amountUsed} remaining`
+                      : 'Not yet redeemed'
+                    } · Expires {b.expirationDate ? formatDate(b.expirationDate) : 'soon'}
                   </p>
                 </div>
                 <Badge variant="outline" className="border-destructive text-destructive">Expiring</Badge>
@@ -138,7 +134,7 @@ export default function Dashboard() {
       )}
 
       {/* Charts */}
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Cards by Issuer</CardTitle>
@@ -165,42 +161,23 @@ export default function Dashboard() {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Annual Fees by Year</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Annual Fees by Card</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={feeData}>
-                <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-                <YAxis tick={{ fontSize: 12 }} />
-                <Tooltip formatter={(v: number) => `$${v}`} />
-                <Bar dataKey="value" fill="hsl(160, 84%, 30%)" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Monthly Credit Usage</CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col items-center justify-center h-[200px]">
-            <div className="relative h-32 w-32">
-              <svg className="h-32 w-32 -rotate-90" viewBox="0 0 128 128">
-                <circle cx="64" cy="64" r="56" fill="none" stroke="hsl(220, 14%, 90%)" strokeWidth="12" />
-                <circle
-                  cx="64" cy="64" r="56" fill="none"
-                  stroke="hsl(160, 84%, 30%)"
-                  strokeWidth="12"
-                  strokeDasharray={`${(monthlyUsed / Math.max(monthlyTotal, 1)) * 351.86} 351.86`}
-                  strokeLinecap="round"
-                />
-              </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-lg font-bold">{monthlyTotal > 0 ? Math.round((monthlyUsed / monthlyTotal) * 100) : 0}%</span>
-                <span className="text-xs text-muted-foreground">used</span>
-              </div>
+            <div className="space-y-3 max-h-[220px] overflow-y-auto">
+              {activeCards
+                .filter(c => c.annualFee > 0)
+                .sort((a, b) => b.annualFee - a.annualFee)
+                .map(c => (
+                  <div key={c.id} className="flex items-center justify-between">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium truncate">{c.name}</p>
+                      <p className="text-xs text-muted-foreground">{getMonthName(c.annualFeeMonth)}</p>
+                    </div>
+                    <span className="text-sm font-mono font-semibold">${c.annualFee}</span>
+                  </div>
+                ))}
             </div>
-            <p className="text-sm text-muted-foreground mt-2">${monthlyUsed} / ${monthlyTotal} this month</p>
           </CardContent>
         </Card>
       </div>
