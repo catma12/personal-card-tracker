@@ -6,6 +6,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { shouldResetBenefit } from '@/lib/dateUtils';
 import { format } from 'date-fns';
+import { knownCards } from '@/data/knownCards';
 
 interface CardContextType {
   cards: CreditCard[];
@@ -127,40 +128,72 @@ export function CardProvider({ children }: { children: React.ReactNode }) {
         const [cardsRes, benefitsRes, settingsRes] = await Promise.all([
           supabase.from('cards').select('*').order('created_at', { ascending: true }),
           supabase.from('benefits').select('*').order('created_at', { ascending: true }),
-          supabase.from('user_settings').select('*').limit(1).single(),
+          supabase.from('user_settings').select('*').limit(1).maybeSingle(),
         ]);
 
-        if (cardsRes.data) setCards(cardsRes.data.map(dbToCard));
-        if (benefitsRes.data) {
-          const loadedCards = cardsRes.data?.map(dbToCard) || [];
-          const loadedBenefits = benefitsRes.data.map(dbToBenefit);
-          
-          // Auto-reset benefits whose period has rolled over
-          const benefitsToReset: CardBenefit[] = [];
-          const updatedBenefits = loadedBenefits.map(b => {
-            const card = loadedCards.find(c => c.id === b.cardId);
-            if (shouldResetBenefit(b, card?.openDate)) {
-              const reset = { ...b, amountUsed: 0, resetDate: format(new Date(), 'yyyy-MM-dd') };
-              benefitsToReset.push(reset);
-              return reset;
-            }
-            return b;
+        const loadedCards = cardsRes.data?.map(dbToCard) || [];
+        if (cardsRes.data) setCards(loadedCards);
+        
+        const loadedBenefits = benefitsRes.data?.map(dbToBenefit) || [];
+        
+        // Auto-reset benefits whose period has rolled over
+        const benefitsToReset: CardBenefit[] = [];
+        const updatedBenefits = loadedBenefits.map(b => {
+          const card = loadedCards.find(c => c.id === b.cardId);
+          if (shouldResetBenefit(b, card?.openDate)) {
+            const reset = { ...b, amountUsed: 0, resetDate: format(new Date(), 'yyyy-MM-dd') };
+            benefitsToReset.push(reset);
+            return reset;
+          }
+          return b;
+        });
+        
+        // Auto-populate benefits from knownCards for active cards missing benefits
+        const cardIdsWithBenefits = new Set(updatedBenefits.map(b => b.cardId));
+        const newBenefits: CardBenefit[] = [];
+        for (const card of loadedCards) {
+          if (card.status !== 'active' || cardIdsWithBenefits.has(card.id)) continue;
+          const known = knownCards.find(k => k.name.toLowerCase() === card.name.toLowerCase());
+          if (!known || known.benefits.length === 0) continue;
+          for (const kb of known.benefits) {
+            const benefit: CardBenefit = {
+              id: crypto.randomUUID(),
+              cardId: card.id,
+              name: kb.name,
+              creditType: kb.creditType,
+              valueType: kb.valueType,
+              totalAmount: kb.totalAmount,
+              amountUsed: 0,
+              resetDate: format(new Date(), 'yyyy-MM-dd'),
+              notes: kb.notes,
+            };
+            newBenefits.push(benefit);
+          }
+        }
+        
+        const allBenefits = [...updatedBenefits, ...newBenefits];
+        setBenefits(allBenefits);
+        
+        // Batch update reset benefits in DB
+        for (const b of benefitsToReset) {
+          supabase.from('benefits').update({
+            amount_used: 0,
+            reset_date: b.resetDate,
+          } as any).eq('id', b.id).then(({ error }) => {
+            if (error) console.error('Failed to auto-reset benefit:', error);
           });
-          
-          setBenefits(updatedBenefits);
-          
-          // Batch update reset benefits in DB
-          for (const b of benefitsToReset) {
-            supabase.from('benefits').update({
-              amount_used: 0,
-              reset_date: b.resetDate,
-            } as any).eq('id', b.id).then(({ error }) => {
-              if (error) console.error('Failed to auto-reset benefit:', error);
-            });
-          }
-          if (benefitsToReset.length > 0) {
-            console.log(`Auto-reset ${benefitsToReset.length} benefit(s) for new period`);
-          }
+        }
+        if (benefitsToReset.length > 0) {
+          console.log(`Auto-reset ${benefitsToReset.length} benefit(s) for new period`);
+        }
+        
+        // Batch insert new auto-populated benefits
+        if (newBenefits.length > 0) {
+          const inserts = newBenefits.map(b => benefitToDb(b, user.id));
+          supabase.from('benefits').insert(inserts as any).then(({ error }) => {
+            if (error) console.error('Failed to auto-populate benefits:', error);
+          });
+          console.log(`Auto-populated ${newBenefits.length} benefit(s) from known cards`);
         }
         if (settingsRes.data) {
           setSettings({
