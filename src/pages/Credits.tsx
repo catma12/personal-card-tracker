@@ -24,7 +24,7 @@ const statusBadge = (status: string) => {
     case 'fully-used': return <Badge className="bg-muted text-muted-foreground">Fully Used</Badge>;
     case 'partially-used': return <Badge className="bg-info/10 text-info border-info/20">Partial</Badge>;
     case 'expiring-soon': return <Badge className="bg-destructive/10 text-destructive border-destructive/20">Expiring</Badge>;
-    default: return <Badge className="bg-success/10 text-success border-success/20">Unused</Badge>;
+    default: return <Badge className="bg-destructive/10 text-destructive border-destructive/20">Unused</Badge>;
   }
 };
 

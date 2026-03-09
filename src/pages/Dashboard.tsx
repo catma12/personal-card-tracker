@@ -160,7 +160,7 @@ export default function Dashboard() {
             <ResponsiveContainer width="100%" height={180}>
               <PieChart>
                 <Pie data={issuerData} cx="50%" cy="50%" innerRadius={45} outerRadius={70} paddingAngle={3} dataKey="value">
-                  {issuerData.map((_, i) => <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
+                  {issuerData.map((d, i) => <Cell key={i} fill={getIssuerColor(d.name, i)} />)}
                 </Pie>
                 <Tooltip />
               </PieChart>
@@ -168,7 +168,7 @@ export default function Dashboard() {
             <div className="flex flex-wrap gap-2 mt-2">
               {issuerData.map((d, i) => (
                 <div key={d.name} className="flex items-center gap-1 text-xs">
-                  <div className="h-2 w-2 rounded-full" style={{ background: CHART_COLORS[i % CHART_COLORS.length] }} />
+                  <div className="h-2 w-2 rounded-full" style={{ background: getIssuerColor(d.name, i) }} />
                   {d.name} ({d.value})
                 </div>
               ))}
