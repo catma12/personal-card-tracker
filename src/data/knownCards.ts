@@ -578,6 +578,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 350,
     category: 'airline',
+    currentOffer: { amount: '70,000 miles', spendRequirement: '$4,000 in 3 months' },
+    highestHistoricalOffer: { amount: '80,000 miles', spendRequirement: '$4,000 in 3 months' },
     benefits: [
       { name: 'United Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 200, notes: '$200 United travel credit on each anniversary.' },
       { name: '10K Award Flight Discount', creditType: 'annual', valueType: 'points', totalAmount: 10000, notes: '10,000-mile award flight discount on anniversary.' },
