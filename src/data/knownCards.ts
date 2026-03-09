@@ -20,7 +20,12 @@ export interface KnownCardInfo {
   currentOffer?: WelcomeOffer;
   /** Highest known historical welcome offer */
   highestHistoricalOffer?: WelcomeOffer;
+  /** Direct application URL */
+  applyUrl?: string;
 }
+
+/** Last time welcome offer data was reviewed/updated */
+export const OFFER_DATA_LAST_UPDATED = '2026-03-09';
 
 export interface KnownBenefitInfo {
   name: string;
