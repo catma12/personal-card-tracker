@@ -13,7 +13,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
 import { Switch } from '@/components/ui/switch';
-import { Plus, Pencil, Trash2, Search, Check, X } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Plus, Pencil, Trash2, Search, Check, X, ChevronDown } from 'lucide-react';
 import { toast } from 'sonner';
 
 const emptyBenefit: Omit<CardBenefit, 'id'> = {
