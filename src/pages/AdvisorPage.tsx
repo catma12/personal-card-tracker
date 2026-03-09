@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import CardImportBlock from '@/components/CardImportBlock';
 
 type Message = { role: 'user' | 'assistant'; content: string };
 
