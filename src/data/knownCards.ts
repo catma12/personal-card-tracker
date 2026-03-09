@@ -515,7 +515,7 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '85,000 points', spendRequirement: '$4,000 in 3 months' },
     applyUrl: 'https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bountiful',
     benefits: [
-      { name: '50K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 50000, notes: 'Free night certificate up to 50K points. Awarded on anniversary.' },
+      { name: '50K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 50000, notes: 'Free night certificate up to 50K points. Awarded on anniversary.' },
     ],
     eligibilityRules: [
       { type: 'product-family', conflictCards: ['Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Amex Brilliant', 'Chase Ritz-Carlton'], cooldownMonths: 24, description: 'Marriott cross-issuer family rules apply.' },
