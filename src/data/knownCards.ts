@@ -855,6 +855,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 395,
     category: 'travel',
+    currentOffer: { amount: '75,000 miles', spendRequirement: '$4,000 in 3 months' },
+    highestHistoricalOffer: { amount: '90,000 miles', spendRequirement: '$4,000 in 3 months' },
     benefits: [
       { name: 'Travel Portal Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, notes: '$300 credit for Capital One Travel bookings.' },
       { name: '10K Anniversary Bonus Miles', creditType: 'annual', valueType: 'points', totalAmount: 10000, notes: '10,000 bonus miles on anniversary.' },
