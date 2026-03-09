@@ -550,7 +550,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Hilton Resort Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Jan–Jun at Hilton resorts.' },
       { name: 'Hilton Resort Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Jul–Dec at Hilton resorts.' },
       { name: 'Hilton Airline Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 airline incidental credit.' },
-      { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Free weekend night certificate at any Hilton property.' },
+      { name: 'Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 1, notes: 'Free weekend night certificate at any Hilton property on anniversary.' },
       { name: 'Diamond Status', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary Hilton Honors Diamond status.' },
     ],
     eligibilityRules: [
