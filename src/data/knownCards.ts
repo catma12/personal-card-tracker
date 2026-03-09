@@ -291,6 +291,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 150,
     category: 'travel',
+    currentOffer: { amount: '40,000 points', spendRequirement: '$3,000 in 6 months' },
+    highestHistoricalOffer: { amount: '60,000 points', spendRequirement: '$3,000 in 6 months' },
     benefits: [
       { name: 'CLEAR Plus Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 189, notes: 'CLEAR Plus membership credit.' },
     ],
