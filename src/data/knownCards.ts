@@ -50,6 +50,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'travel',
+    currentOffer: { amount: '60,000 points', spendRequirement: '$4,000 in 3 months' },
+    highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$4,000 in 3 months' },
     benefits: [
       { name: '$50 Hotel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 50, notes: '$50 annual hotel credit through Chase Travel.' },
       { name: 'DoorDash DashPass', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary DashPass membership.' },
