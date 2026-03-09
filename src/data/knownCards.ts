@@ -612,7 +612,7 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '175,000 points', spendRequirement: '$3,000 in 3 months' },
     applyUrl: 'https://creditcards.chase.com/travel-credit-cards/ihg-one-rewards/premier',
     benefits: [
-      { name: '40K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 40000, notes: 'Free night up to 40K points on anniversary.' },
+      { name: '40K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 40000, notes: 'Free night up to 40K points on anniversary.' },
     ],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the IHG Premier bonus in the last 24 months.' },
