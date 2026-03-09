@@ -519,7 +519,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: '35K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 35000, notes: 'Free night certificate up to 35K points. Awarded on anniversary.' },
     ],
     eligibilityRules: [
-      { type: 'product-family', conflictCards: ['Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Amex Brilliant', 'Chase Ritz-Carlton'], cooldownMonths: 24, description: 'Marriott cross-issuer family rules apply.' },
+      { type: 'product-family', conflictCards: ['Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Marriott Bonvoy Bold', 'Chase Ritz-Carlton', 'Amex Brilliant', 'Marriott Bonvoy Bevy', 'Marriott Bonvoy Business'], cooldownMonths: 24, description: 'Marriott cross-issuer: Cannot hold a Chase Marriott card and an Amex Marriott card at the same time. 24-month bonus cooldown across all Marriott cards from any issuer.' },
     ],
   },
   {
