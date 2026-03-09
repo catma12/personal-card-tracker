@@ -20,7 +20,7 @@ import { cn } from '@/lib/utils';
 
 const emptyCard: Omit<CreditCardType, 'id'> = {
   name: '', issuer: '', network: 'Visa', cardType: 'personal', status: 'active',
-  openDate: new Date().toISOString().split('T')[0], annualFee: 0, annualFeeMonth: 1,
+  openDate: new Date().toISOString().split('T')[0], annualFee: 0, annualFeeMonth: new Date().getMonth() + 1,
   countsToward524: true, category: 'other', decision: 'undecided', tags: [], notes: '',
 };
 
