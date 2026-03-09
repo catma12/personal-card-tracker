@@ -4,7 +4,8 @@ import { defaultSettings } from '@/data/sampleData';
 import { useAuth } from '@/context/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { shouldResetBenefit, getNextPeriodStart } from '@/lib/dateUtils, format } from 'date-fns';
+import { shouldResetBenefit } from '@/lib/dateUtils';
+import { format } from 'date-fns';
 
 interface CardContextType {
   cards: CreditCard[];
