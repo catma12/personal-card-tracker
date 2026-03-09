@@ -28,9 +28,9 @@ const navItems = [
   { title: 'My Cards', url: '/cards', icon: CreditCard },
   { title: 'Credits & Benefits', url: '/credits', icon: Gift },
   { title: '5/24 Tracker', url: '/524', icon: Target },
+  { title: 'Calendar', url: '/calendar', icon: CalendarDays },
   { title: 'Eligibility', url: '/eligibility', icon: ShieldCheck },
   { title: 'Transfer Partners', url: '/transfer-partners', icon: ArrowRightLeft },
-  { title: 'Calendar', url: '/calendar', icon: CalendarDays },
   { title: 'Settings', url: '/settings', icon: Settings },
 ];
 
