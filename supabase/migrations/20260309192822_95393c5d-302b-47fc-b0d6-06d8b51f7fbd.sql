@@ -1,0 +1,1 @@
+ALTER TABLE public.cards ADD COLUMN starred boolean NOT NULL DEFAULT false;

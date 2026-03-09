@@ -91,6 +91,7 @@ export type Database = {
           open_date: string
           product_change_date: string | null
           signup_bonus_date: string | null
+          starred: boolean
           status: string
           tags: string[]
           updated_at: string
@@ -113,6 +114,7 @@ export type Database = {
           open_date: string
           product_change_date?: string | null
           signup_bonus_date?: string | null
+          starred?: boolean
           status?: string
           tags?: string[]
           updated_at?: string
@@ -135,6 +137,7 @@ export type Database = {
           open_date?: string
           product_change_date?: string | null
           signup_bonus_date?: string | null
+          starred?: boolean
           status?: string
           tags?: string[]
           updated_at?: string
