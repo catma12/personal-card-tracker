@@ -171,8 +171,6 @@ export default function MyCards() {
                   <TableHead>Type</TableHead>
                   <TableHead>Opened</TableHead>
                   <TableHead>Annual Fee</TableHead>
-                  <TableHead>Decision</TableHead>
-                  <TableHead>Status</TableHead>
                   <TableHead className="w-[80px]"></TableHead>
                 </TableRow>
               </TableHeader>
