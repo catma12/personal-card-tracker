@@ -167,6 +167,7 @@ export default function MyCards() {
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead className="w-[40px]"></TableHead>
                   <TableHead>Card</TableHead>
                   <TableHead>Issuer</TableHead>
                   <TableHead>Type</TableHead>
