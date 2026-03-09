@@ -7,6 +7,8 @@ export interface KnownCardInfo {
   annualFee: number;
   category: CardCategory;
   benefits: KnownBenefitInfo[];
+  /** Eligibility rules for signup bonus */
+  eligibilityRules?: EligibilityRule[];
 }
 
 export interface KnownBenefitInfo {
@@ -15,6 +17,18 @@ export interface KnownBenefitInfo {
   valueType: BenefitValueType;
   totalAmount: number;
   notes: string;
+}
+
+export type EligibilityRuleType = 'same-card-bonus' | 'product-family' | 'velocity' | 'once-per-lifetime' | 'card-count';
+
+export interface EligibilityRule {
+  type: EligibilityRuleType;
+  /** Cards that conflict (by name). If empty, uses self. */
+  conflictCards?: string[];
+  /** Months since last bonus to be eligible again */
+  cooldownMonths?: number;
+  /** Human-readable description */
+  description: string;
 }
 
 export const knownCards: KnownCardInfo[] = [
@@ -28,6 +42,9 @@ export const knownCards: KnownCardInfo[] = [
     benefits: [
       { name: '$50 Hotel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 50, notes: '$50 annual hotel credit through Chase Travel.' },
     ],
+    eligibilityRules: [
+      { type: 'product-family', conflictCards: ['Chase Sapphire Preferred', 'Chase Sapphire Reserve'], cooldownMonths: 48, description: 'Not eligible if you received a Sapphire bonus in the last 48 months or currently hold any Sapphire card.' },
+    ],
   },
   {
     name: 'Chase Sapphire Reserve',
@@ -38,6 +55,9 @@ export const knownCards: KnownCardInfo[] = [
     benefits: [
       { name: 'Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, notes: '$300 annual travel credit, resets on card anniversary.' },
     ],
+    eligibilityRules: [
+      { type: 'product-family', conflictCards: ['Chase Sapphire Preferred', 'Chase Sapphire Reserve'], cooldownMonths: 48, description: 'Not eligible if you received a Sapphire bonus in the last 48 months or currently hold any Sapphire card.' },
+    ],
   },
   {
     name: 'Chase Freedom Unlimited',
@@ -46,6 +66,9 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 0,
     category: 'cashback',
     benefits: [],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Freedom Unlimited bonus in the last 24 months.' },
+    ],
   },
   {
     name: 'Chase Freedom Flex',
@@ -54,6 +77,9 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 0,
     category: 'cashback',
     benefits: [],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Freedom Flex bonus in the last 24 months.' },
+    ],
   },
   {
     name: 'Chase Freedom Rise',
@@ -70,6 +96,9 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 95,
     category: 'business',
     benefits: [],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Ink Business Preferred bonus in the last 24 months.' },
+    ],
   },
   {
     name: 'Chase Ink Business Cash',
@@ -78,6 +107,9 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 0,
     category: 'business',
     benefits: [],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Ink Business Cash bonus in the last 24 months.' },
+    ],
   },
   {
     name: 'Chase Ink Business Unlimited',
@@ -86,6 +118,61 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 0,
     category: 'business',
     benefits: [],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Ink Business Unlimited bonus in the last 24 months.' },
+    ],
+  },
+  {
+    name: 'Chase Aeroplan',
+    issuer: 'Chase',
+    network: 'Visa',
+    annualFee: 95,
+    category: 'airline',
+    benefits: [],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Aeroplan bonus in the last 24 months.' },
+    ],
+  },
+  {
+    name: 'Chase British Airways',
+    issuer: 'Chase',
+    network: 'Visa',
+    annualFee: 95,
+    category: 'airline',
+    benefits: [],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the British Airways bonus in the last 24 months.' },
+    ],
+  },
+  {
+    name: 'Chase Disney Inspire',
+    issuer: 'Chase',
+    network: 'Visa',
+    annualFee: 0,
+    category: 'other',
+    benefits: [],
+  },
+  {
+    name: 'Chase Amazon Prime',
+    issuer: 'Chase',
+    network: 'Visa',
+    annualFee: 0,
+    category: 'cashback',
+    benefits: [],
+  },
+  {
+    name: 'Chase Ritz-Carlton',
+    issuer: 'Chase',
+    network: 'Visa',
+    annualFee: 550,
+    category: 'hotel',
+    benefits: [
+      { name: 'Airline Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 300, notes: '$300 annual airline credit.' },
+      { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 85000, notes: 'Free night certificate up to 85K points on anniversary.' },
+    ],
+    eligibilityRules: [
+      { type: 'product-family', conflictCards: ['Chase Ritz-Carlton', 'Amex Brilliant'], cooldownMonths: 24, description: 'Subject to Marriott cross-issuer family rules with Amex Marriott cards.' },
+    ],
   },
 
   // ==================== AMERICAN EXPRESS ====================
@@ -101,13 +188,38 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Saks Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 50, notes: '$50 Jan–Jun at Saks.' },
       { name: 'Saks Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 50, notes: '$50 Jul–Dec at Saks.' },
       { name: 'Airline Incidental Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: 'Select one airline per calendar year.' },
-      { name: 'Hotel Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 300, notes: '$300 Jan–Jun for prepaid Fine Hotels + Resorts (1-night) or Hotel Collection (2-night).' },
-      { name: 'Hotel Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 300, notes: '$300 Jul–Dec for prepaid Fine Hotels + Resorts (1-night) or Hotel Collection (2-night).' },
+      { name: 'Hotel Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 300, notes: '$300 Jan–Jun for prepaid Fine Hotels + Resorts or Hotel Collection.' },
+      { name: 'Hotel Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 300, notes: '$300 Jul–Dec for prepaid Fine Hotels + Resorts or Hotel Collection.' },
       { name: 'Walmart+ Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 12.95, notes: 'Walmart+ membership credit (~$155/yr).' },
       { name: 'Resy Dining Credit', creditType: 'quarterly', valueType: 'dollar', totalAmount: 100, notes: '$100/quarter at Resy-affiliated restaurants ($400/yr).' },
       { name: 'Lululemon Credit', creditType: 'quarterly', valueType: 'dollar', totalAmount: 75, notes: '$75/quarter at Lululemon ($300/yr).' },
       { name: 'CLEAR Plus Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 17.42, notes: 'Monthly CLEAR Plus membership credit (~$209/yr).' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4 years.' },
+    ],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule: not eligible if you have ever received the welcome bonus on this card.' },
+    ],
+  },
+  {
+    name: 'Amex Platinum for Schwab',
+    issuer: 'American Express',
+    network: 'Amex',
+    annualFee: 895,
+    category: 'travel',
+    benefits: [],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule. Note: Schwab Platinum is treated as a separate product from the regular Platinum.' },
+    ],
+  },
+  {
+    name: 'Amex Platinum for Morgan Stanley',
+    issuer: 'American Express',
+    network: 'Amex',
+    annualFee: 895,
+    category: 'travel',
+    benefits: [],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule. Note: Morgan Stanley Platinum is treated as a separate product from the regular Platinum.' },
     ],
   },
   {
@@ -121,6 +233,9 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Dining Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo at Grubhub, Seamless, The Cheesecake Factory, etc.' },
       { name: 'Dunkin\' Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 7, notes: '$7/mo at Dunkin\'.' },
     ],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule: not eligible if you have ever received the welcome bonus on this card.' },
+    ],
   },
   {
     name: 'Amex Green',
@@ -129,8 +244,10 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 150,
     category: 'travel',
     benefits: [
-      { name: 'LoungeBuddy Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 annual LoungeBuddy credit.' },
       { name: 'CLEAR Plus Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 189, notes: 'CLEAR Plus membership credit.' },
+    ],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule: not eligible if you have ever received the welcome bonus on this card.' },
     ],
   },
   {
@@ -147,6 +264,9 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Indeed Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 15, notes: '$15/mo Indeed credit (~$180/yr).' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4 years.' },
     ],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+    ],
   },
   {
     name: 'Amex Business Gold',
@@ -155,6 +275,9 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 375,
     category: 'business',
     benefits: [],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+    ],
   },
   {
     name: 'Amex Blue Cash Preferred',
@@ -163,6 +286,9 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 95,
     category: 'cashback',
     benefits: [],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+    ],
   },
   {
     name: 'Amex Blue Cash Everyday',
@@ -171,6 +297,9 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 0,
     category: 'cashback',
     benefits: [],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+    ],
   },
   {
     name: 'Amex Everyday Preferred',
@@ -178,6 +307,17 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 95,
     category: 'other',
+    benefits: [],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+    ],
+  },
+  {
+    name: 'Rakuten Amex',
+    issuer: 'American Express',
+    network: 'Amex',
+    annualFee: 0,
+    category: 'cashback',
     benefits: [],
   },
 
@@ -193,6 +333,10 @@ export const knownCards: KnownCardInfo[] = [
       { name: '85K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 85000, notes: 'Free night certificate up to 85K points. Awarded on anniversary.' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4 years.' },
     ],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+      { type: 'product-family', conflictCards: ['Amex Brilliant', 'Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Chase Ritz-Carlton'], cooldownMonths: 24, description: 'Marriott cross-issuer family rules: not eligible if you received a bonus on any Marriott co-brand card in the last 24 months.' },
+    ],
   },
   {
     name: 'Marriott Bonvoy Boundless',
@@ -202,6 +346,9 @@ export const knownCards: KnownCardInfo[] = [
     category: 'hotel',
     benefits: [
       { name: '35K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 35000, notes: 'Free night certificate up to 35K points. Awarded on anniversary.' },
+    ],
+    eligibilityRules: [
+      { type: 'product-family', conflictCards: ['Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Amex Brilliant', 'Chase Ritz-Carlton'], cooldownMonths: 24, description: 'Marriott cross-issuer family rules apply.' },
     ],
   },
   {
@@ -221,6 +368,9 @@ export const knownCards: KnownCardInfo[] = [
     benefits: [
       { name: '50K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 50000, notes: 'Free night certificate up to 50K points. Awarded on anniversary.' },
     ],
+    eligibilityRules: [
+      { type: 'product-family', conflictCards: ['Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Amex Brilliant', 'Chase Ritz-Carlton'], cooldownMonths: 24, description: 'Marriott cross-issuer family rules apply.' },
+    ],
   },
   {
     name: 'Marriott Bonvoy Business',
@@ -230,6 +380,9 @@ export const knownCards: KnownCardInfo[] = [
     category: 'hotel',
     benefits: [
       { name: '35K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 35000, notes: 'Free night certificate up to 35K points. Awarded on anniversary.' },
+    ],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
     ],
   },
   {
@@ -244,6 +397,9 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Free weekend night certificate at any Hilton property.' },
       { name: 'Diamond Status', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary Hilton Honors Diamond status.' },
     ],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+    ],
   },
   {
     name: 'Hilton Honors Surpass',
@@ -255,6 +411,9 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Free night certificate after $15K spend. Up to 2 per year.' },
       { name: 'Gold Status', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary Hilton Honors Gold status.' },
     ],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+    ],
   },
   {
     name: 'Hilton Honors',
@@ -263,6 +422,9 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 0,
     category: 'hotel',
     benefits: [],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+    ],
   },
   {
     name: 'IHG One Rewards Premier',
@@ -272,6 +434,9 @@ export const knownCards: KnownCardInfo[] = [
     category: 'hotel',
     benefits: [
       { name: '40K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 40000, notes: 'Free night up to 40K points on anniversary.' },
+    ],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the IHG Premier bonus in the last 24 months.' },
     ],
   },
   {
@@ -291,6 +456,9 @@ export const knownCards: KnownCardInfo[] = [
     benefits: [
       { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 15000, notes: 'Free night at any Category 1-4 Hyatt on anniversary.' },
     ],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the World of Hyatt bonus in the last 24 months.' },
+    ],
   },
   {
     name: 'World of Hyatt Business',
@@ -302,6 +470,14 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 15000, notes: 'Free night at any Category 1-4 Hyatt on anniversary.' },
     ],
   },
+  {
+    name: 'Wells Fargo Choice Privileges',
+    issuer: 'Wells Fargo',
+    network: 'Mastercard',
+    annualFee: 0,
+    category: 'hotel',
+    benefits: [],
+  },
 
   // ==================== AIRLINE CARDS ====================
   {
@@ -311,12 +487,15 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 150,
     category: 'airline',
     benefits: [
-      { name: 'United Club Passes', creditType: 'annual', valueType: 'certificate', totalAmount: 2, notes: '2 United Club one-time passes per year (cannot be shared).' },
-      { name: 'United Travel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 United travel credit after $10K spend in a calendar year.' },
-      { name: 'United Hotels Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 100, notes: 'Up to $100 annually ($50 for first and second prepaid United Hotels bookings).' },
-      { name: 'Rideshare Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 5, notes: '$5/mo rideshare credit ($60/yr; enrollment required).' },
-      { name: 'JSX Charter Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 100, notes: 'Up to $100 per anniversary year on JSX bookings.' },
-      { name: 'Instacart+ Credits', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo Instacart+ credit ($120/yr; ends Dec 2027).' },
+      { name: 'United Club Passes', creditType: 'annual', valueType: 'certificate', totalAmount: 2, notes: '2 United Club one-time passes per year.' },
+      { name: 'United Travel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 United travel credit after $10K spend.' },
+      { name: 'United Hotels Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 100, notes: 'Up to $100 annually for United Hotels bookings.' },
+      { name: 'Rideshare Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 5, notes: '$5/mo rideshare credit ($60/yr).' },
+      { name: 'JSX Charter Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 100, notes: 'Up to $100 per anniversary year on JSX.' },
+      { name: 'Instacart+ Credits', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo Instacart+ credit ($120/yr).' },
+    ],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the United Explorer bonus in the last 24 months or currently hold this card.' },
     ],
   },
   {
@@ -326,13 +505,16 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 350,
     category: 'airline',
     benefits: [
-      { name: 'United Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 200, notes: '$200 United travel credit on each account anniversary.' },
-      { name: '10K Award Flight Discount', creditType: 'annual', valueType: 'points', totalAmount: 10000, notes: '10,000-mile award flight discount on anniversary; earn a second after $20K spend.' },
-      { name: 'Renowned Hotels Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 150, notes: 'Up to $150 for prepaid Renowned Hotels and Resorts bookings per anniversary year.' },
-      { name: 'Rideshare Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 8, notes: '$8/mo Jan–Nov, $12 in Dec ($100/yr; enrollment required).' },
-      { name: 'Instacart+ Credits', creditType: 'monthly', valueType: 'dollar', totalAmount: 15, notes: '$10 Instacart+ + $5 Instacart credit per month ($180/yr; ends Dec 2027).' },
-      { name: 'JSX Charter Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 150, notes: 'Up to $150 per anniversary year on JSX bookings.' },
-      { name: 'Avis/Budget Rental Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 80, notes: 'Up to $80 in United TravelBank credits for Avis/Budget rentals per anniversary year.' },
+      { name: 'United Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 200, notes: '$200 United travel credit on each anniversary.' },
+      { name: '10K Award Flight Discount', creditType: 'annual', valueType: 'points', totalAmount: 10000, notes: '10,000-mile award flight discount on anniversary.' },
+      { name: 'Renowned Hotels Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 150, notes: 'Up to $150 for Renowned Hotels bookings per anniversary year.' },
+      { name: 'Rideshare Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 8, notes: '$8/mo Jan–Nov, $12 Dec ($100/yr).' },
+      { name: 'Instacart+ Credits', creditType: 'monthly', valueType: 'dollar', totalAmount: 15, notes: '$10 Instacart+ + $5 credit/mo ($180/yr).' },
+      { name: 'JSX Charter Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 150, notes: 'Up to $150 per anniversary year on JSX.' },
+      { name: 'Avis/Budget Rental Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 80, notes: 'Up to $80 for Avis/Budget per anniversary year.' },
+    ],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the United Quest bonus in the last 24 months.' },
     ],
   },
   {
@@ -350,12 +532,12 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 695,
     category: 'airline',
     benefits: [
-      { name: 'United Club Membership', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Unlimited United Club lounge access for you, 1 adult guest, and dependent children.' },
-      { name: 'Renowned Hotels Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 200, notes: 'Up to $200 for prepaid Renowned Hotels bookings per anniversary year.' },
-      { name: 'Rideshare Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 12, notes: '$12/mo Jan–Nov, $18 in Dec ($150/yr; enrollment required).' },
-      { name: 'Instacart+ Credits', creditType: 'monthly', valueType: 'dollar', totalAmount: 20, notes: '2x $10 Instacart+ credits per month ($240/yr; ends Dec 2027).' },
-      { name: 'JSX Charter Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 200, notes: 'Up to $200 per anniversary year on JSX bookings.' },
-      { name: 'Avis/Budget Rental Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 100, notes: 'Up to $100 in United TravelBank credits for Avis/Budget per anniversary year.' },
+      { name: 'United Club Membership', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Unlimited United Club lounge access.' },
+      { name: 'Renowned Hotels Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 200, notes: 'Up to $200 for Renowned Hotels per anniversary year.' },
+      { name: 'Rideshare Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 12, notes: '$12/mo Jan–Nov, $18 Dec ($150/yr).' },
+      { name: 'Instacart+ Credits', creditType: 'monthly', valueType: 'dollar', totalAmount: 20, notes: '2x $10 Instacart+ credits/mo ($240/yr).' },
+      { name: 'JSX Charter Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 200, notes: 'Up to $200 per anniversary year on JSX.' },
+      { name: 'Avis/Budget Rental Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 100, notes: 'Up to $100 for Avis/Budget per anniversary year.' },
     ],
   },
   {
@@ -366,6 +548,9 @@ export const knownCards: KnownCardInfo[] = [
     category: 'airline',
     benefits: [
       { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Delta flight credit after $10K spend.' },
+    ],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
     ],
   },
   {
@@ -378,6 +563,9 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Delta flight credit after $10K spend.' },
       { name: 'Companion Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Domestic companion certificate after $25K spend.' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4.5 years.' },
+    ],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
     ],
   },
   {
@@ -392,47 +580,49 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Delta Sky Club Access', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Delta Sky Club access when flying Delta.' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4.5 years.' },
     ],
+    eligibilityRules: [
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+    ],
   },
   {
     name: 'Southwest Rapid Rewards Priority',
     issuer: 'Chase',
     network: 'Visa',
-    annualFee: 149,
+    annualFee: 229,
     category: 'airline',
     benefits: [
       { name: 'Southwest Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 75, notes: '$75 Southwest travel credit per anniversary year.' },
       { name: 'Upgraded Boardings', creditType: 'quarterly', valueType: 'certificate', totalAmount: 4, notes: '4 upgraded boardings per year when available.' },
-      { name: '7,500 Anniversary Points', creditType: 'annual', valueType: 'points', totalAmount: 7500, notes: '7,500 anniversary points each card anniversary.' },
+      { name: '7,500 Anniversary Points', creditType: 'annual', valueType: 'points', totalAmount: 7500, notes: '7,500 anniversary points.' },
+    ],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received a Southwest Priority bonus in the last 24 months.' },
     ],
   },
   {
     name: 'Southwest Rapid Rewards Plus',
     issuer: 'Chase',
     network: 'Visa',
-    annualFee: 69,
+    annualFee: 99,
     category: 'airline',
     benefits: [
-      { name: '3,000 Anniversary Points', creditType: 'annual', valueType: 'points', totalAmount: 3000, notes: '3,000 anniversary points each card anniversary.' },
+      { name: '3,000 Anniversary Points', creditType: 'annual', valueType: 'points', totalAmount: 3000, notes: '3,000 anniversary points.' },
+    ],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received a Southwest Plus bonus in the last 24 months.' },
     ],
   },
   {
     name: 'Southwest Rapid Rewards Premier',
     issuer: 'Chase',
     network: 'Visa',
-    annualFee: 99,
+    annualFee: 149,
     category: 'airline',
     benefits: [
-      { name: '6,000 Anniversary Points', creditType: 'annual', valueType: 'points', totalAmount: 6000, notes: '6,000 anniversary points each card anniversary.' },
+      { name: '6,000 Anniversary Points', creditType: 'annual', valueType: 'points', totalAmount: 6000, notes: '6,000 anniversary points.' },
     ],
-  },
-  {
-    name: 'AAdvantage Aviator Red',
-    issuer: 'Barclays',
-    network: 'Mastercard',
-    annualFee: 99,
-    category: 'airline',
-    benefits: [
-      { name: 'Companion Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Domestic companion certificate after $20K spend.' },
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received a Southwest Premier bonus in the last 24 months.' },
     ],
   },
   {
@@ -442,9 +632,110 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 595,
     category: 'airline',
     benefits: [
-      { name: 'Admirals Club Membership', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Admirals Club membership for primary cardholder + authorized users.' },
+      { name: 'Admirals Club Membership', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Admirals Club membership for primary + authorized users.' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 5 years.' },
     ],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 48, description: 'Citi 48-month rule: not eligible if you received any Citi AAdvantage bonus in the last 48 months.' },
+    ],
+  },
+  {
+    name: 'Citi AAdvantage Platinum',
+    issuer: 'Citi',
+    network: 'Mastercard',
+    annualFee: 99,
+    category: 'airline',
+    benefits: [],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 48, description: 'Citi 48-month rule: not eligible if you received any Citi AAdvantage bonus in the last 48 months.' },
+    ],
+  },
+  {
+    name: 'Citi AAdvantage Globe',
+    issuer: 'Citi',
+    network: 'Mastercard',
+    annualFee: 250,
+    category: 'airline',
+    benefits: [],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 48, description: 'Citi 48-month rule: not eligible if you received any Citi AAdvantage bonus in the last 48 months.' },
+    ],
+  },
+  {
+    name: 'BoA Alaska Atmos Ascent',
+    issuer: 'Bank of America',
+    network: 'Visa',
+    annualFee: 95,
+    category: 'airline',
+    benefits: [],
+  },
+  {
+    name: 'BoA Alaska Atmos Summit',
+    issuer: 'Bank of America',
+    network: 'Visa',
+    annualFee: 250,
+    category: 'airline',
+    benefits: [],
+  },
+  {
+    name: 'BoA Air France KLM',
+    issuer: 'Bank of America',
+    network: 'Mastercard',
+    annualFee: 95,
+    category: 'airline',
+    benefits: [],
+  },
+  {
+    name: 'BoA Free Spirit',
+    issuer: 'Bank of America',
+    network: 'Mastercard',
+    annualFee: 0,
+    category: 'airline',
+    benefits: [],
+  },
+  {
+    name: 'JetBlue Plus',
+    issuer: 'Barclays',
+    network: 'Mastercard',
+    annualFee: 99,
+    category: 'airline',
+    benefits: [
+      { name: 'Anniversary Points', creditType: 'annual', valueType: 'points', totalAmount: 5000, notes: '5,000 bonus TrueBlue points on anniversary.' },
+    ],
+  },
+  {
+    name: 'Hawaiian Airlines World Elite',
+    issuer: 'Barclays',
+    network: 'Mastercard',
+    annualFee: 99,
+    category: 'airline',
+    benefits: [
+      { name: 'Companion Discount', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Annual 50% off companion discount on Hawaiian Airlines.' },
+    ],
+  },
+  {
+    name: 'FNBO Amtrak Preferred',
+    issuer: 'FNBO',
+    network: 'Mastercard',
+    annualFee: 79,
+    category: 'airline',
+    benefits: [],
+  },
+  {
+    name: 'Cardless Qatar Airways Infinite',
+    issuer: 'Cardless',
+    network: 'Visa',
+    annualFee: 299,
+    category: 'airline',
+    benefits: [],
+  },
+  {
+    name: 'Synchrony Virgin Red Rewards',
+    issuer: 'Synchrony',
+    network: 'Mastercard',
+    annualFee: 0,
+    category: 'airline',
+    benefits: [],
   },
 
   // ==================== CAPITAL ONE ====================
@@ -458,6 +749,9 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Travel Portal Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, notes: '$300 credit for Capital One Travel bookings.' },
       { name: '10K Anniversary Bonus Miles', creditType: 'annual', valueType: 'points', totalAmount: 10000, notes: '10,000 bonus miles on anniversary.' },
     ],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 48, description: 'Not eligible if you received a Venture X or Venture bonus in the last 48 months.' },
+    ],
   },
   {
     name: 'Capital One Venture',
@@ -466,6 +760,9 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 95,
     category: 'travel',
     benefits: [],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 48, description: 'Not eligible if you received a Venture or Venture X bonus in the last 48 months.' },
+    ],
   },
   {
     name: 'Capital One VentureOne',
@@ -477,14 +774,6 @@ export const knownCards: KnownCardInfo[] = [
   },
   {
     name: 'Capital One Savor',
-    issuer: 'Capital One',
-    network: 'Mastercard',
-    annualFee: 95,
-    category: 'cashback',
-    benefits: [],
-  },
-  {
-    name: 'Capital One SavorOne',
     issuer: 'Capital One',
     network: 'Mastercard',
     annualFee: 0,
@@ -510,6 +799,9 @@ export const knownCards: KnownCardInfo[] = [
     benefits: [
       { name: 'Hotel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 annual hotel credit through Citi Travel portal.' },
     ],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 48, description: 'Citi 48-month rule: not eligible if you received any ThankYou card bonus in the last 48 months.' },
+    ],
   },
   {
     name: 'Citi Strata Elite',
@@ -518,12 +810,23 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 595,
     category: 'travel',
     benefits: [
-      { name: 'Hotel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 300, notes: '$300 off a hotel stay of 2+ nights booked through Citi Travel per calendar year.' },
-      { name: 'Splurge Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 annual credit at 1stDibs, American Airlines, Best Buy, Future, Live Nation.' },
-      { name: 'Blacklane Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Jan–Jun Blacklane chauffeur service credit.' },
-      { name: 'Blacklane Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Jul–Dec Blacklane chauffeur service credit.' },
-      { name: 'Admirals Club Passes', creditType: 'annual', valueType: 'certificate', totalAmount: 4, notes: '4 Admirals Club 24-hour passes per calendar year.' },
+      { name: 'Hotel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 300, notes: '$300 off a hotel stay of 2+ nights via Citi Travel.' },
+      { name: 'Splurge Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 annual credit at 1stDibs, AA, Best Buy, Future, Live Nation.' },
+      { name: 'Blacklane Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Jan–Jun Blacklane chauffeur credit.' },
+      { name: 'Blacklane Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Jul–Dec Blacklane chauffeur credit.' },
+      { name: 'Admirals Club Passes', creditType: 'annual', valueType: 'certificate', totalAmount: 4, notes: '4 Admirals Club 24-hour passes per year.' },
     ],
+    eligibilityRules: [
+      { type: 'same-card-bonus', cooldownMonths: 48, description: 'Citi 48-month rule.' },
+    ],
+  },
+  {
+    name: 'Citi Strata',
+    issuer: 'Citi',
+    network: 'Mastercard',
+    annualFee: 0,
+    category: 'cashback',
+    benefits: [],
   },
   {
     name: 'Citi Double Cash',
@@ -562,6 +865,14 @@ export const knownCards: KnownCardInfo[] = [
     ],
   },
   {
+    name: 'Wells Fargo Premier Autograph',
+    issuer: 'Wells Fargo',
+    network: 'Visa',
+    annualFee: 95,
+    category: 'travel',
+    benefits: [],
+  },
+  {
     name: 'Wells Fargo Active Cash',
     issuer: 'Wells Fargo',
     network: 'Visa',
@@ -573,7 +884,7 @@ export const knownCards: KnownCardInfo[] = [
   // ==================== BILT ====================
   {
     name: 'Bilt Blue',
-    issuer: 'Bilt (Column N.A.)',
+    issuer: 'Bilt (Cardless)',
     network: 'Mastercard',
     annualFee: 0,
     category: 'other',
@@ -581,7 +892,7 @@ export const knownCards: KnownCardInfo[] = [
   },
   {
     name: 'Bilt Obsidian',
-    issuer: 'Bilt (Column N.A.)',
+    issuer: 'Bilt (Cardless)',
     network: 'Mastercard',
     annualFee: 95,
     category: 'other',
@@ -591,7 +902,7 @@ export const knownCards: KnownCardInfo[] = [
   },
   {
     name: 'Bilt Palladium',
-    issuer: 'Bilt (Column N.A.)',
+    issuer: 'Bilt (Cardless)',
     network: 'Mastercard',
     annualFee: 495,
     category: 'travel',
@@ -603,15 +914,20 @@ export const knownCards: KnownCardInfo[] = [
 
   // ==================== US BANK ====================
   {
-    name: 'U.S. Bank Altitude Reserve',
+    name: 'U.S. Bank Smartly',
     issuer: 'U.S. Bank',
     network: 'Visa',
-    annualFee: 400,
+    annualFee: 0,
+    category: 'cashback',
+    benefits: [],
+  },
+  {
+    name: 'U.S. Bank Altitude Connect',
+    issuer: 'U.S. Bank',
+    network: 'Visa',
+    annualFee: 0,
     category: 'travel',
-    benefits: [
-      { name: 'Travel Center Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 325, notes: '$325 annual credit for purchases through U.S. Bank Travel Center.' },
-      { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4 years.' },
-    ],
+    benefits: [],
   },
   {
     name: 'U.S. Bank Altitude Go',
@@ -672,24 +988,28 @@ export const knownCards: KnownCardInfo[] = [
     benefits: [],
   },
   {
-    name: 'JetBlue Plus',
+    name: 'Luxury Card Gold',
     issuer: 'Barclays',
     network: 'Mastercard',
-    annualFee: 99,
-    category: 'airline',
-    benefits: [
-      { name: 'Anniversary Points', creditType: 'annual', valueType: 'points', totalAmount: 5000, notes: '5,000 bonus TrueBlue points on anniversary.' },
-    ],
+    annualFee: 1199,
+    category: 'travel',
+    benefits: [],
   },
   {
-    name: 'Hawaiian Airlines World Elite',
+    name: 'Luxury Card Black',
     issuer: 'Barclays',
     network: 'Mastercard',
-    annualFee: 99,
-    category: 'airline',
-    benefits: [
-      { name: 'Companion Discount', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Annual 50% off companion discount on Hawaiian Airlines.' },
-    ],
+    annualFee: 699,
+    category: 'travel',
+    benefits: [],
+  },
+  {
+    name: 'Luxury Card Titanium',
+    issuer: 'Barclays',
+    network: 'Mastercard',
+    annualFee: 299,
+    category: 'travel',
+    benefits: [],
   },
 
   // ==================== DISCOVER ====================
@@ -707,6 +1027,40 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Discover',
     annualFee: 0,
     category: 'travel',
+    benefits: [],
+  },
+
+  // ==================== OTHER ====================
+  {
+    name: 'Robinhood Platinum',
+    issuer: 'Robinhood',
+    network: 'Visa',
+    annualFee: 695,
+    category: 'travel',
+    benefits: [],
+  },
+  {
+    name: 'SoFi Smart Card',
+    issuer: 'SoFi',
+    network: 'Mastercard',
+    annualFee: 0,
+    category: 'cashback',
+    benefits: [],
+  },
+  {
+    name: 'Coinbase One Card',
+    issuer: 'Coinbase',
+    network: 'Amex',
+    annualFee: 0,
+    category: 'cashback',
+    benefits: [],
+  },
+  {
+    name: 'Shop Your Way 5321',
+    issuer: 'Synchrony',
+    network: 'Visa',
+    annualFee: 0,
+    category: 'cashback',
     benefits: [],
   },
 ];

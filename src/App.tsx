@@ -12,6 +12,7 @@ import Credits from "./pages/Credits";
 import Chase524 from "./pages/Chase524";
 import CalendarPage from "./pages/CalendarPage";
 import SettingsPage from "./pages/SettingsPage";
+import EligibilityPage from "./pages/EligibilityPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
               <Route path="/cards" element={<MyCards />} />
               <Route path="/credits" element={<Credits />} />
               <Route path="/524" element={<Chase524 />} />
+              <Route path="/eligibility" element={<EligibilityPage />} />
               <Route path="/calendar" element={<CalendarPage />} />
               <Route path="/settings" element={<SettingsPage />} />
               <Route path="*" element={<NotFound />} />

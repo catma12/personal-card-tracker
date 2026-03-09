@@ -12,8 +12,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Plus, Pencil, Trash2, Search, Download } from 'lucide-react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
+import { Plus, Pencil, Trash2, Search, Download, ChevronsUpDown, Check } from 'lucide-react';
 import { toast } from 'sonner';
+import { cn } from '@/lib/utils';
 
 const emptyCard: Omit<CreditCardType, 'id'> = {
   name: '', issuer: '', network: 'Visa', cardType: 'personal', status: 'active',
@@ -30,7 +33,7 @@ export default function MyCards() {
   const [editing, setEditing] = useState<CreditCardType | null>(null);
   const [form, setForm] = useState<Omit<CreditCardType, 'id'>>(emptyCard);
   const [selectedKnown, setSelectedKnown] = useState<string>('');
-
+  const [quickSelectOpen, setQuickSelectOpen] = useState(false);
   const filtered = useMemo(() => {
     return cards.filter(c => {
       if (filterStatus !== 'all' && c.status !== filterStatus) return false;
@@ -211,14 +214,45 @@ export default function MyCards() {
             {!editing && (
               <div>
                 <Label>Quick Select (auto-fills details)</Label>
-                <Select value={selectedKnown} onValueChange={prefillFromKnown}>
-                  <SelectTrigger><SelectValue placeholder="Choose a known card..." /></SelectTrigger>
-                  <SelectContent>
-                    {knownCards.map(c => (
-                      <SelectItem key={c.name} value={c.name}>{c.name} — {c.issuer} (${c.annualFee}/yr)</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Popover open={quickSelectOpen} onOpenChange={setQuickSelectOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={quickSelectOpen}
+                      className="w-full justify-between font-normal"
+                    >
+                      {selectedKnown
+                        ? `${selectedKnown} — ${findKnownCard(selectedKnown)?.issuer} ($${findKnownCard(selectedKnown)?.annualFee}/yr)`
+                        : "Search for a card..."}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[460px] p-0" align="start">
+                    <Command>
+                      <CommandInput placeholder="Search cards by name or issuer..." />
+                      <CommandList>
+                        <CommandEmpty>No card found.</CommandEmpty>
+                        <CommandGroup>
+                          {knownCards.map((c) => (
+                            <CommandItem
+                              key={c.name}
+                              value={`${c.name} ${c.issuer}`}
+                              onSelect={() => {
+                                prefillFromKnown(c.name);
+                                setQuickSelectOpen(false);
+                              }}
+                            >
+                              <Check className={cn("mr-2 h-4 w-4", selectedKnown === c.name ? "opacity-100" : "opacity-0")} />
+                              <span className="flex-1">{c.name}</span>
+                              <span className="text-xs text-muted-foreground ml-2">{c.issuer} · ${c.annualFee}/yr</span>
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </div>
             )}
             <div className="grid grid-cols-2 gap-3">
