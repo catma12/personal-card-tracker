@@ -14,7 +14,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
 import { Switch } from '@/components/ui/switch';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Plus, Pencil, Trash2, Search, Check, X, ChevronDown } from 'lucide-react';
+import { Plus, Pencil, Trash2, Search, Check, X, ChevronDown, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 
 const emptyBenefit: Omit<CardBenefit, 'id'> = {
@@ -91,7 +91,8 @@ function getAutoExpirationDate(creditType: CreditResetType, cardOpenDate?: strin
 }
 
 export default function Credits() {
-  const { cards, benefits, addBenefit, updateBenefit, deleteBenefit, getCardById } = useCards();
+  const { cards, benefits, addBenefit, updateBenefit, deleteBenefit, getCardById, syncBenefits } = useCards();
+  const [syncing, setSyncing] = useState(false);
   const [search, setSearch] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [filterType, setFilterType] = useState('all');
@@ -141,7 +142,20 @@ export default function Credits() {
           <h1 className="text-2xl font-bold">Credits & Benefits</h1>
           <p className="text-sm text-muted-foreground">{benefits.length} benefits tracked</p>
         </div>
-        <Button size="sm" onClick={openAdd}><Plus className="h-4 w-4 mr-1" />Add Benefit</Button>
+        <div className="flex gap-2">
+          <Button size="sm" variant="outline" disabled={syncing} onClick={async () => {
+            setSyncing(true);
+            try {
+              const { added, updated } = await syncBenefits();
+              if (added === 0 && updated === 0) toast.info('All benefits are up to date');
+              else toast.success(`Synced: ${added} added, ${updated} updated`);
+            } catch { toast.error('Sync failed'); }
+            setSyncing(false);
+          }}>
+            <RefreshCw className={`h-4 w-4 mr-1 ${syncing ? 'animate-spin' : ''}`} />Sync
+          </Button>
+          <Button size="sm" onClick={openAdd}><Plus className="h-4 w-4 mr-1" />Add Benefit</Button>
+        </div>
       </div>
 
       <div className="flex flex-wrap gap-3">
