@@ -33,7 +33,7 @@ export default function MyCards() {
   const [editing, setEditing] = useState<CreditCardType | null>(null);
   const [form, setForm] = useState<Omit<CreditCardType, 'id'>>(emptyCard);
   const [selectedKnown, setSelectedKnown] = useState<string>('');
-
+  const [quickSelectOpen, setQuickSelectOpen] = useState(false);
   const filtered = useMemo(() => {
     return cards.filter(c => {
       if (filterStatus !== 'all' && c.status !== filterStatus) return false;
