@@ -265,6 +265,7 @@ export default function AdvisorPage() {
     setMessages([]);
     setInput('');
     setPendingImages([]);
+    sessionStorage.removeItem(STORAGE_KEY);
   };
 
   return (
