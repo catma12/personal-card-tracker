@@ -21,6 +21,7 @@ interface CardEligibility {
   currentOffer?: WelcomeOffer;
   highestHistoricalOffer?: WelcomeOffer;
   isHighestOffer: boolean;
+  applyUrl?: string;
 }
 
 export default function EligibilityPage() {
