@@ -471,7 +471,7 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '85,000 points', spendRequirement: '$4,000 in 6 months' },
     applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-bevy/',
     benefits: [
-      { name: '50K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 50000, notes: 'Free night certificate up to 50K points on anniversary.' },
+      { name: '50K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 50000, notes: 'Free night certificate up to 50K points on anniversary.' },
     ],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
