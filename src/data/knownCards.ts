@@ -155,6 +155,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'business',
+    currentOffer: { amount: '$500 cash back', spendRequirement: '$3,000 in 3 months' },
+    highestHistoricalOffer: { amount: '$900 cash back', spendRequirement: '$6,000 in 3 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Ink Business Unlimited bonus in the last 24 months.' },
