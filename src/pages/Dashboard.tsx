@@ -181,7 +181,7 @@ export default function Dashboard() {
             <CardTitle className="text-sm font-medium text-muted-foreground">Annual Fees by Card</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3 max-h-[220px] overflow-y-auto">
+            <div className="space-y-3 max-h-[220px] overflow-y-auto pr-3">
               {activeCards
                 .filter(c => c.annualFee > 0)
                 .sort((a, b) => b.annualFee - a.annualFee)
