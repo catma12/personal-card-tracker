@@ -364,7 +364,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Hotel Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 300, notes: '$300 Jul–Dec FHR/Hotel Collection.' },
       { name: 'Hilton Business Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: 'Up to $200/yr at Hilton properties.' },
       { name: 'Airline Incidental Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 airline incidental credit per calendar year.' },
-      { name: 'Dell Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 1150, notes: 'Up to $150 + $1,000 after $5K spend at Dell per calendar year.' },
+      { name: 'Dell Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 1150, notes: 'Up to $150 + $1,000 (after $5K spend) at Dell per calendar year ($1,150/yr total).' },
       { name: 'Adobe Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 250, notes: '$250 statement credit after $600+ spend at Adobe per calendar year.' },
       { name: 'Wireless Telephone Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo wireless telephone service credit ($120/yr).' },
       { name: 'CLEAR Plus Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 209, notes: 'Up to $209/yr for CLEAR+ membership.' },
