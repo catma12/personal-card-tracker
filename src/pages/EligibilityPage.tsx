@@ -192,6 +192,10 @@ export default function EligibilityPage() {
 
   const filtered = useMemo(() => {
     return eligibility.filter(e => {
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        if (!e.cardName.toLowerCase().includes(q) && !e.issuer.toLowerCase().includes(q)) return false;
+      }
       if (statusFilter !== 'all' && e.status !== statusFilter) return false;
       if (issuerFilter !== 'all' && e.issuer !== issuerFilter) return false;
       if (offerFilter === 'highest' && !e.isHighestOffer) return false;
@@ -199,7 +203,7 @@ export default function EligibilityPage() {
       if (offerFilter === 'starred' && !starredOffers.has(e.cardName)) return false;
       return true;
     });
-  }, [eligibility, statusFilter, issuerFilter, offerFilter, starredOffers]);
+  }, [eligibility, statusFilter, issuerFilter, offerFilter, starredOffers, searchQuery]);
 
   const statusIcon = (s: EligibilityStatus) => {
     switch (s) {
