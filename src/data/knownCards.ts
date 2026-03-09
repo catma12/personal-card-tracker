@@ -1,5 +1,12 @@
 import { CardNetwork, CardCategory, BenefitValueType, CreditResetType } from '@/types/cards';
 
+export interface WelcomeOffer {
+  /** e.g. "60,000 points" or "$300 cash back" */
+  amount: string;
+  /** Spend requirement, e.g. "$4,000 in 3 months" */
+  spendRequirement?: string;
+}
+
 export interface KnownCardInfo {
   name: string;
   issuer: string;
@@ -9,6 +16,10 @@ export interface KnownCardInfo {
   benefits: KnownBenefitInfo[];
   /** Eligibility rules for signup bonus */
   eligibilityRules?: EligibilityRule[];
+  /** Current publicly available welcome offer */
+  currentOffer?: WelcomeOffer;
+  /** Highest known historical welcome offer */
+  highestHistoricalOffer?: WelcomeOffer;
 }
 
 export interface KnownBenefitInfo {
