@@ -801,6 +801,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Delta Stays Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Delta Stays hotel credit.' },
       { name: 'Resy Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 50, notes: '$50 Jan–Jun at U.S. Resy restaurants.' },
       { name: 'Resy Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 50, notes: '$50 Jul–Dec at U.S. Resy restaurants.' },
+      { name: 'Rideshare Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 5, notes: '$5/mo rideshare credit ($60/yr).' },
       { name: 'Companion Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Domestic companion certificate after $25K spend.' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4.5 years.' },
     ],
