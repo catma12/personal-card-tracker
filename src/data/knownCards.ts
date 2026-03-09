@@ -250,7 +250,7 @@ export const knownCards: KnownCardInfo[] = [
     applyUrl: 'https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/ritz-carlton',
     benefits: [
       { name: 'Airline Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 300, notes: '$300 annual airline credit.' },
-      { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 85000, notes: 'Free night certificate up to 85K points on anniversary.' },
+      { name: '85K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 85000, notes: 'Free night certificate up to 85K points on anniversary.' },
     ],
     eligibilityRules: [
       { type: 'product-family', conflictCards: ['Chase Ritz-Carlton', 'Amex Brilliant'], cooldownMonths: 24, description: 'Subject to Marriott cross-issuer family rules with Amex Marriott cards.' },
@@ -364,7 +364,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Hotel Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 300, notes: '$300 Jul–Dec FHR/Hotel Collection.' },
       { name: 'Hilton Business Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: 'Up to $200/yr at Hilton properties.' },
       { name: 'Airline Incidental Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 airline incidental credit per calendar year.' },
-      { name: 'Dell Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 1150, notes: 'Up to $150 + $1,000 after $5K spend at Dell per calendar year.' },
+      { name: 'Dell Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 1150, notes: 'Up to $150 + $1,000 (after $5K spend) at Dell per calendar year ($1,150/yr total).' },
       { name: 'Adobe Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 250, notes: '$250 statement credit after $600+ spend at Adobe per calendar year.' },
       { name: 'Wireless Telephone Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo wireless telephone service credit ($120/yr).' },
       { name: 'CLEAR Plus Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 209, notes: 'Up to $209/yr for CLEAR+ membership.' },
@@ -453,7 +453,7 @@ export const knownCards: KnownCardInfo[] = [
     applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/',
     benefits: [
       { name: 'Marriott Statement Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 25, notes: '$25/mo at Marriott properties ($300/yr).' },
-      { name: '85K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 85000, notes: 'Free night certificate up to 85K points. Awarded on anniversary.' },
+      { name: '85K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 85000, notes: 'Free night certificate up to 85K points. Awarded on anniversary.' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4 years.' },
     ],
     eligibilityRules: [
@@ -471,7 +471,7 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '85,000 points', spendRequirement: '$4,000 in 6 months' },
     applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-bevy/',
     benefits: [
-      { name: '50K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 50000, notes: 'Free night certificate up to 50K points on anniversary.' },
+      { name: '50K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 50000, notes: 'Free night certificate up to 50K points on anniversary.' },
     ],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
@@ -488,7 +488,7 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '5 free nights (up to 50K each)', spendRequirement: '$3,000 in 3 months' },
     applyUrl: 'https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless',
     benefits: [
-      { name: '35K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 35000, notes: 'Free night certificate up to 35K points. Awarded on anniversary.' },
+      { name: '35K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 35000, notes: 'Free night certificate up to 35K points. Awarded on anniversary.' },
     ],
     eligibilityRules: [
       { type: 'product-family', conflictCards: ['Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Amex Brilliant', 'Chase Ritz-Carlton'], cooldownMonths: 24, description: 'Marriott cross-issuer family rules apply.' },
@@ -515,7 +515,7 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '85,000 points', spendRequirement: '$4,000 in 3 months' },
     applyUrl: 'https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bountiful',
     benefits: [
-      { name: '50K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 50000, notes: 'Free night certificate up to 50K points. Awarded on anniversary.' },
+      { name: '50K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 50000, notes: 'Free night certificate up to 50K points. Awarded on anniversary.' },
     ],
     eligibilityRules: [
       { type: 'product-family', conflictCards: ['Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Amex Brilliant', 'Chase Ritz-Carlton'], cooldownMonths: 24, description: 'Marriott cross-issuer family rules apply.' },
@@ -531,7 +531,7 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '125,000 points', spendRequirement: '$5,000 in 3 months' },
     applyUrl: 'https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/marriott-bonvoy-business-credit-card-amex/',
     benefits: [
-      { name: '35K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 35000, notes: 'Free night certificate up to 35K points. Awarded on anniversary.' },
+      { name: '35K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 35000, notes: 'Free night certificate up to 35K points. Awarded on anniversary.' },
     ],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
@@ -550,7 +550,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Hilton Resort Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Jan–Jun at Hilton resorts.' },
       { name: 'Hilton Resort Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Jul–Dec at Hilton resorts.' },
       { name: 'Hilton Airline Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 airline incidental credit.' },
-      { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Free weekend night certificate at any Hilton property.' },
+      { name: 'Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 1, notes: 'Free weekend night certificate at any Hilton property on anniversary.' },
       { name: 'Diamond Status', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary Hilton Honors Diamond status.' },
     ],
     eligibilityRules: [
@@ -567,7 +567,7 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '150,000 points', spendRequirement: '$3,000 in 6 months' },
     applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/hilton-honors-surpass/',
     benefits: [
-      { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Free night certificate after $15K spend. Up to 2 per year.' },
+      { name: 'Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 1, notes: 'Free night certificate after $15K spend. Up to 2 per year on anniversary.' },
       { name: 'Gold Status', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary Hilton Honors Gold status.' },
     ],
     eligibilityRules: [
@@ -612,7 +612,7 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '175,000 points', spendRequirement: '$3,000 in 3 months' },
     applyUrl: 'https://creditcards.chase.com/travel-credit-cards/ihg-one-rewards/premier',
     benefits: [
-      { name: '40K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 40000, notes: 'Free night up to 40K points on anniversary.' },
+      { name: '40K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 40000, notes: 'Free night up to 40K points on anniversary.' },
     ],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the IHG Premier bonus in the last 24 months.' },
@@ -639,7 +639,7 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '60,000 points', spendRequirement: '$6,000 in 6 months' },
     applyUrl: 'https://creditcards.chase.com/travel-credit-cards/world-of-hyatt/credit-card',
     benefits: [
-      { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 15000, notes: 'Free night at any Category 1-4 Hyatt on anniversary.' },
+      { name: '15K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 15000, notes: 'Free night at any Category 1-4 Hyatt on anniversary.' },
     ],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the World of Hyatt bonus in the last 24 months.' },
@@ -655,7 +655,7 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '75,000 points', spendRequirement: '$5,000 in 3 months' },
     applyUrl: 'https://creditcards.chase.com/business-credit-cards/world-of-hyatt/business',
     benefits: [
-      { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 15000, notes: 'Free night at any Category 1-4 Hyatt on anniversary.' },
+      { name: '15K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 15000, notes: 'Free night at any Category 1-4 Hyatt on anniversary.' },
     ],
   },
   {
