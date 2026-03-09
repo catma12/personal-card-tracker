@@ -679,6 +679,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 229,
     category: 'airline',
+    currentOffer: { amount: '50,000 points', spendRequirement: '$1,000 in 3 months' },
+    highestHistoricalOffer: { amount: '75,000 points', spendRequirement: '$3,000 in 3 months' },
     benefits: [
       { name: 'Southwest Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 75, notes: '$75 Southwest travel credit per anniversary year.' },
       { name: 'Upgraded Boardings', creditType: 'quarterly', valueType: 'certificate', totalAmount: 4, notes: '4 upgraded boardings per year when available.' },
