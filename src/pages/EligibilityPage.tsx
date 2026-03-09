@@ -327,7 +327,12 @@ export default function EligibilityPage() {
               key={item.cardName}
               className="flex items-start gap-3 p-3 rounded-lg border bg-card"
             >
-              <div className="mt-0.5">{statusIcon(item.status)}</div>
+              <div className="mt-0.5 flex flex-col items-center gap-1">
+                {statusIcon(item.status)}
+                <button onClick={() => toggleStar(item.cardName)} className="hover:scale-110 transition-transform">
+                  <Star className={cn("h-4 w-4", starredOffers.has(item.cardName) ? "fill-warning text-warning" : "text-muted-foreground/40 hover:text-muted-foreground")} />
+                </button>
+              </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2 flex-wrap">
