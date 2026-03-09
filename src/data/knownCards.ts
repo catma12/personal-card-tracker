@@ -471,6 +471,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 150,
     category: 'hotel',
+    currentOffer: { amount: '130,000 points', spendRequirement: '$3,000 in 6 months' },
+    highestHistoricalOffer: { amount: '150,000 points', spendRequirement: '$3,000 in 6 months' },
     benefits: [
       { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Free night certificate after $15K spend. Up to 2 per year.' },
       { name: 'Gold Status', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary Hilton Honors Gold status.' },
