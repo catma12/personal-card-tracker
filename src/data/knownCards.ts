@@ -73,8 +73,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 795,
     category: 'travel',
-    currentOffer: { amount: '60,000 points', spendRequirement: '$4,000 in 3 months' },
-    highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$4,000 in 3 months' },
+    currentOffer: { amount: '125,000 points', spendRequirement: '$6,000 in 3 months' },
+    highestHistoricalOffer: { amount: '125,000 points', spendRequirement: '$6,000 in 3 months' },
     applyUrl: 'https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve',
     benefits: [
       { name: 'Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, notes: '$300 annual travel credit, auto-applied to travel purchases.' },
