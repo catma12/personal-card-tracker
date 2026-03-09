@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { transferPartnersData } from '@/data/transferPartners';
+import { useCards } from '@/context/CardContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Plane, Hotel, Search } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 import {
   Table,
   TableBody,
@@ -16,6 +19,18 @@ import {
 
 export default function TransferPartners() {
   const [search, setSearch] = useState('');
+  const [showAll, setShowAll] = useState(false);
+  const { cards } = useCards();
+
+  const userIssuers = useMemo(() => {
+    const issuers = new Set(cards.map(c => c.issuer));
+    return issuers;
+  }, [cards]);
+
+  const displayedIssuers = useMemo(() => {
+    if (showAll || userIssuers.size === 0) return transferPartnersData;
+    return transferPartnersData.filter(ip => userIssuers.has(ip.issuer));
+  }, [showAll, userIssuers]);
 
   return (
     <div className="space-y-6">
@@ -26,27 +41,35 @@ export default function TransferPartners() {
         </p>
       </div>
 
-      <div className="relative max-w-sm">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-        <Input
-          placeholder="Search partners..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="pl-9"
-        />
+      <div className="flex items-center gap-4 flex-wrap">
+        <div className="relative max-w-sm flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Search partners..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="pl-9"
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <Switch id="show-all" checked={showAll} onCheckedChange={setShowAll} />
+          <Label htmlFor="show-all" className="text-sm text-muted-foreground cursor-pointer">
+            Show all issuers
+          </Label>
+        </div>
       </div>
 
-      {transferPartnersData.length > 0 ? (
-        <Tabs defaultValue={transferPartnersData[0].issuer} className="space-y-4">
+      {displayedIssuers.length > 0 ? (
+        <Tabs defaultValue={displayedIssuers[0].issuer} className="space-y-4">
           <TabsList className="flex-wrap h-auto gap-1">
-            {transferPartnersData.map((issuer) => (
+            {displayedIssuers.map((issuer) => (
               <TabsTrigger key={issuer.issuer} value={issuer.issuer}>
                 {issuer.issuer}
               </TabsTrigger>
             ))}
           </TabsList>
 
-          {transferPartnersData.map((issuer) => {
+          {displayedIssuers.map((issuer) => {
             const filtered = issuer.partners.filter((p) =>
               p.name.toLowerCase().includes(search.toLowerCase())
             );
@@ -129,7 +152,11 @@ export default function TransferPartners() {
           })}
         </Tabs>
       ) : (
-        <p className="text-muted-foreground">No transfer partner data available.</p>
+        <p className="text-muted-foreground">
+          {userIssuers.size === 0
+            ? 'No transfer partner data available.'
+            : 'None of your card issuers have transfer partners. Toggle "Show all issuers" to see all partners.'}
+        </p>
       )}
     </div>
   );

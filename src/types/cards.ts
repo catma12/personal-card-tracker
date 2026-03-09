@@ -24,6 +24,7 @@ export interface CreditCard {
   decision: CardDecision;
   tags: string[];
   notes: string;
+  starred: boolean;
 }
 
 export type BenefitValueType = 'dollar' | 'points' | 'certificate';

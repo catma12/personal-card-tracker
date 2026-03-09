@@ -14,14 +14,14 @@ import { Textarea } from '@/components/ui/textarea';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
-import { Plus, Pencil, Trash2, Search, Download, ChevronsUpDown, Check } from 'lucide-react';
+import { Plus, Pencil, Trash2, Search, Download, ChevronsUpDown, Check, Star } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 
 const emptyCard: Omit<CreditCardType, 'id'> = {
   name: '', issuer: '', network: 'Visa', cardType: 'personal', status: 'active',
   openDate: new Date().toISOString().split('T')[0], annualFee: 0, annualFeeMonth: new Date().getMonth() + 1,
-  countsToward524: true, category: 'other', decision: 'undecided', tags: [], notes: '',
+  countsToward524: true, category: 'other', decision: 'undecided', tags: [], notes: '', starred: false,
 };
 
 export default function MyCards() {
@@ -167,6 +167,7 @@ export default function MyCards() {
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead className="w-[40px]"></TableHead>
                   <TableHead>Card</TableHead>
                   <TableHead>Issuer</TableHead>
                   <TableHead>Type</TableHead>
@@ -178,6 +179,11 @@ export default function MyCards() {
               <TableBody>
                 {filtered.map(card => (
                   <TableRow key={card.id}>
+                    <TableCell>
+                      <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => updateCard({ ...card, starred: !card.starred })}>
+                        <Star className={cn("h-4 w-4", card.starred ? "fill-warning text-warning" : "text-muted-foreground")} />
+                      </Button>
+                    </TableCell>
                     <TableCell className="font-medium">{card.name}</TableCell>
                     <TableCell>{card.issuer}</TableCell>
                     <TableCell className="capitalize">{card.cardType}</TableCell>
@@ -192,7 +198,7 @@ export default function MyCards() {
                   </TableRow>
                 ))}
                 {filtered.length === 0 && (
-                  <TableRow><TableCell colSpan={5} className="text-center py-8 text-muted-foreground">No cards found</TableCell></TableRow>
+                  <TableRow><TableCell colSpan={7} className="text-center py-8 text-muted-foreground">No cards found</TableCell></TableRow>
                 )}
               </TableBody>
             </Table>
