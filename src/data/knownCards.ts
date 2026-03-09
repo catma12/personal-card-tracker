@@ -551,7 +551,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 99,
     category: 'hotel',
-    currentOffer: { amount: '140,000 points', spendRequirement: '$3,000 in 3 months' },
+    currentOffer: { amount: '175,000 points', spendRequirement: '$3,000 in 3 months' },
     highestHistoricalOffer: { amount: '175,000 points', spendRequirement: '$3,000 in 3 months' },
     applyUrl: 'https://creditcards.chase.com/travel-credit-cards/ihg-one-rewards/premier',
     benefits: [
