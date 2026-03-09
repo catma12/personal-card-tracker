@@ -6,14 +6,31 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 
-const CHART_COLORS = [
+const ISSUER_COLORS: Record<string, string> = {
+  'Chase': 'hsl(214, 89%, 32%)',          // Chase blue
+  'American Express': 'hsl(210, 29%, 44%)', // Amex steel blue
+  'Capital One': 'hsl(0, 76%, 44%)',        // Capital One red
+  'Citi': 'hsl(213, 100%, 40%)',            // Citi blue
+  'Wells Fargo': 'hsl(5, 79%, 44%)',        // Wells Fargo red
+  'Bank of America': 'hsl(0, 80%, 42%)',    // BofA red
+  'Barclays': 'hsl(197, 100%, 38%)',        // Barclays cyan
+  'Discover': 'hsl(25, 95%, 53%)',          // Discover orange
+  'U.S. Bank': 'hsl(220, 60%, 35%)',        // US Bank navy
+  'Bilt (Column N.A.)': 'hsl(0, 0%, 15%)',  // Bilt black
+};
+
+const FALLBACK_COLORS = [
   'hsl(160, 84%, 30%)',
-  'hsl(210, 92%, 52%)',
-  'hsl(38, 92%, 50%)',
   'hsl(280, 60%, 50%)',
-  'hsl(0, 72%, 51%)',
+  'hsl(38, 92%, 50%)',
   'hsl(190, 70%, 45%)',
+  'hsl(0, 72%, 51%)',
+  'hsl(120, 50%, 40%)',
 ];
+
+function getIssuerColor(issuer: string, index: number): string {
+  return ISSUER_COLORS[issuer] || FALLBACK_COLORS[index % FALLBACK_COLORS.length];
+}
 
 export default function Dashboard() {
   const { cards, benefits } = useCards();
