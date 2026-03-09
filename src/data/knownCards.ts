@@ -246,8 +246,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 895,
     category: 'travel',
-    currentOffer: { amount: '80,000 points', spendRequirement: '$8,000 in 6 months' },
-    highestHistoricalOffer: { amount: '150,000 points', spendRequirement: '$6,000 in 6 months' },
+    currentOffer: { amount: 'Up to 175,000 points', spendRequirement: '$12,000 in 6 months' },
+    highestHistoricalOffer: { amount: '175,000 points', spendRequirement: '$12,000 in 6 months' },
     applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/platinum/',
     benefits: [
       { name: 'Uber Cash Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 15, notes: '$15/mo, $20 in December ($200/yr total).' },
