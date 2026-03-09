@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react';
 import { useCards } from '@/context/CardContext';
-import { knownCards, EligibilityRule, WelcomeOffer } from '@/data/knownCards';
+import { knownCards, EligibilityRule, WelcomeOffer, OFFER_DATA_LAST_UPDATED } from '@/data/knownCards';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Shield, ShieldCheck, ShieldX, ShieldAlert, Info, Gift, TrendingUp } from 'lucide-react';
-import { differenceInMonths, parseISO } from 'date-fns';
+import { Shield, ShieldCheck, ShieldX, ShieldAlert, Info, Gift, TrendingUp, ExternalLink } from 'lucide-react';
+import { differenceInMonths, parseISO, format } from 'date-fns';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
 
 type EligibilityStatus = 'eligible' | 'ineligible' | 'warning' | 'unknown';
 
