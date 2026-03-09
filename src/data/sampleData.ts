@@ -34,7 +34,7 @@ export const sampleCards: CreditCard[] = [
     cardType: 'personal',
     status: 'active',
     openDate: d(year - 1, 8, 10),
-    annualFee: 550,
+    annualFee: 795,
     annualFeeMonth: 8,
     countsToward524: true,
     category: 'travel',
