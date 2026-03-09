@@ -311,7 +311,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4 years.' },
     ],
     eligibilityRules: [
-      { type: 'once-per-lifetime', conflictCards: ['Amex Platinum for Schwab', 'Amex Platinum', 'Amex Gold', 'Amex Green', 'Amex Platinum for Morgan Stanley'], description: 'Amex once-per-lifetime rule. Schwab Platinum is a separate product but cross-restricted with other Amex charge cards.' },
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule for the Schwab Platinum. This is a separate product with its own independent once-per-lifetime bonus.' },
     ],
   },
   {
