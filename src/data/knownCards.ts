@@ -487,6 +487,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 0,
     category: 'hotel',
+    currentOffer: { amount: '80,000 points', spendRequirement: '$2,000 in 6 months' },
+    highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$2,000 in 6 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
