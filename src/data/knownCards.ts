@@ -531,7 +531,7 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '125,000 points', spendRequirement: '$5,000 in 3 months' },
     applyUrl: 'https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/marriott-bonvoy-business-credit-card-amex/',
     benefits: [
-      { name: '35K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 35000, notes: 'Free night certificate up to 35K points. Awarded on anniversary.' },
+      { name: '35K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 35000, notes: 'Free night certificate up to 35K points. Awarded on anniversary.' },
     ],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
