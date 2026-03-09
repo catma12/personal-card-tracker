@@ -109,7 +109,7 @@ export default function Dashboard() {
             <Clock className="h-4 w-4 text-accent-foreground" />
             <span className="stat-label">Unused Credits (YTD)</span>
           </div>
-          <div className="stat-value">${unusedCredits}</div>
+          <div className="stat-value">${unusedCredits.toFixed(2)}</div>
           <p className="text-xs text-muted-foreground mt-1">all dollar credits</p>
         </div>
       </div>
