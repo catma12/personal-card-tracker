@@ -58,9 +58,6 @@ export default function CardImportBlock({ jsonString }: CardImportBlockProps) {
         await addCard(card);
 
         // Auto-populate benefits from knownCards database
-        const knownCard = knownCards.find(
-          k => k.name.toLowerCase() === card.name.toLowerCase()
-        );
         if (knownCard && knownCard.benefits.length > 0 && card.status === 'active') {
           for (const kb of knownCard.benefits) {
             const benefit: CardBenefit = {
