@@ -45,6 +45,7 @@ function ProtectedRoutes() {
           <Route path="/eligibility" element={<EligibilityPage />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/transfer-partners" element={<TransferPartners />} />
+          <Route path="/advisor" element={<AdvisorPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
