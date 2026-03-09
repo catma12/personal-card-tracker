@@ -51,15 +51,32 @@ function fileToBase64(file: File): Promise<string> {
   });
 }
 
+const STORAGE_KEY = 'card-advisor-messages';
+
+function loadMessages(): Message[] {
+  try {
+    const stored = sessionStorage.getItem(STORAGE_KEY);
+    if (stored) return JSON.parse(stored);
+  } catch { /* ignore */ }
+  return [];
+}
+
 export default function AdvisorPage() {
   const { cards } = useCards();
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(loadMessages);
   const [input, setInput] = useState('');
   const [pendingImages, setPendingImages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Persist messages to sessionStorage
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    } catch { /* ignore quota errors */ }
+  }, [messages]);
 
   useEffect(() => {
     if (scrollRef.current) {
