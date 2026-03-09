@@ -14,7 +14,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
 import { Switch } from '@/components/ui/switch';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Plus, Pencil, Trash2, Search, Check, X, ChevronDown } from 'lucide-react';
+import { Plus, Pencil, Trash2, Search, Check, X, ChevronDown, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 
 const emptyBenefit: Omit<CardBenefit, 'id'> = {
