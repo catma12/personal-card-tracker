@@ -272,6 +272,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 325,
     category: 'travel',
+    currentOffer: { amount: '60,000 points', spendRequirement: '$6,000 in 6 months' },
+    highestHistoricalOffer: { amount: '90,000 points', spendRequirement: '$4,000 in 6 months' },
     benefits: [
       { name: 'Uber Cash Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo Uber Cash ($120/yr).' },
       { name: 'Dining Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo at Grubhub, Seamless, The Cheesecake Factory, Goldbelly, Wine.com, Five Guys.' },
