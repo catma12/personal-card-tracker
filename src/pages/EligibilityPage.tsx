@@ -28,6 +28,7 @@ export default function EligibilityPage() {
   const { cards } = useCards();
   const [statusFilter, setStatusFilter] = useState<EligibilityStatus | 'all'>('all');
   const [issuerFilter, setIssuerFilter] = useState<string>('all');
+  const [offerFilter, setOfferFilter] = useState<'all' | 'highest' | 'not-highest'>('all');
 
   const eligibility = useMemo(() => {
     const now = new Date();
