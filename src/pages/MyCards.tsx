@@ -214,14 +214,45 @@ export default function MyCards() {
             {!editing && (
               <div>
                 <Label>Quick Select (auto-fills details)</Label>
-                <Select value={selectedKnown} onValueChange={prefillFromKnown}>
-                  <SelectTrigger><SelectValue placeholder="Choose a known card..." /></SelectTrigger>
-                  <SelectContent>
-                    {knownCards.map(c => (
-                      <SelectItem key={c.name} value={c.name}>{c.name} — {c.issuer} (${c.annualFee}/yr)</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Popover open={quickSelectOpen} onOpenChange={setQuickSelectOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={quickSelectOpen}
+                      className="w-full justify-between font-normal"
+                    >
+                      {selectedKnown
+                        ? `${selectedKnown} — ${findKnownCard(selectedKnown)?.issuer} ($${findKnownCard(selectedKnown)?.annualFee}/yr)`
+                        : "Search for a card..."}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[460px] p-0" align="start">
+                    <Command>
+                      <CommandInput placeholder="Search cards by name or issuer..." />
+                      <CommandList>
+                        <CommandEmpty>No card found.</CommandEmpty>
+                        <CommandGroup>
+                          {knownCards.map((c) => (
+                            <CommandItem
+                              key={c.name}
+                              value={`${c.name} ${c.issuer}`}
+                              onSelect={() => {
+                                prefillFromKnown(c.name);
+                                setQuickSelectOpen(false);
+                              }}
+                            >
+                              <Check className={cn("mr-2 h-4 w-4", selectedKnown === c.name ? "opacity-100" : "opacity-0")} />
+                              <span className="flex-1">{c.name}</span>
+                              <span className="text-xs text-muted-foreground ml-2">{c.issuer} · ${c.annualFee}/yr</span>
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </div>
             )}
             <div className="grid grid-cols-2 gap-3">
