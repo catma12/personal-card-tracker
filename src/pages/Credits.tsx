@@ -149,56 +149,72 @@ export default function Credits() {
       </div>
 
       <div className="grid gap-3">
-        {filtered.map(b => {
-          const card = getCardById(b.cardId);
-          const status = getBenefitStatus(b);
-          const isDollar = b.valueType === 'dollar';
-          const isRedeemable = b.valueType === 'certificate' || b.valueType === 'points';
-          const pct = isDollar && b.totalAmount > 0 ? Math.round((b.amountUsed / b.totalAmount) * 100) : (b.amountUsed > 0 ? 100 : 0);
-          return (
-            <Card key={b.id} className="overflow-hidden">
-              <CardContent className="p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-medium">{b.name}</span>
-                      {statusBadge(status)}
-                      <Badge variant="outline" className="text-xs capitalize">{b.creditType}</Badge>
-                      {isRedeemable && (
-                        <Badge variant="secondary" className="text-xs">{formatBenefitValue(b)}</Badge>
-                      )}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">{card?.name || 'Unknown card'}</p>
-                    <div className="mt-2 flex items-center gap-3">
-                      {isDollar ? (
-                        <>
-                          <Progress value={pct} className="flex-1 h-2" />
-                          <span className="text-sm font-mono whitespace-nowrap">
-                            ${b.amountUsed} / ${b.totalAmount}
-                          </span>
-                        </>
-                      ) : (
-                        <div className="flex items-center gap-2">
-                          {b.amountUsed > 0 ? (
-                            <span className="flex items-center gap-1 text-sm text-success font-medium"><Check className="h-4 w-4" /> Redeemed</span>
-                          ) : (
-                            <span className="flex items-center gap-1 text-sm text-muted-foreground"><X className="h-4 w-4" /> Not redeemed</span>
+        {(() => {
+          let lastCardId = '';
+          return filtered.map(b => {
+            const card = getCardById(b.cardId);
+            const status = getBenefitStatus(b);
+            const isDollar = b.valueType === 'dollar';
+            const isRedeemable = b.valueType === 'certificate' || b.valueType === 'points';
+            const pct = isDollar && b.totalAmount > 0 ? Math.round((b.amountUsed / b.totalAmount) * 100) : (b.amountUsed > 0 ? 100 : 0);
+            const resetDate = getNextResetDate(b, card?.openDate);
+            const showCardHeader = card && card.id !== lastCardId;
+            if (card) lastCardId = card.id;
+            return (
+              <div key={b.id}>
+                {showCardHeader && (
+                  <div className="mt-4 mb-2 first:mt-0">
+                    <h3 className="text-sm font-semibold text-foreground">{card.name}</h3>
+                    <p className="text-xs text-muted-foreground">{card.issuer} · Opened {formatDate(card.openDate, 'MMM yyyy')}</p>
+                  </div>
+                )}
+                <Card className="overflow-hidden">
+                  <CardContent className="p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="font-medium">{b.name}</span>
+                          {statusBadge(status)}
+                          <Badge variant="outline" className="text-xs capitalize">{b.creditType}</Badge>
+                          {isRedeemable && (
+                            <Badge variant="secondary" className="text-xs">{formatBenefitValue(b)}</Badge>
                           )}
                         </div>
-                      )}
+                        <div className="mt-2 flex items-center gap-3">
+                          {isDollar ? (
+                            <>
+                              <Progress value={pct} className="flex-1 h-2" />
+                              <span className="text-sm font-mono whitespace-nowrap">
+                                ${b.amountUsed} / ${b.totalAmount}
+                              </span>
+                            </>
+                          ) : (
+                            <div className="flex items-center gap-2">
+                              {b.amountUsed > 0 ? (
+                                <span className="flex items-center gap-1 text-sm text-success font-medium"><Check className="h-4 w-4" /> Redeemed</span>
+                              ) : (
+                                <span className="flex items-center gap-1 text-sm text-muted-foreground"><X className="h-4 w-4" /> Not redeemed</span>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                        <div className="mt-1 flex flex-wrap gap-x-4 gap-y-0.5">
+                          {resetDate && <p className="text-xs text-muted-foreground">Resets {resetDate}</p>}
+                          {b.expirationDate && <p className="text-xs text-muted-foreground">Expires {formatDate(b.expirationDate)}</p>}
+                        </div>
+                        {b.notes && <p className="text-xs text-muted-foreground mt-1">{b.notes}</p>}
+                      </div>
+                      <div className="flex gap-1 shrink-0">
+                        <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(b)}><Pencil className="h-3 w-3" /></Button>
+                        <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={() => { deleteBenefit(b.id); toast.success('Deleted'); }}><Trash2 className="h-3 w-3" /></Button>
+                      </div>
                     </div>
-                    {b.expirationDate && <p className="text-xs text-muted-foreground mt-1">Expires {formatDate(b.expirationDate)}</p>}
-                    {b.notes && <p className="text-xs text-muted-foreground mt-1">{b.notes}</p>}
-                  </div>
-                  <div className="flex gap-1 shrink-0">
-                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(b)}><Pencil className="h-3 w-3" /></Button>
-                    <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={() => { deleteBenefit(b.id); toast.success('Deleted'); }}><Trash2 className="h-3 w-3" /></Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          );
-        })}
+                  </CardContent>
+                </Card>
+              </div>
+            );
+          });
+        })()}
         {filtered.length === 0 && <p className="text-center py-8 text-muted-foreground">No benefits found</p>}
       </div>
 
