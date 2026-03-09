@@ -726,6 +726,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 595,
     category: 'airline',
+    currentOffer: { amount: '70,000 miles', spendRequirement: '$7,000 in 3 months' },
+    highestHistoricalOffer: { amount: '70,000 miles', spendRequirement: '$7,000 in 3 months' },
     benefits: [
       { name: 'Admirals Club Membership', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Admirals Club membership for primary + authorized users.' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 5 years.' },
