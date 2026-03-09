@@ -567,7 +567,7 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '150,000 points', spendRequirement: '$3,000 in 6 months' },
     applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/hilton-honors-surpass/',
     benefits: [
-      { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Free night certificate after $15K spend. Up to 2 per year.' },
+      { name: 'Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 1, notes: 'Free night certificate after $15K spend. Up to 2 per year on anniversary.' },
       { name: 'Gold Status', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary Hilton Honors Gold status.' },
     ],
     eligibilityRules: [
