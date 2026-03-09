@@ -563,6 +563,7 @@ export const knownCards: KnownCardInfo[] = [
     ],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+      { type: 'product-family', conflictCards: ['Marriott Bonvoy Business', 'Amex Brilliant', 'Marriott Bonvoy Bevy', 'Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Marriott Bonvoy Bold', 'Chase Ritz-Carlton'], cooldownMonths: 24, description: 'Marriott cross-issuer: Cannot hold an Amex Marriott card and a Chase Marriott card at the same time. 24-month bonus cooldown across all Marriott cards from any issuer.' },
     ],
   },
   {
