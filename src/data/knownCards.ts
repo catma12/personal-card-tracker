@@ -108,6 +108,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '$200 cash back', spendRequirement: '$500 in 3 months' },
+    highestHistoricalOffer: { amount: '$200 cash back', spendRequirement: '$500 in 3 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Freedom Flex bonus in the last 24 months.' },
