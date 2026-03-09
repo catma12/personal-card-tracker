@@ -37,8 +37,9 @@ const App = () => (
           </Layout>
         </BrowserRouter>
       </CardProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ThemeProvider>
 );
 
 export default App;
