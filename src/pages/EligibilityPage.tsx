@@ -127,6 +127,9 @@ export default function EligibilityPage() {
         status,
         reasons,
         rules: known.eligibilityRules,
+        currentOffer: known.currentOffer,
+        highestHistoricalOffer: known.highestHistoricalOffer,
+        isHighestOffer: !!(known.currentOffer && known.highestHistoricalOffer && known.currentOffer.amount === known.highestHistoricalOffer.amount),
       });
     }
 
