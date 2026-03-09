@@ -55,8 +55,7 @@ function formatBenefitProgress(b: CardBenefit) {
 
 function getNextResetDate(b: CardBenefit, cardOpenDate?: string): string | null {
   if (b.creditType === 'one-time') return null;
-  const { getNextPeriodStart: getNext } = require('@/lib/dateUtils');
-  const next = getNext(b.creditType, cardOpenDate);
+  const next = getNextPeriodStart(b.creditType, cardOpenDate);
   return format(next, 'MMM d, yyyy');
 }
 
