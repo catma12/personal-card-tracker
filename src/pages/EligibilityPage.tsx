@@ -97,18 +97,22 @@ export default function EligibilityPage() {
         if (rule.type === 'once-per-lifetime') {
           const everHad = matchingCards.length > 0;
           if (everHad) {
-            const gotBonus = matchingCards.some(c => c.signupBonusDate);
-            const currentlyHolds = matchingCards.some(c => c.status === 'active');
+            for (const mc of matchingCards) {
+              const isSameCard = mc.name.toLowerCase() === known.name.toLowerCase();
+              const cardLabel = isSameCard ? 'this card' : `"${mc.name}"`;
+              const gotBonus = mc.signupBonusDate;
+              const currentlyHolds = mc.status === 'active';
 
-            if (gotBonus) {
-              status = 'ineligible';
-              reasons.push(`You previously received the signup bonus on this card. Amex once-per-lifetime rule applies.`);
-            } else if (currentlyHolds) {
-              status = 'warning';
-              reasons.push(`You currently hold this card. Amex typically won't approve a new application for a card you already have.`);
-            } else {
-              status = 'warning';
-              reasons.push(`You previously held this card. If you received a signup bonus, you are ineligible (Amex once-per-lifetime).`);
+              if (gotBonus) {
+                status = 'ineligible';
+                reasons.push(`You previously received the signup bonus on ${cardLabel}. Amex once-per-lifetime / cross-product rule applies.`);
+              } else if (currentlyHolds) {
+                if (status !== 'ineligible') status = 'warning';
+                reasons.push(`You currently hold ${cardLabel}. If you received a signup bonus, you are ineligible per Amex cross-product rules.`);
+              } else {
+                if (status !== 'ineligible') status = 'warning';
+                reasons.push(`You previously held ${cardLabel}. If you received a signup bonus, you may be ineligible per Amex cross-product rules.`);
+              }
             }
           }
         }

@@ -254,7 +254,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4 years.' },
     ],
     eligibilityRules: [
-      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule: not eligible if you have ever received the welcome bonus on this card.' },
+      { type: 'once-per-lifetime', conflictCards: ['Amex Platinum', 'Amex Gold', 'Amex Green', 'Amex Platinum for Schwab', 'Amex Platinum for Morgan Stanley'], description: 'Amex once-per-lifetime rule. Also ineligible if you have or have had the Gold Card, Green Card, Schwab Platinum, or Morgan Stanley Platinum.' },
     ],
   },
   {
@@ -268,7 +268,7 @@ export const knownCards: KnownCardInfo[] = [
     applyUrl: 'https://www.schwab.com/credit-cards/platinum-card',
     benefits: [],
     eligibilityRules: [
-      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule. Note: Schwab Platinum is treated as a separate product from the regular Platinum.' },
+      { type: 'once-per-lifetime', conflictCards: ['Amex Platinum for Schwab', 'Amex Platinum', 'Amex Gold', 'Amex Green', 'Amex Platinum for Morgan Stanley'], description: 'Amex once-per-lifetime rule. Schwab Platinum is a separate product but cross-restricted with other Amex charge cards.' },
     ],
   },
   {
@@ -282,7 +282,7 @@ export const knownCards: KnownCardInfo[] = [
     applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/platinum-morgan-stanley/',
     benefits: [],
     eligibilityRules: [
-      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule. Note: Morgan Stanley Platinum is treated as a separate product from the regular Platinum.' },
+      { type: 'once-per-lifetime', conflictCards: ['Amex Platinum for Morgan Stanley', 'Amex Platinum', 'Amex Gold', 'Amex Green', 'Amex Platinum for Schwab'], description: 'Amex once-per-lifetime rule. Morgan Stanley Platinum is cross-restricted with other Amex charge cards.' },
     ],
   },
   {
@@ -302,7 +302,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Resy Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 50, notes: '$50 Jul–Dec at U.S. Resy restaurants.' },
     ],
     eligibilityRules: [
-      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule: not eligible if you have ever received the welcome bonus on this card.' },
+      { type: 'once-per-lifetime', conflictCards: ['Amex Gold', 'Amex Platinum', 'Amex Platinum for Schwab', 'Amex Platinum for Morgan Stanley'], description: 'Amex once-per-lifetime rule. Also ineligible if you have or have had the Platinum Card, Schwab Platinum, or Morgan Stanley Platinum (confirmed per official offer terms).' },
     ],
   },
   {
@@ -318,7 +318,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'CLEAR Plus Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 189, notes: 'CLEAR Plus membership credit.' },
     ],
     eligibilityRules: [
-      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule: not eligible if you have ever received the welcome bonus on this card.' },
+      { type: 'once-per-lifetime', conflictCards: ['Amex Green', 'Amex Platinum', 'Amex Gold', 'Amex Platinum for Schwab', 'Amex Platinum for Morgan Stanley'], description: 'Amex once-per-lifetime rule. Cross-restricted with other Amex charge cards.' },
     ],
   },
   {
