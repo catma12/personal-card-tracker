@@ -621,6 +621,7 @@ export const knownCards: KnownCardInfo[] = [
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+      { type: 'product-family', conflictCards: ['Hilton Honors Aspire', 'Hilton Honors Surpass'], description: 'Not eligible for base Hilton Honors bonus if you hold or have held the Aspire or Surpass. Higher-tier blocks lower-tier.' },
     ],
   },
   {
