@@ -691,15 +691,23 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'airline',
-    benefits: [],
+    benefits: [
+      { name: 'Companion Fare', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Annual companion fare from $122 ($99 + taxes/fees) on Alaska Airlines.' },
+    ],
   },
   {
     name: 'BoA Alaska Atmos Summit',
     issuer: 'Bank of America',
     network: 'Visa',
-    annualFee: 250,
+    annualFee: 395,
     category: 'airline',
-    benefits: [],
+    benefits: [
+      { name: '25K Global Companion Award', creditType: 'annual', valueType: 'certificate', totalAmount: 25000, notes: '25,000-point Global Companion Award on anniversary (no spend required).' },
+      { name: '100K Global Companion Award', creditType: 'annual', valueType: 'certificate', totalAmount: 100000, notes: '100,000-point Global Companion Award after $60K spend in anniversary year.' },
+      { name: 'Status Points Boost', creditType: 'annual', valueType: 'points', totalAmount: 10000, notes: '10,000 Atmos Rewards status points on anniversary.' },
+      { name: 'Alaska Lounge Passes', creditType: 'quarterly', valueType: 'certificate', totalAmount: 2, notes: '2 Alaska Lounge passes per quarter (8/yr).' },
+      { name: 'Alaska Wi-Fi Passes', creditType: 'quarterly', valueType: 'certificate', totalAmount: 2, notes: '2 Alaska inflight Wi-Fi passes per quarter (8/yr).' },
+    ],
   },
   {
     name: 'BoA Air France KLM',
