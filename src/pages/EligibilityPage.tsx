@@ -287,13 +287,27 @@ export default function EligibilityPage() {
             >
               <div className="mt-0.5">{statusIcon(item.status)}</div>
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-medium">{item.cardName}</span>
-                  <span className="text-xs text-muted-foreground">— {item.issuer}</span>
-                  {item.annualFee > 0 && (
-                    <span className="text-xs text-muted-foreground">${item.annualFee}/yr</span>
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="font-medium">{item.cardName}</span>
+                    <span className="text-xs text-muted-foreground">— {item.issuer}</span>
+                    {item.annualFee > 0 && (
+                      <span className="text-xs text-muted-foreground">${item.annualFee}/yr</span>
+                    )}
+                    {statusBadge(item.status)}
+                  </div>
+                  {item.applyUrl && (
+                    <a
+                      href={item.applyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <Button variant="outline" size="sm" className="gap-1 shrink-0 text-xs">
+                        Apply <ExternalLink className="h-3 w-3" />
+                      </Button>
+                    </a>
                   )}
-                  {statusBadge(item.status)}
                 </div>
                 {item.currentOffer && (
                   <div className="mt-2 flex items-center gap-2 p-2 rounded-md bg-muted/50">
