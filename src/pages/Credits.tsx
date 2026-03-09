@@ -77,6 +77,12 @@ export default function Credits() {
   const [search, setSearch] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [filterType, setFilterType] = useState('all');
+  const [collapsedCards, setCollapsedCards] = useState<Record<string, boolean>>({});
+
+  const toggleCard = (cardId: string) => {
+    setCollapsedCards(prev => ({ ...prev, [cardId]: !prev[cardId] }));
+  };
+
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<CardBenefit | null>(null);
   const [form, setForm] = useState<Omit<CardBenefit, 'id'>>(emptyBenefit);
