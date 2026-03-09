@@ -242,7 +242,10 @@ export default function Credits() {
                                 </div>
                                 <div className="mt-1 flex flex-wrap gap-x-4 gap-y-0.5">
                                   {resetDate && <p className="text-xs text-muted-foreground">Resets {resetDate}</p>}
-                                  {b.expirationDate && <p className="text-xs text-muted-foreground">Expires {formatDate(b.expirationDate)}</p>}
+                                  {(() => {
+                                    const expDate = b.expirationDate || getAutoExpirationDate(b.creditType, group.openDate);
+                                    return expDate ? <p className="text-xs text-muted-foreground">Expires {formatDate(expDate)}</p> : null;
+                                  })()}
                                 </div>
                                 {b.notes && <p className="text-xs text-muted-foreground mt-1">{b.notes}</p>}
                               </div>
