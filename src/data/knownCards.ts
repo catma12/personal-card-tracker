@@ -696,6 +696,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 99,
     category: 'airline',
+    currentOffer: { amount: '50,000 points', spendRequirement: '$1,000 in 3 months' },
+    highestHistoricalOffer: { amount: '75,000 points', spendRequirement: '$3,000 in 3 months' },
     benefits: [
       { name: '3,000 Anniversary Points', creditType: 'annual', valueType: 'points', totalAmount: 3000, notes: '3,000 anniversary points.' },
     ],
