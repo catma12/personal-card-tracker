@@ -32,7 +32,7 @@ export const knownCards: KnownCardInfo[] = [
     name: 'Chase Sapphire Reserve',
     issuer: 'Chase',
     network: 'Visa',
-    annualFee: 550,
+    annualFee: 795,
     category: 'travel',
     benefits: [
       { name: 'Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, notes: '$300 annual travel credit, resets on card anniversary.' },
