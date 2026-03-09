@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useCards } from '@/context/CardContext';
-import { CreditCard as CreditCardType, CardNetwork, CardType, CardStatus, CardCategory, CardDecision } from '@/types/cards';
+import { CreditCard as CreditCardType, CardNetwork, CardType, CardCategory } from '@/types/cards';
 import { formatDate, getMonthName } from '@/lib/dateUtils';
 import { knownCards, findKnownCard, KnownCardInfo } from '@/data/knownCards';
 import { Card, CardContent } from '@/components/ui/card';
