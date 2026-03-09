@@ -680,7 +680,10 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 250,
     category: 'airline',
-    benefits: [],
+    benefits: [
+      { name: 'AAdvantage Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 American Airlines flight discount after $15K spend.' },
+      { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 5 years.' },
+    ],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 48, description: 'Citi 48-month rule: not eligible if you received any Citi AAdvantage bonus in the last 48 months.' },
     ],
