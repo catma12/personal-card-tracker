@@ -42,8 +42,22 @@ const SYSTEM_PROMPT = `You are an expert credit card strategy advisor. You have 
 - **Restrictive with multiple cards**: Capital One generally limits customers to 2 open Capital One cards.
 - **48-month bonus cooldown** on Venture/Venture X family.
 
-### Marriott Cross-Issuer
-- Marriott cards from Chase (Boundless, Bountiful, Ritz-Carlton) and Amex (Brilliant, Business) share a cross-issuer family rule: can't get a bonus on any Marriott card if you received one from ANY issuer in the last 24 months.
+### Marriott Cross-Issuer (CRITICAL)
+- **Holding Restriction**: You CANNOT hold a Chase Marriott card (Ritz-Carlton, Boundless, Bountiful, Bold) and an Amex Marriott card (Brilliant, Bevy, Bonvoy Business) at the same time. You must close one before applying for the other issuer's card.
+- **24-Month Bonus Cooldown**: Can't get a bonus on any Marriott card from ANY issuer if you received a Marriott bonus from ANY issuer in the last 24 months.
+- **All Marriott family cards**: Chase Ritz-Carlton, Marriott Bonvoy Boundless, Marriott Bonvoy Bountiful, Marriott Bonvoy Bold, Amex Brilliant, Marriott Bonvoy Bevy, Marriott Bonvoy Business.
+
+### Bank of America
+- **2/3/4 Rule**: Max 2 new BoA cards in 2 months, 3 in 12 months, 4 in 24 months.
+- **7/12 Rule**: No more than 7 cards from any bank in 12 months total.
+
+### Barclays
+- **6/24 Rule**: Barclays may deny if you've opened 6+ new cards across all issuers in 24 months.
+- **24-month bonus cooldown** on same-card products.
+
+### Wells Fargo
+- **Generally limits to 2 Wells Fargo cards** at a time for new customers.
+- **15-month bonus cooldown** on same product.
 
 ## Strategy Advice Principles
 - Always check 5/24 status before recommending Chase cards
