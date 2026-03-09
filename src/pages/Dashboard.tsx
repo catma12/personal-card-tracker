@@ -1,5 +1,5 @@
 import { useCards } from '@/context/CardContext';
-import { getChase524Count, getNextAnnualFee, getMonthlyCreditsAvailable, getUnusedCreditsThisYear, getExpiringBenefits, getUpcomingAnnualFees, getMonthName, formatDate } from '@/lib/dateUtils';
+import { getChase524Count, getNextAnnualFee, getMonthlyCreditsAvailable, getMonthlyCreditsUnused, getUnusedCreditsThisYear, getExpiringBenefits, getUpcomingAnnualFees, getMonthName, formatDate } from '@/lib/dateUtils';
 import { CreditCard, Target, Gift, AlertTriangle, DollarSign, Clock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -39,6 +39,7 @@ export default function Dashboard() {
   const chase524 = getChase524Count(cards);
   const nextFeeCard = getNextAnnualFee(cards);
   const monthlyCredits = getMonthlyCreditsAvailable(benefits);
+  const monthlyUnused = getMonthlyCreditsUnused(benefits);
   const unusedCredits = getUnusedCreditsThisYear(benefits);
   const expiringBenefits = getExpiringBenefits(benefits, 30);
   const upcomingFees = getUpcomingAnnualFees(cards, 30);
@@ -100,15 +101,16 @@ export default function Dashboard() {
             <span className="stat-label">Monthly Credits</span>
           </div>
           <div className="stat-value">${monthlyCredits}</div>
+          <p className="text-xs text-muted-foreground mt-1">${monthlyUnused} unused this month</p>
         </button>
 
         <div className="stat-card">
           <div className="flex items-center gap-2 mb-2">
             <Clock className="h-4 w-4 text-accent-foreground" />
-            <span className="stat-label">Unused Credits</span>
+            <span className="stat-label">Unused Credits (YTD)</span>
           </div>
           <div className="stat-value">${unusedCredits}</div>
-          <p className="text-xs text-muted-foreground mt-1">dollar credits only</p>
+          <p className="text-xs text-muted-foreground mt-1">all dollar credits</p>
         </div>
       </div>
 

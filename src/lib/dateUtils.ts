@@ -44,6 +44,12 @@ export function getMonthlyCreditsAvailable(benefits: CardBenefit[]): number {
     .reduce((sum, b) => sum + b.totalAmount, 0);
 }
 
+export function getMonthlyCreditsUnused(benefits: CardBenefit[]): number {
+  return benefits
+    .filter(b => b.creditType === 'monthly' && b.valueType === 'dollar')
+    .reduce((sum, b) => sum + Math.max(0, b.totalAmount - b.amountUsed), 0);
+}
+
 export function getUnusedCreditsThisYear(benefits: CardBenefit[]): number {
   return benefits
     .filter(b => b.valueType === 'dollar')
