@@ -306,6 +306,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 695,
     category: 'business',
+    currentOffer: { amount: '120,000 points', spendRequirement: '$15,000 in 3 months' },
+    highestHistoricalOffer: { amount: '170,000 points', spendRequirement: '$15,000 in 3 months' },
     benefits: [
       { name: 'Airline Incidental Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 airline incidental credit per calendar year.' },
       { name: 'Dell Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Jan–Jun Dell credit.' },
