@@ -404,6 +404,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'hotel',
+    currentOffer: { amount: '3 free nights (up to 50K each)', spendRequirement: '$3,000 in 3 months' },
+    highestHistoricalOffer: { amount: '5 free nights (up to 50K each)', spendRequirement: '$5,000 in 3 months' },
     benefits: [
       { name: '35K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 35000, notes: 'Free night certificate up to 35K points. Awarded on anniversary.' },
     ],
