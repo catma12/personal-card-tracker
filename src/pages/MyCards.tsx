@@ -171,8 +171,6 @@ export default function MyCards() {
                   <TableHead>Type</TableHead>
                   <TableHead>Opened</TableHead>
                   <TableHead>Annual Fee</TableHead>
-                  <TableHead>Decision</TableHead>
-                  <TableHead>Status</TableHead>
                   <TableHead className="w-[80px]"></TableHead>
                 </TableRow>
               </TableHeader>
@@ -185,8 +183,6 @@ export default function MyCards() {
                     <TableCell className="capitalize">{card.cardType}</TableCell>
                     <TableCell className="font-mono text-xs">{formatDate(card.openDate, 'MMM yyyy')}</TableCell>
                     <TableCell>${card.annualFee}{card.annualFee > 0 && <span className="text-xs text-muted-foreground ml-1">/{getMonthName(card.annualFeeMonth).slice(0,3)}</span>}</TableCell>
-                    <TableCell><span className={`text-xs px-2 py-0.5 rounded-full font-medium ${decisionColor(card.decision)}`}>{card.decision}</span></TableCell>
-                    <TableCell><Badge variant={card.status === 'active' ? 'default' : 'secondary'}>{card.status}</Badge></TableCell>
                     <TableCell>
                       <div className="flex gap-1">
                         <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(card)}><Pencil className="h-3 w-3" /></Button>
@@ -196,7 +192,7 @@ export default function MyCards() {
                   </TableRow>
                 ))}
                 {filtered.length === 0 && (
-                  <TableRow><TableCell colSpan={9} className="text-center py-8 text-muted-foreground">No cards found</TableCell></TableRow>
+                  <TableRow><TableCell colSpan={7} className="text-center py-8 text-muted-foreground">No cards found</TableCell></TableRow>
                 )}
               </TableBody>
             </Table>
