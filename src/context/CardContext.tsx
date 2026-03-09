@@ -42,6 +42,7 @@ function dbToCard(row: any): CreditCard {
     decision: row.decision,
     tags: row.tags || [],
     notes: row.notes || '',
+    starred: row.starred ?? false,
   };
 }
 
@@ -65,6 +66,7 @@ function cardToDb(card: CreditCard, userId: string) {
     decision: card.decision,
     tags: card.tags,
     notes: card.notes,
+    starred: card.starred,
   };
 }
 
