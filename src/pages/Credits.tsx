@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useCards } from '@/context/CardContext';
 import { CardBenefit, CreditResetType, BenefitValueType } from '@/types/cards';
 import { getBenefitStatus, formatDate } from '@/lib/dateUtils';
+import { addMonths, format, parseISO } from 'date-fns';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
