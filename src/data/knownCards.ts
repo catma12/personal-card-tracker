@@ -523,6 +523,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'hotel',
+    currentOffer: { amount: '60,000 points', spendRequirement: '$6,000 in 6 months' },
+    highestHistoricalOffer: { amount: '60,000 points', spendRequirement: '$6,000 in 6 months' },
     benefits: [
       { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 15000, notes: 'Free night at any Category 1-4 Hyatt on anniversary.' },
     ],
