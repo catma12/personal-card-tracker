@@ -40,7 +40,7 @@ export const sampleCards: CreditCard[] = [
     category: 'travel',
     decision: 'keep',
     tags: ['travel', 'lounge'],
-    notes: '$300 travel credit, Priority Pass lounge access.',
+    notes: '$300 travel credit, Priority Pass lounge access. AF increased to $795 in June 2025.',
   },
   {
     id: 'amex-plat',
@@ -58,7 +58,7 @@ export const sampleCards: CreditCard[] = [
     category: 'travel',
     decision: 'undecided',
     tags: ['travel', 'lounge', 'premium'],
-    notes: 'Centurion Lounge, multiple credits to maximize.',
+    notes: 'Centurion Lounge, multiple credits to maximize. AF increased to $895 in Jan 2026.',
   },
   {
     id: 'amex-gold',
@@ -100,13 +100,13 @@ export const sampleCards: CreditCard[] = [
     cardType: 'personal',
     status: 'active',
     openDate: d(year - 3, 9, 1),
-    annualFee: 95,
+    annualFee: 150,
     annualFeeMonth: 9,
     countsToward524: true,
     category: 'airline',
     decision: 'downgrade',
     tags: ['airline', 'united'],
-    notes: 'Free checked bag, 2 United Club passes/year.',
+    notes: 'AF increased to $150. Free checked bag, 2 United Club passes, rideshare & Instacart credits.',
   },
   {
     id: 'united-quest',
@@ -116,13 +116,13 @@ export const sampleCards: CreditCard[] = [
     cardType: 'personal',
     status: 'active',
     openDate: d(year - 1, 11, 3),
-    annualFee: 250,
+    annualFee: 350,
     annualFeeMonth: 11,
     countsToward524: true,
     category: 'airline',
     decision: 'keep',
     tags: ['airline', 'united'],
-    notes: '$125 United purchase credit, 5K award miles back on saver awards.',
+    notes: 'AF increased to $350. $200 United travel credit, 10K award flight discount, rideshare & Instacart credits.',
   },
   {
     id: 'venture-x',
@@ -143,16 +143,16 @@ export const sampleCards: CreditCard[] = [
 ];
 
 export const sampleBenefits: CardBenefit[] = [
-  // Amex Platinum credits
+  // Amex Platinum credits (updated Jan 2026)
   {
-    id: 'b1', cardId: 'amex-plat', name: 'Uber Credit',
+    id: 'b1', cardId: 'amex-plat', name: 'Uber Cash Credit',
     creditType: 'monthly', valueType: 'dollar', totalAmount: 15, amountUsed: 15,
-    lastUsedDate: d(year, today.getMonth() + 1, 5), notes: '$15/mo, $35 in December.',
+    lastUsedDate: d(year, today.getMonth() + 1, 5), notes: '$15/mo, $20 in December ($200/yr total).',
   },
   {
     id: 'b2', cardId: 'amex-plat', name: 'Digital Entertainment Credit',
-    creditType: 'monthly', valueType: 'dollar', totalAmount: 20, amountUsed: 20,
-    lastUsedDate: d(year, today.getMonth() + 1, 1), notes: 'Audible, Disney+, Peacock, ESPN+, etc.',
+    creditType: 'monthly', valueType: 'dollar', totalAmount: 25, amountUsed: 25,
+    lastUsedDate: d(year, today.getMonth() + 1, 1), notes: '$25/mo for Disney+, Hulu, ESPN+, Peacock, NYT, WSJ, YouTube Premium/TV, Paramount+.',
   },
   {
     id: 'b3', cardId: 'amex-plat', name: 'Saks Credit (H1)',
@@ -172,23 +172,43 @@ export const sampleBenefits: CardBenefit[] = [
   {
     id: 'b5b', cardId: 'amex-plat', name: 'Walmart+ Credit',
     creditType: 'monthly', valueType: 'dollar', totalAmount: 12.95, amountUsed: 12.95,
-    lastUsedDate: d(year, today.getMonth() + 1, 1), notes: 'Walmart+ membership credit.',
+    lastUsedDate: d(year, today.getMonth() + 1, 1), notes: 'Walmart+ membership credit (~$155/yr).',
   },
   {
-    id: 'b5c', cardId: 'amex-plat', name: 'Hotel Credit',
-    creditType: 'semi-annual', valueType: 'dollar', totalAmount: 100, amountUsed: 0,
-    expirationDate: d(year, 6, 30), notes: '$100 per half for Fine Hotels + Resorts or Hotel Collection.',
+    id: 'b5c', cardId: 'amex-plat', name: 'Hotel Credit (H1)',
+    creditType: 'semi-annual', valueType: 'dollar', totalAmount: 300, amountUsed: 0,
+    expirationDate: d(year, 6, 30), notes: '$300 Jan–Jun for prepaid Fine Hotels + Resorts (1-night) or Hotel Collection (2-night).',
+  },
+  {
+    id: 'b5d', cardId: 'amex-plat', name: 'Hotel Credit (H2)',
+    creditType: 'semi-annual', valueType: 'dollar', totalAmount: 300, amountUsed: 0,
+    expirationDate: d(year, 12, 31), notes: '$300 Jul–Dec for prepaid Fine Hotels + Resorts (1-night) or Hotel Collection (2-night).',
+  },
+  {
+    id: 'b5e', cardId: 'amex-plat', name: 'Resy Dining Credit',
+    creditType: 'quarterly', valueType: 'dollar', totalAmount: 100, amountUsed: 0,
+    notes: '$100/quarter at Resy-affiliated restaurants ($400/yr).',
+  },
+  {
+    id: 'b5f', cardId: 'amex-plat', name: 'Lululemon Credit',
+    creditType: 'quarterly', valueType: 'dollar', totalAmount: 75, amountUsed: 0,
+    notes: '$75/quarter at Lululemon ($300/yr).',
+  },
+  {
+    id: 'b5g', cardId: 'amex-plat', name: 'CLEAR Plus Credit',
+    creditType: 'monthly', valueType: 'dollar', totalAmount: 17.42, amountUsed: 17.42,
+    lastUsedDate: d(year, today.getMonth() + 1, 1), notes: 'Monthly CLEAR Plus membership credit (~$209/yr).',
   },
   // Amex Gold
   {
     id: 'b6', cardId: 'amex-gold', name: 'Uber Cash Credit',
     creditType: 'monthly', valueType: 'dollar', totalAmount: 10, amountUsed: 0,
-    notes: '$10/mo Uber Cash.',
+    notes: '$10/mo Uber Cash ($120/yr).',
   },
   {
     id: 'b7', cardId: 'amex-gold', name: 'Dining Credit',
     creditType: 'monthly', valueType: 'dollar', totalAmount: 10, amountUsed: 10,
-    lastUsedDate: d(year, today.getMonth() + 1, 12), notes: 'Grubhub, Seamless, etc.',
+    lastUsedDate: d(year, today.getMonth() + 1, 12), notes: '$10/mo at Grubhub, Seamless, The Cheesecake Factory, etc.',
   },
   {
     id: 'b7b', cardId: 'amex-gold', name: 'Dunkin\' Credit',
@@ -201,6 +221,12 @@ export const sampleBenefits: CardBenefit[] = [
     creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, amountUsed: 180,
     notes: '$300 annual travel credit, resets on card anniversary.',
   },
+  // Chase Sapphire Preferred
+  {
+    id: 'b8b', cardId: 'csp', name: '$50 Hotel Credit',
+    creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 50, amountUsed: 0,
+    notes: '$50 annual hotel credit through Chase Travel.',
+  },
   // Marriott Boundless
   {
     id: 'b9', cardId: 'marriott-boundless', name: '35K Free Night Certificate',
@@ -208,22 +234,47 @@ export const sampleBenefits: CardBenefit[] = [
     expirationDate: d(year, 12, 31),
     notes: 'Free night certificate up to 35K points. Awarded on anniversary.',
   },
-  // United Quest
+  // United Quest (updated 2025)
   {
-    id: 'b10', cardId: 'united-quest', name: 'United Purchase Credit',
-    creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 125, amountUsed: 50,
-    notes: '$125 back on United purchases.',
+    id: 'b10', cardId: 'united-quest', name: 'United Travel Credit',
+    creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 200, amountUsed: 0,
+    notes: '$200 United travel credit on each account anniversary.',
   },
   {
-    id: 'b10b', cardId: 'united-quest', name: '5K Award Miles Back',
-    creditType: 'annual', valueType: 'points', totalAmount: 5000, amountUsed: 0,
-    notes: '5,000 miles back on saver award flights, up to 2x/year.',
+    id: 'b10b', cardId: 'united-quest', name: '10K Award Flight Discount',
+    creditType: 'annual', valueType: 'points', totalAmount: 10000, amountUsed: 0,
+    notes: '10,000-mile award flight discount on anniversary; earn a second after $20K spend.',
   },
-  // United Explorer
+  {
+    id: 'b10c2', cardId: 'united-quest', name: 'Rideshare Credit',
+    creditType: 'monthly', valueType: 'dollar', totalAmount: 8, amountUsed: 0,
+    notes: '$8/mo Jan–Nov, $12 in Dec ($100/yr; enrollment required).',
+  },
+  {
+    id: 'b10c3', cardId: 'united-quest', name: 'Renowned Hotels Credit',
+    creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 150, amountUsed: 0,
+    notes: 'Up to $150 for prepaid Renowned Hotels and Resorts bookings per anniversary year.',
+  },
+  {
+    id: 'b10c4', cardId: 'united-quest', name: 'Instacart+ Credits',
+    creditType: 'monthly', valueType: 'dollar', totalAmount: 15, amountUsed: 0,
+    notes: '$10 Instacart+ + $5 Instacart credit per month ($180/yr; ends Dec 2027).',
+  },
+  // United Explorer (updated 2025)
   {
     id: 'b10c', cardId: 'united-explorer', name: 'United Club Passes',
     creditType: 'annual', valueType: 'certificate', totalAmount: 2, amountUsed: 0,
-    notes: '2 United Club one-time passes per year.',
+    notes: '2 United Club one-time passes per year (cannot be shared).',
+  },
+  {
+    id: 'b10d', cardId: 'united-explorer', name: 'Rideshare Credit',
+    creditType: 'monthly', valueType: 'dollar', totalAmount: 5, amountUsed: 0,
+    notes: '$5/mo rideshare credit ($60/yr; enrollment required).',
+  },
+  {
+    id: 'b10e', cardId: 'united-explorer', name: 'Instacart+ Credits',
+    creditType: 'monthly', valueType: 'dollar', totalAmount: 10, amountUsed: 0,
+    notes: '$10/mo Instacart+ credit ($120/yr; ends Dec 2027).',
   },
   // Venture X
   {
