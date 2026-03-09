@@ -1,0 +1,264 @@
+import { useState, useMemo } from 'react';
+import { useCards } from '@/context/CardContext';
+import { CreditCard as CreditCardType, CardNetwork, CardType, CardStatus, CardCategory, CardDecision } from '@/types/cards';
+import { formatDate, getMonthName } from '@/lib/dateUtils';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Textarea } from '@/components/ui/textarea';
+import { Switch } from '@/components/ui/switch';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Plus, Pencil, Trash2, Search, Download } from 'lucide-react';
+import { toast } from 'sonner';
+
+const emptyCard: Omit<CreditCardType, 'id'> = {
+  name: '', issuer: '', network: 'Visa', cardType: 'personal', status: 'active',
+  openDate: new Date().toISOString().split('T')[0], annualFee: 0, annualFeeMonth: 1,
+  countsToward524: true, category: 'other', decision: 'undecided', tags: [], notes: '',
+};
+
+export default function MyCards() {
+  const { cards, addCard, updateCard, deleteCard } = useCards();
+  const [search, setSearch] = useState('');
+  const [filterStatus, setFilterStatus] = useState<'all' | CardStatus>('all');
+  const [filterType, setFilterType] = useState<'all' | CardType>('all');
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [editing, setEditing] = useState<CreditCardType | null>(null);
+  const [form, setForm] = useState<Omit<CreditCardType, 'id'>>(emptyCard);
+
+  const filtered = useMemo(() => {
+    return cards.filter(c => {
+      if (filterStatus !== 'all' && c.status !== filterStatus) return false;
+      if (filterType !== 'all' && c.cardType !== filterType) return false;
+      if (search && !c.name.toLowerCase().includes(search.toLowerCase()) && !c.issuer.toLowerCase().includes(search.toLowerCase())) return false;
+      return true;
+    });
+  }, [cards, search, filterStatus, filterType]);
+
+  function openAdd() {
+    setEditing(null);
+    setForm(emptyCard);
+    setDialogOpen(true);
+  }
+  function openEdit(card: CreditCardType) {
+    setEditing(card);
+    setForm({ ...card });
+    setDialogOpen(true);
+  }
+  function handleSave() {
+    if (!form.name || !form.issuer) { toast.error('Name and issuer required'); return; }
+    if (editing) {
+      updateCard({ ...form, id: editing.id });
+      toast.success('Card updated');
+    } else {
+      addCard({ ...form, id: crypto.randomUUID() });
+      toast.success('Card added');
+    }
+    setDialogOpen(false);
+  }
+  function handleDelete(id: string) {
+    deleteCard(id);
+    toast.success('Card deleted');
+  }
+  function exportCSV() {
+    const headers = ['Name', 'Issuer', 'Network', 'Type', 'Status', 'Open Date', 'Annual Fee', 'Fee Month', '5/24', 'Category', 'Decision', 'Notes'];
+    const rows = cards.map(c => [c.name, c.issuer, c.network, c.cardType, c.status, c.openDate, c.annualFee, c.annualFeeMonth, c.countsToward524, c.category, c.decision, c.notes]);
+    const csv = [headers, ...rows].map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'cards.csv'; a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  const decisionColor = (d: CardDecision) => {
+    switch(d) {
+      case 'keep': return 'status-success';
+      case 'downgrade': return 'status-warning';
+      case 'cancel': return 'status-danger';
+      default: return 'status-info';
+    }
+  };
+
+  return (
+    <div className="space-y-4 animate-fade-in">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-bold">My Cards</h1>
+          <p className="text-sm text-muted-foreground">{cards.length} cards total · {cards.filter(c => c.status === 'active').length} active</p>
+        </div>
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm" onClick={exportCSV}><Download className="h-4 w-4 mr-1" />Export</Button>
+          <Button size="sm" onClick={openAdd}><Plus className="h-4 w-4 mr-1" />Add Card</Button>
+        </div>
+      </div>
+
+      {/* Filters */}
+      <div className="flex flex-wrap gap-3">
+        <div className="relative flex-1 min-w-[200px]">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input placeholder="Search cards..." value={search} onChange={e => setSearch(e.target.value)} className="pl-9" />
+        </div>
+        <Select value={filterStatus} onValueChange={v => setFilterStatus(v as typeof filterStatus)}>
+          <SelectTrigger className="w-[130px]"><SelectValue /></SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Status</SelectItem>
+            <SelectItem value="active">Active</SelectItem>
+            <SelectItem value="closed">Closed</SelectItem>
+          </SelectContent>
+        </Select>
+        <Select value={filterType} onValueChange={v => setFilterType(v as typeof filterType)}>
+          <SelectTrigger className="w-[130px]"><SelectValue /></SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Types</SelectItem>
+            <SelectItem value="personal">Personal</SelectItem>
+            <SelectItem value="business">Business</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Table */}
+      <Card>
+        <CardContent className="p-0">
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Card</TableHead>
+                  <TableHead>Issuer</TableHead>
+                  <TableHead>Network</TableHead>
+                  <TableHead>Type</TableHead>
+                  <TableHead>Opened</TableHead>
+                  <TableHead>Annual Fee</TableHead>
+                  <TableHead>5/24</TableHead>
+                  <TableHead>Decision</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="w-[80px]"></TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filtered.map(card => (
+                  <TableRow key={card.id}>
+                    <TableCell className="font-medium">{card.name}</TableCell>
+                    <TableCell>{card.issuer}</TableCell>
+                    <TableCell><Badge variant="secondary">{card.network}</Badge></TableCell>
+                    <TableCell className="capitalize">{card.cardType}</TableCell>
+                    <TableCell className="font-mono text-xs">{formatDate(card.openDate, 'MMM yyyy')}</TableCell>
+                    <TableCell>${card.annualFee}{card.annualFee > 0 && <span className="text-xs text-muted-foreground ml-1">/{getMonthName(card.annualFeeMonth).slice(0,3)}</span>}</TableCell>
+                    <TableCell>{card.countsToward524 ? <Badge variant="outline" className="text-xs">Yes</Badge> : '—'}</TableCell>
+                    <TableCell><span className={`text-xs px-2 py-0.5 rounded-full font-medium ${decisionColor(card.decision)}`}>{card.decision}</span></TableCell>
+                    <TableCell><Badge variant={card.status === 'active' ? 'default' : 'secondary'}>{card.status}</Badge></TableCell>
+                    <TableCell>
+                      <div className="flex gap-1">
+                        <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(card)}><Pencil className="h-3 w-3" /></Button>
+                        <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={() => handleDelete(card.id)}><Trash2 className="h-3 w-3" /></Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {filtered.length === 0 && (
+                  <TableRow><TableCell colSpan={10} className="text-center py-8 text-muted-foreground">No cards found</TableCell></TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Add/Edit Dialog */}
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{editing ? 'Edit Card' : 'Add Card'}</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-2">
+            <div className="grid grid-cols-2 gap-3">
+              <div><Label>Card Name</Label><Input value={form.name} onChange={e => setForm({...form, name: e.target.value})} /></div>
+              <div><Label>Issuer</Label><Input value={form.issuer} onChange={e => setForm({...form, issuer: e.target.value})} /></div>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              <div>
+                <Label>Network</Label>
+                <Select value={form.network} onValueChange={v => setForm({...form, network: v as CardNetwork})}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    {(['Visa','Mastercard','Amex','Discover'] as const).map(n => <SelectItem key={n} value={n}>{n}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Type</Label>
+                <Select value={form.cardType} onValueChange={v => setForm({...form, cardType: v as CardType})}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="personal">Personal</SelectItem>
+                    <SelectItem value="business">Business</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Status</Label>
+                <Select value={form.status} onValueChange={v => setForm({...form, status: v as CardStatus})}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="active">Active</SelectItem>
+                    <SelectItem value="closed">Closed</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div><Label>Open Date</Label><Input type="date" value={form.openDate} onChange={e => setForm({...form, openDate: e.target.value})} /></div>
+              <div><Label>Product Change Date</Label><Input type="date" value={form.productChangeDate || ''} onChange={e => setForm({...form, productChangeDate: e.target.value || undefined})} /></div>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              <div><Label>Annual Fee ($)</Label><Input type="number" value={form.annualFee} onChange={e => setForm({...form, annualFee: Number(e.target.value)})} /></div>
+              <div>
+                <Label>Fee Month</Label>
+                <Select value={String(form.annualFeeMonth)} onValueChange={v => setForm({...form, annualFeeMonth: Number(v)})}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    {Array.from({length:12},(_,i)=>i+1).map(m => <SelectItem key={m} value={String(m)}>{getMonthName(m)}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Category</Label>
+                <Select value={form.category} onValueChange={v => setForm({...form, category: v as CardCategory})}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    {(['travel','hotel','airline','cashback','business','other'] as const).map(c => <SelectItem key={c} value={c} className="capitalize">{c}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <Label>Decision</Label>
+                <Select value={form.decision} onValueChange={v => setForm({...form, decision: v as CardDecision})}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    {(['keep','downgrade','cancel','undecided'] as const).map(d => <SelectItem key={d} value={d} className="capitalize">{d}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex items-end gap-2 pb-1">
+                <Switch checked={form.countsToward524} onCheckedChange={v => setForm({...form, countsToward524: v})} />
+                <Label>Counts toward 5/24</Label>
+              </div>
+            </div>
+            <div><Label>Signup Bonus Date</Label><Input type="date" value={form.signupBonusDate || ''} onChange={e => setForm({...form, signupBonusDate: e.target.value || undefined})} /></div>
+            <div><Label>Notes</Label><Textarea value={form.notes} onChange={e => setForm({...form, notes: e.target.value})} rows={3} /></div>
+          </div>
+          <div className="flex justify-end gap-2">
+            <Button variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
+            <Button onClick={handleSave}>{editing ? 'Update' : 'Add Card'}</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
