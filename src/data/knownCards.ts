@@ -453,6 +453,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 550,
     category: 'hotel',
+    currentOffer: { amount: '175,000 points', spendRequirement: '$6,000 in 6 months' },
+    highestHistoricalOffer: { amount: '175,000 points', spendRequirement: '$6,000 in 6 months' },
     benefits: [
       { name: 'Hilton Resort Credit', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 100, notes: '$100 per half at Hilton resorts ($200/yr).' },
       { name: 'Hilton Airline Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 airline incidental credit.' },
