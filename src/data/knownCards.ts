@@ -558,6 +558,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 150,
     category: 'airline',
+    currentOffer: { amount: '60,000 miles', spendRequirement: '$3,000 in 3 months' },
+    highestHistoricalOffer: { amount: '70,000 miles', spendRequirement: '$3,000 in 3 months' },
     benefits: [
       { name: 'United Club Passes', creditType: 'annual', valueType: 'certificate', totalAmount: 2, notes: '2 United Club one-time passes per year.' },
       { name: 'United Travel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 United travel credit after $10K spend.' },
