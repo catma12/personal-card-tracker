@@ -63,15 +63,21 @@ export default function Credits() {
   const activeCards = cards.filter(c => c.status === 'active');
 
   const filtered = useMemo(() => {
-    return benefits.filter(b => {
-      const card = getCardById(b.cardId);
-      if (!card || card.status !== 'active') return false;
-      if (search && !b.name.toLowerCase().includes(search.toLowerCase()) && !card.name.toLowerCase().includes(search.toLowerCase())) return false;
-      const status = getBenefitStatus(b);
-      if (filterStatus !== 'all' && status !== filterStatus) return false;
-      if (filterType !== 'all' && b.creditType !== filterType) return false;
-      return true;
-    });
+    return benefits
+      .filter(b => {
+        const card = getCardById(b.cardId);
+        if (!card || card.status !== 'active') return false;
+        if (search && !b.name.toLowerCase().includes(search.toLowerCase()) && !card.name.toLowerCase().includes(search.toLowerCase())) return false;
+        const status = getBenefitStatus(b);
+        if (filterStatus !== 'all' && status !== filterStatus) return false;
+        if (filterType !== 'all' && b.creditType !== filterType) return false;
+        return true;
+      })
+      .sort((a, b) => {
+        const cardA = getCardById(a.cardId)?.name || '';
+        const cardB = getCardById(b.cardId)?.name || '';
+        return cardA.localeCompare(cardB);
+      });
   }, [benefits, search, filterStatus, filterType, getCardById]);
 
   function openAdd() { setEditing(null); setForm({...emptyBenefit, cardId: activeCards[0]?.id || ''}); setDialogOpen(true); }
