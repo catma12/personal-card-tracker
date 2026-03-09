@@ -564,7 +564,8 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 150,
     category: 'airline',
     benefits: [
-      { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Delta flight credit after $10K spend.' },
+      { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Delta flight credit after $10K spend.' },
+      { name: 'Delta Stays Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Delta Stays hotel credit.' },
     ],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
