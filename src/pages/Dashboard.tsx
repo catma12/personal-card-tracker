@@ -100,8 +100,8 @@ export default function Dashboard() {
             <Gift className="h-4 w-4 text-primary" />
             <span className="stat-label">Monthly Credits</span>
           </div>
-          <div className="stat-value">${monthlyCredits}</div>
-          <p className="text-xs text-muted-foreground mt-1">${monthlyUnused} unused this month</p>
+          <div className="stat-value">${monthlyCredits.toFixed(2)}</div>
+          <p className="text-xs text-muted-foreground mt-1">${monthlyUnused.toFixed(2)} unused this month</p>
         </button>
 
         <div className="stat-card">
