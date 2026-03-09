@@ -6,6 +6,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { shouldResetBenefit } from '@/lib/dateUtils';
 import { format } from 'date-fns';
+import { knownCards } from '@/data/knownCards';
 
 interface CardContextType {
   cards: CreditCard[];
