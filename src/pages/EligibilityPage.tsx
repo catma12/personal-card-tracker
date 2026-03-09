@@ -30,9 +30,35 @@ interface CardEligibility {
 
 export default function EligibilityPage() {
   const { cards } = useCards();
+  const { user } = useAuth();
   const [statusFilter, setStatusFilter] = useState<EligibilityStatus | 'all'>('all');
   const [issuerFilter, setIssuerFilter] = useState<string>('all');
-  const [offerFilter, setOfferFilter] = useState<'all' | 'highest' | 'not-highest'>('all');
+  const [offerFilter, setOfferFilter] = useState<'all' | 'highest' | 'not-highest' | 'starred'>('all');
+  const [starredOffers, setStarredOffers] = useState<Set<string>>(new Set());
+
+  // Load starred offers
+  useState(() => {
+    if (!user) return;
+    supabase.from('starred_offers').select('card_name').then(({ data }) => {
+      if (data) setStarredOffers(new Set(data.map(d => d.card_name)));
+    });
+  });
+
+  const toggleStar = async (cardName: string) => {
+    if (!user) return;
+    const isStarred = starredOffers.has(cardName);
+    const next = new Set(starredOffers);
+    if (isStarred) {
+      next.delete(cardName);
+      setStarredOffers(next);
+      await supabase.from('starred_offers').delete().eq('user_id', user.id).eq('card_name', cardName);
+    } else {
+      next.add(cardName);
+      setStarredOffers(next);
+      const { error } = await supabase.from('starred_offers').insert({ user_id: user.id, card_name: cardName } as any);
+      if (error) toast.error('Failed to star offer');
+    }
+  };
 
   const eligibility = useMemo(() => {
     const now = new Date();
