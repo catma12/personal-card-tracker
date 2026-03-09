@@ -27,10 +27,11 @@ const SYSTEM_PROMPT = `You are an expert credit card strategy advisor. You have 
 - **Product Change Strategy**: Since bonuses are now lifetime, the old downgrade-and-reapply strategy for the same Sapphire product no longer works for bonus purposes. However, you can still downgrade to get the bonus on a DIFFERENT Sapphire product you've never had.
 
 ### American Express
-- **Once-Per-Lifetime**: Can only receive a welcome bonus once per card product, ever.
-- **Cross-Product Restrictions (Charge Cards)**: The Platinum, Gold, Green, Schwab Platinum, and Morgan Stanley Platinum are cross-restricted. Having or having had ANY of these may make you ineligible for the others' welcome bonus.
-- **Amex credit cards** (Blue Cash, Hilton, Delta, Marriott, etc.) each have their own once-per-lifetime rule but are NOT cross-restricted with charge cards.
+- **Once-Per-Lifetime**: Can only receive a welcome bonus once per card product, ever. Each card product has its own independent once-per-lifetime rule.
+- **Charge Cards Are NOT Cross-Restricted**: The Platinum, Gold, Green, Schwab Platinum, Morgan Stanley Platinum, and Business Platinum are all SEPARATE products. You CAN earn the welcome bonus on each one independently. They do NOT block each other.
+- **Amex credit cards** (Blue Cash, Hilton, Delta, Marriott, etc.) also each have their own independent once-per-lifetime rule.
 - **Amex Pop-Up**: Amex may show a popup saying you're not eligible for the bonus even if you technically qualify. This is based on spending history and relationship factors.
+- **5 Credit Card Limit**: Amex limits you to 5 credit cards at a time (charge cards don't count toward this limit).
 
 ### Citi
 - **48-Month Rule**: Can't get a bonus on any Citi card if you received a bonus on a card in the same family within 48 months.
