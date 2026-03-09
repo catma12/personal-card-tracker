@@ -54,7 +54,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'DoorDash Credits', creditType: 'monthly', valueType: 'dollar', totalAmount: 5, notes: '$5/mo DoorDash credit on restaurants ($60/yr).' },
     ],
     eligibilityRules: [
-      { type: 'product-family', conflictCards: ['Chase Sapphire Preferred', 'Chase Sapphire Reserve'], cooldownMonths: 48, description: 'Not eligible if you received a Sapphire bonus in the last 48 months or currently hold any Sapphire card.' },
+      { type: 'once-per-lifetime', description: 'Chase once-per-lifetime Sapphire rule (as of Jan 2026): You can only earn the Sapphire Preferred bonus once ever. You CAN hold both CSP and CSR simultaneously.' },
     ],
   },
   {
