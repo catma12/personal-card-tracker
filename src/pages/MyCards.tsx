@@ -167,7 +167,7 @@ export default function MyCards() {
                 <TableRow>
                   <TableHead>Card</TableHead>
                   <TableHead>Issuer</TableHead>
-                  <TableHead>Network</TableHead>
+                  
                   <TableHead>Type</TableHead>
                   <TableHead>Opened</TableHead>
                   <TableHead>Annual Fee</TableHead>
