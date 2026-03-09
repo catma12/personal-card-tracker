@@ -35,6 +35,7 @@ export default function EligibilityPage() {
   const [statusFilter, setStatusFilter] = useState<EligibilityStatus | 'all'>('all');
   const [issuerFilter, setIssuerFilter] = useState<string>('all');
   const [offerFilter, setOfferFilter] = useState<'all' | 'highest' | 'not-highest' | 'starred'>('all');
+  const [searchQuery, setSearchQuery] = useState('');
   const [starredOffers, setStarredOffers] = useState<Set<string>>(new Set());
 
   // Load starred offers
