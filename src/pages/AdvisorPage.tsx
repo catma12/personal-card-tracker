@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import CardImportBlock from '@/components/CardImportBlock';
 
 type Message = { role: 'user' | 'assistant'; content: string };
 
@@ -236,7 +237,21 @@ export default function AdvisorPage() {
             )}>
               {msg.role === 'assistant' ? (
                 <div className="prose prose-sm dark:prose-invert max-w-none [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      code({ className, children, ...props }) {
+                        const match = /language-card-import/.test(className || '');
+                        if (match) {
+                          return <CardImportBlock jsonString={String(children).trim()} />;
+                        }
+                        return <code className={className} {...props}>{children}</code>;
+                      },
+                      pre({ children }) {
+                        return <>{children}</>;
+                      },
+                    }}
+                  >
                     {msg.content || '...'}
                   </ReactMarkdown>
                 </div>
