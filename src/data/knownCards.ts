@@ -41,6 +41,8 @@ export const knownCards: KnownCardInfo[] = [
     category: 'travel',
     benefits: [
       { name: '$50 Hotel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 50, notes: '$50 annual hotel credit through Chase Travel.' },
+      { name: 'DoorDash DashPass', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary DashPass membership.' },
+      { name: 'DoorDash Credits', creditType: 'monthly', valueType: 'dollar', totalAmount: 5, notes: '$5/mo DoorDash credit on restaurants ($60/yr).' },
     ],
     eligibilityRules: [
       { type: 'product-family', conflictCards: ['Chase Sapphire Preferred', 'Chase Sapphire Reserve'], cooldownMonths: 48, description: 'Not eligible if you received a Sapphire bonus in the last 48 months or currently hold any Sapphire card.' },
@@ -53,7 +55,20 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 795,
     category: 'travel',
     benefits: [
-      { name: 'Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, notes: '$300 annual travel credit, resets on card anniversary.' },
+      { name: 'Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, notes: '$300 annual travel credit, auto-applied to travel purchases.' },
+      { name: 'The Edit Hotel Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 250, notes: '$250 Jan–Jun for The Edit by Chase Travel hotel stays (2-night min).' },
+      { name: 'The Edit Hotel Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 250, notes: '$250 Jul–Dec for The Edit by Chase Travel hotel stays (2-night min).' },
+      { name: 'Dining Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Jan–Jun at Sapphire Reserve Exclusive Tables restaurants.' },
+      { name: 'Dining Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Jul–Dec at Sapphire Reserve Exclusive Tables restaurants.' },
+      { name: 'StubHub/Viagogo Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Jan–Jun for tickets on StubHub or Viagogo.' },
+      { name: 'StubHub/Viagogo Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Jul–Dec for tickets on StubHub or Viagogo.' },
+      { name: 'DoorDash Non-Restaurant Promo', creditType: 'monthly', valueType: 'dollar', totalAmount: 20, notes: '2x $10/mo DoorDash non-restaurant promos ($240/yr).' },
+      { name: 'DoorDash Restaurant Promo', creditType: 'monthly', valueType: 'dollar', totalAmount: 5, notes: '$5/mo DoorDash restaurant promo ($60/yr).' },
+      { name: 'Apple Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 288, notes: '$288 Apple credit (activation required).' },
+      { name: 'Peloton Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo Peloton membership credit ($120/yr).' },
+      { name: 'Lyft Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo Lyft in-app credit ($120/yr).' },
+      { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 120, notes: 'Up to $120 every 4 years.' },
+      { name: 'DoorDash DashPass', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary DashPass membership.' },
     ],
     eligibilityRules: [
       { type: 'product-family', conflictCards: ['Chase Sapphire Preferred', 'Chase Sapphire Reserve'], cooldownMonths: 48, description: 'Not eligible if you received a Sapphire bonus in the last 48 months or currently hold any Sapphire card.' },
@@ -230,8 +245,10 @@ export const knownCards: KnownCardInfo[] = [
     category: 'travel',
     benefits: [
       { name: 'Uber Cash Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo Uber Cash ($120/yr).' },
-      { name: 'Dining Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo at Grubhub, Seamless, The Cheesecake Factory, etc.' },
-      { name: 'Dunkin\' Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 7, notes: '$7/mo at Dunkin\'.' },
+      { name: 'Dining Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo at Grubhub, Seamless, The Cheesecake Factory, Goldbelly, Wine.com, Five Guys.' },
+      { name: 'Dunkin\' Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 7, notes: '$7/mo at Dunkin\' ($84/yr).' },
+      { name: 'Resy Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 50, notes: '$50 Jan–Jun at U.S. Resy restaurants.' },
+      { name: 'Resy Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 50, notes: '$50 Jul–Dec at U.S. Resy restaurants.' },
     ],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule: not eligible if you have ever received the welcome bonus on this card.' },
@@ -547,7 +564,8 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 150,
     category: 'airline',
     benefits: [
-      { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Delta flight credit after $10K spend.' },
+      { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Delta flight credit after $10K spend.' },
+      { name: 'Delta Stays Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Delta Stays hotel credit.' },
     ],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
@@ -561,6 +579,9 @@ export const knownCards: KnownCardInfo[] = [
     category: 'airline',
     benefits: [
       { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Delta flight credit after $10K spend.' },
+      { name: 'Delta Stays Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Delta Stays hotel credit.' },
+      { name: 'Resy Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 50, notes: '$50 Jan–Jun at U.S. Resy restaurants.' },
+      { name: 'Resy Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 50, notes: '$50 Jul–Dec at U.S. Resy restaurants.' },
       { name: 'Companion Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Domestic companion certificate after $25K spend.' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4.5 years.' },
     ],
@@ -576,6 +597,9 @@ export const knownCards: KnownCardInfo[] = [
     category: 'airline',
     benefits: [
       { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Delta flight credit.' },
+      { name: 'Delta Stays Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Delta Stays hotel credit.' },
+      { name: 'Resy Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Jan–Jun at U.S. Resy restaurants.' },
+      { name: 'Resy Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Jul–Dec at U.S. Resy restaurants.' },
       { name: 'Companion Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Domestic first class companion certificate.' },
       { name: 'Delta Sky Club Access', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Delta Sky Club access when flying Delta.' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4.5 years.' },
@@ -656,7 +680,10 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 250,
     category: 'airline',
-    benefits: [],
+    benefits: [
+      { name: 'AAdvantage Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 American Airlines flight discount after $15K spend.' },
+      { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 5 years.' },
+    ],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 48, description: 'Citi 48-month rule: not eligible if you received any Citi AAdvantage bonus in the last 48 months.' },
     ],
@@ -667,15 +694,23 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'airline',
-    benefits: [],
+    benefits: [
+      { name: 'Companion Fare', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Annual companion fare from $122 ($99 + taxes/fees) on Alaska Airlines.' },
+    ],
   },
   {
     name: 'BoA Alaska Atmos Summit',
     issuer: 'Bank of America',
     network: 'Visa',
-    annualFee: 250,
+    annualFee: 395,
     category: 'airline',
-    benefits: [],
+    benefits: [
+      { name: '25K Global Companion Award', creditType: 'annual', valueType: 'certificate', totalAmount: 25000, notes: '25,000-point Global Companion Award on anniversary (no spend required).' },
+      { name: '100K Global Companion Award', creditType: 'annual', valueType: 'certificate', totalAmount: 100000, notes: '100,000-point Global Companion Award after $60K spend in anniversary year.' },
+      { name: 'Status Points Boost', creditType: 'annual', valueType: 'points', totalAmount: 10000, notes: '10,000 Atmos Rewards status points on anniversary.' },
+      { name: 'Alaska Lounge Passes', creditType: 'quarterly', valueType: 'certificate', totalAmount: 2, notes: '2 Alaska Lounge passes per quarter (8/yr).' },
+      { name: 'Alaska Wi-Fi Passes', creditType: 'quarterly', valueType: 'certificate', totalAmount: 2, notes: '2 Alaska inflight Wi-Fi passes per quarter (8/yr).' },
+    ],
   },
   {
     name: 'BoA Air France KLM',
@@ -748,6 +783,8 @@ export const knownCards: KnownCardInfo[] = [
     benefits: [
       { name: 'Travel Portal Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, notes: '$300 credit for Capital One Travel bookings.' },
       { name: '10K Anniversary Bonus Miles', creditType: 'annual', valueType: 'points', totalAmount: 10000, notes: '10,000 bonus miles on anniversary.' },
+      { name: 'Priority Pass Lounge Access', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Unlimited Priority Pass lounge access for cardholder + 2 guests.' },
+      { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Up to $100 every 4 years.' },
     ],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 48, description: 'Not eligible if you received a Venture X or Venture bonus in the last 48 months.' },
@@ -1037,7 +1074,20 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 695,
     category: 'travel',
-    benefits: [],
+    benefits: [
+      { name: 'Hotel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 500, notes: '$500 annual hotel credit (booked through Robinhood app).' },
+      { name: 'Travel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 300, notes: '$300 annual travel credit.' },
+      { name: 'DoorDash Discount', creditType: 'annual', valueType: 'dollar', totalAmount: 250, notes: '$250 annual DoorDash discount.' },
+      { name: 'Restaurant Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 250, notes: '$250 annual credit at 15,000+ eligible restaurants.' },
+      { name: 'Autonomous Rides Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 250, notes: '$250 annual credit on autonomous rides.' },
+      { name: 'Wearables Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 annual credit toward wearables (Apple Watch, Garmin, etc.).' },
+      { name: 'DashPass Membership', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary DashPass membership ($120/yr value).' },
+      { name: 'Priority Pass Lounge Access', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Unlimited Priority Pass lounge access.' },
+      { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Global Entry or TSA PreCheck credit.' },
+      { name: 'Oura Ring Membership', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary Oura Ring membership.' },
+      { name: 'Function Health Membership', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Function Health membership ($365/yr value).' },
+      { name: 'Amazon One Medical', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Amazon One Medical membership ($199/yr value).' },
+    ],
   },
   {
     name: 'SoFi Smart Card',
