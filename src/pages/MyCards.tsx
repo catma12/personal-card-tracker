@@ -192,7 +192,7 @@ export default function MyCards() {
                   </TableRow>
                 ))}
                 {filtered.length === 0 && (
-                  <TableRow><TableCell colSpan={7} className="text-center py-8 text-muted-foreground">No cards found</TableCell></TableRow>
+                  <TableRow><TableCell colSpan={5} className="text-center py-8 text-muted-foreground">No cards found</TableCell></TableRow>
                 )}
               </TableBody>
             </Table>
