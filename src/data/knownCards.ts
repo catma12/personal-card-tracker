@@ -250,7 +250,7 @@ export const knownCards: KnownCardInfo[] = [
     applyUrl: 'https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/ritz-carlton',
     benefits: [
       { name: 'Airline Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 300, notes: '$300 annual airline credit.' },
-      { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 85000, notes: 'Free night certificate up to 85K points on anniversary.' },
+      { name: '85K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 85000, notes: 'Free night certificate up to 85K points on anniversary.' },
     ],
     eligibilityRules: [
       { type: 'product-family', conflictCards: ['Chase Ritz-Carlton', 'Amex Brilliant'], cooldownMonths: 24, description: 'Subject to Marriott cross-issuer family rules with Amex Marriott cards.' },
