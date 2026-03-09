@@ -20,7 +20,7 @@ import { cn } from '@/lib/utils';
 
 const emptyCard: Omit<CreditCardType, 'id'> = {
   name: '', issuer: '', network: 'Visa', cardType: 'personal', status: 'active',
-  openDate: new Date().toISOString().split('T')[0], annualFee: 0, annualFeeMonth: 1,
+  openDate: new Date().toISOString().split('T')[0], annualFee: 0, annualFeeMonth: new Date().getMonth() + 1,
   countsToward524: true, category: 'other', decision: 'undecided', tags: [], notes: '',
 };
 
@@ -259,7 +259,7 @@ export default function MyCards() {
               <div><Label>Card Name</Label><Input value={form.name} onChange={e => setForm({...form, name: e.target.value})} /></div>
               <div><Label>Issuer</Label><Input value={form.issuer} onChange={e => setForm({...form, issuer: e.target.value})} /></div>
             </div>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               <div>
                 <Label>Network</Label>
                 <Select value={form.network} onValueChange={v => setForm({...form, network: v as CardNetwork})}>
@@ -279,32 +279,17 @@ export default function MyCards() {
                   </SelectContent>
                 </Select>
               </div>
-              <div>
-                <Label>Status</Label>
-                <Select value={form.status} onValueChange={v => setForm({...form, status: v as CardStatus})}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="active">Active</SelectItem>
-                    <SelectItem value="closed">Closed</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <div><Label>Open Date</Label><Input type="date" value={form.openDate} onChange={e => setForm({...form, openDate: e.target.value})} /></div>
+              <div><Label>Open Date</Label><Input type="date" value={form.openDate} onChange={e => {
+                const newDate = e.target.value;
+                const month = newDate ? new Date(newDate).getMonth() + 1 : form.annualFeeMonth;
+                setForm({...form, openDate: newDate, annualFeeMonth: month});
+              }} /></div>
               <div><Label>Product Change Date</Label><Input type="date" value={form.productChangeDate || ''} onChange={e => setForm({...form, productChangeDate: e.target.value || undefined})} /></div>
             </div>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               <div><Label>Annual Fee ($)</Label><Input type="number" value={form.annualFee} onChange={e => setForm({...form, annualFee: Number(e.target.value)})} /></div>
-              <div>
-                <Label>Fee Month</Label>
-                <Select value={String(form.annualFeeMonth)} onValueChange={v => setForm({...form, annualFeeMonth: Number(v)})}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    {Array.from({length:12},(_,i)=>i+1).map(m => <SelectItem key={m} value={String(m)}>{getMonthName(m)}</SelectItem>)}
-                  </SelectContent>
-                </Select>
-              </div>
               <div>
                 <Label>Category</Label>
                 <Select value={form.category} onValueChange={v => setForm({...form, category: v as CardCategory})}>
@@ -315,18 +300,7 @@ export default function MyCards() {
                 </Select>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <Label>Decision</Label>
-                <Select value={form.decision} onValueChange={v => setForm({...form, decision: v as CardDecision})}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    {(['keep','downgrade','cancel','undecided'] as const).map(d => <SelectItem key={d} value={d} className="capitalize">{d}</SelectItem>)}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div><Label>Signup Bonus Date</Label><Input type="date" value={form.signupBonusDate || ''} onChange={e => setForm({...form, signupBonusDate: e.target.value || undefined})} /></div>
-            </div>
+            <div><Label>Signup Bonus Date</Label><Input type="date" value={form.signupBonusDate || ''} onChange={e => setForm({...form, signupBonusDate: e.target.value || undefined})} /></div>
             <div><Label>Notes</Label><Textarea value={form.notes} onChange={e => setForm({...form, notes: e.target.value})} rows={3} /></div>
           </div>
           <div className="flex justify-end gap-2">
