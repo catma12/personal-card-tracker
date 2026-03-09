@@ -31,21 +31,25 @@ export default function CardImportBlock({ jsonString }: CardImportBlockProps) {
     try {
       for (const c of parsedCards) {
         const cardId = crypto.randomUUID();
+        // Look up known card to get current annual fee
+        const knownCard = knownCards.find(
+          k => k.name.toLowerCase() === (c.name || '').toLowerCase()
+        );
         const card: CreditCard = {
           id: cardId,
           name: c.name || 'Unknown Card',
-          issuer: c.issuer || 'Unknown',
-          network: c.network || 'Visa',
+          issuer: c.issuer || knownCard?.issuer || 'Unknown',
+          network: c.network || knownCard?.network || 'Visa',
           openDate: c.openDate || new Date().toISOString().slice(0, 10),
           cardType: c.cardType || 'personal',
           status: c.status || 'active',
-          annualFee: c.annualFee ?? 0,
+          annualFee: knownCard?.annualFee ?? c.annualFee ?? 0,
           annualFeeMonth: c.annualFeeMonth ?? (c.openDate ? new Date(c.openDate).getMonth() + 1 : 1),
           countsToward524: c.countsToward524 ?? true,
           signupBonusDate: c.signupBonusDate || undefined,
           productChangeDate: c.productChangeDate || undefined,
           lastAnnualFeeDate: c.lastAnnualFeeDate || undefined,
-          category: c.category || 'other',
+          category: c.category || knownCard?.category || 'other',
           decision: 'undecided',
           tags: c.tags || [],
           notes: c.notes || '',
