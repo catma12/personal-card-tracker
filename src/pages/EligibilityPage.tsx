@@ -254,10 +254,20 @@ export default function EligibilityPage() {
             ))}
           </SelectContent>
         </Select>
-        {(statusFilter !== 'all' || issuerFilter !== 'all') && (
+        <Select value={offerFilter} onValueChange={v => setOfferFilter(v as typeof offerFilter)}>
+          <SelectTrigger className="w-[200px]">
+            <SelectValue placeholder="Filter by offer" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Offers</SelectItem>
+            <SelectItem value="highest">Highest Known Offer</SelectItem>
+            <SelectItem value="not-highest">Below Historical High</SelectItem>
+          </SelectContent>
+        </Select>
+        {(statusFilter !== 'all' || issuerFilter !== 'all' || offerFilter !== 'all') && (
           <button
             className="text-sm text-muted-foreground hover:text-foreground underline"
-            onClick={() => { setStatusFilter('all'); setIssuerFilter('all'); }}
+            onClick={() => { setStatusFilter('all'); setIssuerFilter('all'); setOfferFilter('all'); }}
           >
             Clear filters
           </button>
