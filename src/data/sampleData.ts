@@ -1,0 +1,220 @@
+import { CreditCard, CardBenefit, AppSettings } from '@/types/cards';
+
+const today = new Date();
+const year = today.getFullYear();
+
+function d(y: number, m: number, day: number) {
+  return new Date(y, m - 1, day).toISOString().split('T')[0];
+}
+
+export const sampleCards: CreditCard[] = [
+  {
+    id: 'csp',
+    name: 'Chase Sapphire Preferred',
+    issuer: 'Chase',
+    network: 'Visa',
+    cardType: 'personal',
+    status: 'active',
+    openDate: d(year - 2, 3, 15),
+    annualFee: 95,
+    annualFeeMonth: 3,
+    lastAnnualFeeDate: d(year, 3, 1),
+    countsToward524: true,
+    signupBonusDate: d(year - 2, 6, 20),
+    category: 'travel',
+    decision: 'keep',
+    tags: ['travel', 'points'],
+    notes: 'Primary travel card. Transfer partners: Hyatt, United, Southwest.',
+  },
+  {
+    id: 'csr',
+    name: 'Chase Sapphire Reserve',
+    issuer: 'Chase',
+    network: 'Visa',
+    cardType: 'personal',
+    status: 'active',
+    openDate: d(year - 1, 8, 10),
+    annualFee: 550,
+    annualFeeMonth: 8,
+    countsToward524: true,
+    category: 'travel',
+    decision: 'keep',
+    tags: ['travel', 'lounge'],
+    notes: '$300 travel credit, Priority Pass lounge access.',
+  },
+  {
+    id: 'amex-plat',
+    name: 'Amex Platinum',
+    issuer: 'American Express',
+    network: 'Amex',
+    cardType: 'personal',
+    status: 'active',
+    openDate: d(year - 1, 1, 5),
+    annualFee: 695,
+    annualFeeMonth: 1,
+    lastAnnualFeeDate: d(year, 1, 5),
+    countsToward524: true,
+    signupBonusDate: d(year - 1, 4, 15),
+    category: 'travel',
+    decision: 'undecided',
+    tags: ['travel', 'lounge', 'premium'],
+    notes: 'Centurion Lounge, multiple credits to maximize.',
+  },
+  {
+    id: 'amex-gold',
+    name: 'Amex Gold',
+    issuer: 'American Express',
+    network: 'Amex',
+    cardType: 'personal',
+    status: 'active',
+    openDate: d(year - 1, 5, 20),
+    annualFee: 250,
+    annualFeeMonth: 5,
+    countsToward524: true,
+    category: 'travel',
+    decision: 'keep',
+    tags: ['dining', 'groceries'],
+    notes: '4x dining, 4x groceries. $10/mo Uber, $10/mo dining credits.',
+  },
+  {
+    id: 'marriott-boundless',
+    name: 'Marriott Bonvoy Boundless',
+    issuer: 'Chase',
+    network: 'Visa',
+    cardType: 'personal',
+    status: 'active',
+    openDate: d(year, 1, 12),
+    annualFee: 95,
+    annualFeeMonth: 1,
+    countsToward524: true,
+    category: 'hotel',
+    decision: 'undecided',
+    tags: ['hotel', 'marriott'],
+    notes: 'Free night certificate up to 35K points.',
+  },
+  {
+    id: 'united-explorer',
+    name: 'United Explorer',
+    issuer: 'Chase',
+    network: 'Visa',
+    cardType: 'personal',
+    status: 'active',
+    openDate: d(year - 3, 9, 1),
+    annualFee: 95,
+    annualFeeMonth: 9,
+    countsToward524: true,
+    category: 'airline',
+    decision: 'downgrade',
+    tags: ['airline', 'united'],
+    notes: 'Free checked bag, 2 United Club passes/year.',
+  },
+  {
+    id: 'united-quest',
+    name: 'United Quest',
+    issuer: 'Chase',
+    network: 'Visa',
+    cardType: 'personal',
+    status: 'active',
+    openDate: d(year - 1, 11, 3),
+    annualFee: 250,
+    annualFeeMonth: 11,
+    countsToward524: true,
+    category: 'airline',
+    decision: 'keep',
+    tags: ['airline', 'united'],
+    notes: '$125 United purchase credit, 5K award miles back on saver awards.',
+  },
+  {
+    id: 'venture-x',
+    name: 'Capital One Venture X',
+    issuer: 'Capital One',
+    network: 'Visa',
+    cardType: 'personal',
+    status: 'active',
+    openDate: d(year, 2, 1),
+    annualFee: 395,
+    annualFeeMonth: 2,
+    countsToward524: true,
+    category: 'travel',
+    decision: 'keep',
+    tags: ['travel', 'lounge'],
+    notes: '$300 travel portal credit, 10K anniversary miles, Cap One Lounge.',
+  },
+];
+
+export const sampleBenefits: CardBenefit[] = [
+  // Amex Platinum credits
+  {
+    id: 'b1', cardId: 'amex-plat', name: 'Uber Credit',
+    creditType: 'monthly', totalAmount: 15, amountUsed: 15,
+    lastUsedDate: d(year, today.getMonth() + 1, 5), notes: '$15/mo, $20 in December',
+  },
+  {
+    id: 'b2', cardId: 'amex-plat', name: 'Digital Entertainment Credit',
+    creditType: 'monthly', totalAmount: 20, amountUsed: 20,
+    lastUsedDate: d(year, today.getMonth() + 1, 1), notes: 'Audible, Disney+, Peacock, etc.',
+  },
+  {
+    id: 'b3', cardId: 'amex-plat', name: 'Saks Credit (H1)',
+    creditType: 'semi-annual', totalAmount: 50, amountUsed: 0,
+    expirationDate: d(year, 6, 30), notes: '$50 Jan–Jun, $50 Jul–Dec',
+  },
+  {
+    id: 'b4', cardId: 'amex-plat', name: 'Airline Incidental Credit',
+    creditType: 'annual', totalAmount: 200, amountUsed: 75,
+    resetDate: d(year, 1, 1), notes: 'Select one airline per year.',
+  },
+  {
+    id: 'b5', cardId: 'amex-plat', name: 'Global Entry / TSA PreCheck Credit',
+    creditType: 'one-time', totalAmount: 100, amountUsed: 100,
+    lastUsedDate: d(year - 1, 6, 15), notes: 'Every 4 years. Used for Global Entry.',
+  },
+  // Amex Gold
+  {
+    id: 'b6', cardId: 'amex-gold', name: 'Uber Cash Credit',
+    creditType: 'monthly', totalAmount: 10, amountUsed: 0,
+    notes: '$10/mo Uber Cash.',
+  },
+  {
+    id: 'b7', cardId: 'amex-gold', name: 'Dining Credit',
+    creditType: 'monthly', totalAmount: 10, amountUsed: 10,
+    lastUsedDate: d(year, today.getMonth() + 1, 12), notes: 'Grubhub, Seamless, etc.',
+  },
+  // Chase Sapphire Reserve
+  {
+    id: 'b8', cardId: 'csr', name: 'Travel Credit',
+    creditType: 'anniversary-year', totalAmount: 300, amountUsed: 180,
+    notes: '$300 annual travel credit, resets on card anniversary.',
+  },
+  // Marriott Boundless
+  {
+    id: 'b9', cardId: 'marriott-boundless', name: 'Free Night Certificate',
+    creditType: 'annual', totalAmount: 1, amountUsed: 0,
+    expirationDate: d(year, 12, 31),
+    notes: 'Free night up to 35K points. Expires end of year.',
+  },
+  // United Quest
+  {
+    id: 'b10', cardId: 'united-quest', name: 'United Purchase Credit',
+    creditType: 'anniversary-year', totalAmount: 125, amountUsed: 50,
+    notes: '$125 back on United purchases.',
+  },
+  // Venture X
+  {
+    id: 'b11', cardId: 'venture-x', name: 'Travel Portal Credit',
+    creditType: 'anniversary-year', totalAmount: 300, amountUsed: 0,
+    notes: '$300 credit for Capital One Travel bookings.',
+  },
+  {
+    id: 'b12', cardId: 'venture-x', name: 'Anniversary Miles Bonus',
+    creditType: 'annual', totalAmount: 10000, amountUsed: 0,
+    notes: '10,000 bonus miles on anniversary.',
+  },
+];
+
+export const defaultSettings: AppSettings = {
+  reminderDays: 30,
+  defaultHideBusiness: false,
+  dateFormat: 'MM/dd/yyyy',
+  customTags: ['travel', 'hotel', 'airline', 'cashback', 'business', 'dining', 'groceries', 'lounge', 'premium', 'points', 'united', 'marriott'],
+};
