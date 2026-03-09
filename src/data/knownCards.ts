@@ -742,6 +742,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 99,
     category: 'airline',
+    currentOffer: { amount: '60,000 miles', spendRequirement: '$3,000 in 3 months' },
+    highestHistoricalOffer: { amount: '75,000 miles', spendRequirement: '$3,500 in 4 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 48, description: 'Citi 48-month rule: not eligible if you received any Citi AAdvantage bonus in the last 48 months.' },
