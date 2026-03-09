@@ -250,7 +250,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Walmart+ Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 12.95, notes: 'Walmart+ membership credit (~$155/yr).' },
       { name: 'Resy Dining Credit', creditType: 'quarterly', valueType: 'dollar', totalAmount: 100, notes: '$100/quarter at Resy-affiliated restaurants ($400/yr).' },
       { name: 'Lululemon Credit', creditType: 'quarterly', valueType: 'dollar', totalAmount: 75, notes: '$75/quarter at Lululemon ($300/yr).' },
-      { name: 'CLEAR Plus Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 17.42, notes: 'Monthly CLEAR Plus membership credit (~$209/yr).' },
+      { name: 'CLEAR Plus Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 209, notes: 'Up to $209/yr statement credit for CLEAR+ membership (calendar year).' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4 years.' },
     ],
     eligibilityRules: [
