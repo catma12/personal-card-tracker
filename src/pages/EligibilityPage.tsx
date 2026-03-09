@@ -50,6 +50,7 @@ export default function EligibilityPage() {
           currentOffer: known.currentOffer,
           highestHistoricalOffer: known.highestHistoricalOffer,
           isHighestOffer: !!(known.currentOffer && known.highestHistoricalOffer && known.currentOffer.amount === known.highestHistoricalOffer.amount),
+          applyUrl: known.applyUrl,
         });
         continue;
       }
