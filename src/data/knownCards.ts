@@ -302,7 +302,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Resy Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 50, notes: '$50 Jul–Dec at U.S. Resy restaurants.' },
     ],
     eligibilityRules: [
-      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule: not eligible if you have ever received the welcome bonus on this card.' },
+      { type: 'once-per-lifetime', conflictCards: ['Amex Gold', 'Amex Platinum', 'Amex Platinum for Schwab', 'Amex Platinum for Morgan Stanley'], description: 'Amex once-per-lifetime rule. Also ineligible if you have or have had the Platinum Card, Schwab Platinum, or Morgan Stanley Platinum (confirmed per official offer terms).' },
     ],
   },
   {
