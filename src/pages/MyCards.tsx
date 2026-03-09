@@ -179,6 +179,11 @@ export default function MyCards() {
               <TableBody>
                 {filtered.map(card => (
                   <TableRow key={card.id}>
+                    <TableCell>
+                      <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => updateCard({ ...card, starred: !card.starred })}>
+                        <Star className={cn("h-4 w-4", card.starred ? "fill-warning text-warning" : "text-muted-foreground")} />
+                      </Button>
+                    </TableCell>
                     <TableCell className="font-medium">{card.name}</TableCell>
                     <TableCell>{card.issuer}</TableCell>
                     <TableCell className="capitalize">{card.cardType}</TableCell>
