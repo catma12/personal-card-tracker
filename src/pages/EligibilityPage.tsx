@@ -288,6 +288,7 @@ export default function EligibilityPage() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Offers</SelectItem>
+            <SelectItem value="starred">⭐ Starred</SelectItem>
             <SelectItem value="highest">Highest Known Offer</SelectItem>
             <SelectItem value="not-highest">Below Historical High</SelectItem>
           </SelectContent>
