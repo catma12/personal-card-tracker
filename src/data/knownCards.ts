@@ -55,7 +55,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'travel',
-    currentOffer: { amount: '60,000 points', spendRequirement: '$4,000 in 3 months' },
+    currentOffer: { amount: '75,000 points', spendRequirement: '$5,000 in 3 months' },
     highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$4,000 in 3 months' },
     applyUrl: 'https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred',
     benefits: [
@@ -73,8 +73,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 795,
     category: 'travel',
-    currentOffer: { amount: '60,000 points', spendRequirement: '$4,000 in 3 months' },
-    highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$4,000 in 3 months' },
+    currentOffer: { amount: '125,000 points', spendRequirement: '$6,000 in 3 months' },
+    highestHistoricalOffer: { amount: '125,000 points', spendRequirement: '$6,000 in 3 months' },
     applyUrl: 'https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve',
     benefits: [
       { name: 'Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, notes: '$300 annual travel credit, auto-applied to travel purchases.' },
@@ -246,8 +246,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 895,
     category: 'travel',
-    currentOffer: { amount: '80,000 points', spendRequirement: '$8,000 in 6 months' },
-    highestHistoricalOffer: { amount: '150,000 points', spendRequirement: '$6,000 in 6 months' },
+    currentOffer: { amount: 'Up to 175,000 points', spendRequirement: '$12,000 in 6 months' },
+    highestHistoricalOffer: { amount: '175,000 points', spendRequirement: '$12,000 in 6 months' },
     applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/platinum/',
     benefits: [
       { name: 'Uber Cash Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 15, notes: '$15/mo, $20 in December ($200/yr total).' },
@@ -337,8 +337,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 695,
     category: 'business',
-    currentOffer: { amount: '120,000 points', spendRequirement: '$15,000 in 3 months' },
-    highestHistoricalOffer: { amount: '170,000 points', spendRequirement: '$15,000 in 3 months' },
+    currentOffer: { amount: '200,000 points', spendRequirement: '$15,000 in 3 months' },
+    highestHistoricalOffer: { amount: '200,000 points', spendRequirement: '$15,000 in 3 months' },
     applyUrl: 'https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-platinum-credit-card-amex/',
     benefits: [
       { name: 'Airline Incidental Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 airline incidental credit per calendar year.' },
@@ -551,7 +551,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 99,
     category: 'hotel',
-    currentOffer: { amount: '140,000 points', spendRequirement: '$3,000 in 3 months' },
+    currentOffer: { amount: '175,000 points', spendRequirement: '$3,000 in 3 months' },
     highestHistoricalOffer: { amount: '175,000 points', spendRequirement: '$3,000 in 3 months' },
     applyUrl: 'https://creditcards.chase.com/travel-credit-cards/ihg-one-rewards/premier',
     benefits: [
@@ -620,7 +620,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 150,
     category: 'airline',
-    currentOffer: { amount: '60,000 miles', spendRequirement: '$3,000 in 3 months' },
+    currentOffer: { amount: '70,000 miles', spendRequirement: '$3,000 in 3 months' },
     highestHistoricalOffer: { amount: '70,000 miles', spendRequirement: '$3,000 in 3 months' },
     applyUrl: 'https://creditcards.chase.com/travel-credit-cards/united/explorer',
     benefits: [

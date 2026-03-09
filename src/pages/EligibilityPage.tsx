@@ -28,6 +28,7 @@ export default function EligibilityPage() {
   const { cards } = useCards();
   const [statusFilter, setStatusFilter] = useState<EligibilityStatus | 'all'>('all');
   const [issuerFilter, setIssuerFilter] = useState<string>('all');
+  const [offerFilter, setOfferFilter] = useState<'all' | 'highest' | 'not-highest'>('all');
 
   const eligibility = useMemo(() => {
     const now = new Date();
@@ -158,9 +159,11 @@ export default function EligibilityPage() {
     return eligibility.filter(e => {
       if (statusFilter !== 'all' && e.status !== statusFilter) return false;
       if (issuerFilter !== 'all' && e.issuer !== issuerFilter) return false;
+      if (offerFilter === 'highest' && !e.isHighestOffer) return false;
+      if (offerFilter === 'not-highest' && e.isHighestOffer) return false;
       return true;
     });
-  }, [eligibility, statusFilter, issuerFilter]);
+  }, [eligibility, statusFilter, issuerFilter, offerFilter]);
 
   const statusIcon = (s: EligibilityStatus) => {
     switch (s) {
@@ -188,9 +191,9 @@ export default function EligibilityPage() {
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Bonus Eligibility</h1>
+          <h1 className="text-2xl font-bold">Welcome Bonus & Eligibility</h1>
           <p className="text-sm text-muted-foreground">
-            Check whether you're eligible for signup bonuses based on your current cards and issuer rules
+            Check current welcome offers and whether you're eligible based on your cards and issuer rules
           </p>
         </div>
         <p className="text-xs text-muted-foreground">
@@ -251,10 +254,20 @@ export default function EligibilityPage() {
             ))}
           </SelectContent>
         </Select>
-        {(statusFilter !== 'all' || issuerFilter !== 'all') && (
+        <Select value={offerFilter} onValueChange={v => setOfferFilter(v as typeof offerFilter)}>
+          <SelectTrigger className="w-[200px]">
+            <SelectValue placeholder="Filter by offer" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Offers</SelectItem>
+            <SelectItem value="highest">Highest Known Offer</SelectItem>
+            <SelectItem value="not-highest">Below Historical High</SelectItem>
+          </SelectContent>
+        </Select>
+        {(statusFilter !== 'all' || issuerFilter !== 'all' || offerFilter !== 'all') && (
           <button
             className="text-sm text-muted-foreground hover:text-foreground underline"
-            onClick={() => { setStatusFilter('all'); setIssuerFilter('all'); }}
+            onClick={() => { setStatusFilter('all'); setIssuerFilter('all'); setOfferFilter('all'); }}
           >
             Clear filters
           </button>
