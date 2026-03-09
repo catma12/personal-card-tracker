@@ -1,5 +1,5 @@
 import { useCards } from '@/context/CardContext';
-import { getChase524Count, getNextAnnualFee, getMonthlyCreditsAvailable, getUnusedCreditsThisYear, getExpiringBenefits, getUpcomingAnnualFees, getMonthName, formatDate } from '@/lib/dateUtils';
+import { getChase524Count, getNextAnnualFee, getMonthlyCreditsAvailable, getMonthlyCreditsUnused, getUnusedCreditsThisYear, getExpiringBenefits, getUpcomingAnnualFees, getMonthName, formatDate } from '@/lib/dateUtils';
 import { CreditCard, Target, Gift, AlertTriangle, DollarSign, Clock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
