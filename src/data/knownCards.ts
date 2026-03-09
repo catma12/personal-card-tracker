@@ -532,6 +532,9 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '60,000 points', spendRequirement: '$2,000 in 3 months' },
     applyUrl: 'https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bold',
     benefits: [],
+    eligibilityRules: [
+      { type: 'product-family', conflictCards: ['Marriott Bonvoy Bold', 'Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Chase Ritz-Carlton', 'Amex Brilliant', 'Marriott Bonvoy Bevy', 'Marriott Bonvoy Business'], cooldownMonths: 24, description: 'Marriott cross-issuer: Cannot hold a Chase Marriott card and an Amex Marriott card at the same time. 24-month bonus cooldown across all Marriott cards from any issuer.' },
+    ],
   },
   {
     name: 'Marriott Bonvoy Bountiful',
