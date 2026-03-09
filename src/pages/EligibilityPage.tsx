@@ -3,11 +3,15 @@ import { useCards } from '@/context/CardContext';
 import { knownCards, EligibilityRule, WelcomeOffer, OFFER_DATA_LAST_UPDATED } from '@/data/knownCards';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Shield, ShieldCheck, ShieldX, ShieldAlert, Info, Gift, TrendingUp, ExternalLink } from 'lucide-react';
+import { Shield, ShieldCheck, ShieldX, ShieldAlert, Info, Gift, TrendingUp, ExternalLink, Star } from 'lucide-react';
 import { differenceInMonths, parseISO, format } from 'date-fns';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/context/AuthContext';
+import { toast } from 'sonner';
 
 type EligibilityStatus = 'eligible' | 'ineligible' | 'warning' | 'unknown';
 
@@ -26,9 +30,35 @@ interface CardEligibility {
 
 export default function EligibilityPage() {
   const { cards } = useCards();
+  const { user } = useAuth();
   const [statusFilter, setStatusFilter] = useState<EligibilityStatus | 'all'>('all');
   const [issuerFilter, setIssuerFilter] = useState<string>('all');
-  const [offerFilter, setOfferFilter] = useState<'all' | 'highest' | 'not-highest'>('all');
+  const [offerFilter, setOfferFilter] = useState<'all' | 'highest' | 'not-highest' | 'starred'>('all');
+  const [starredOffers, setStarredOffers] = useState<Set<string>>(new Set());
+
+  // Load starred offers
+  useState(() => {
+    if (!user) return;
+    supabase.from('starred_offers').select('card_name').then(({ data }) => {
+      if (data) setStarredOffers(new Set(data.map(d => d.card_name)));
+    });
+  });
+
+  const toggleStar = async (cardName: string) => {
+    if (!user) return;
+    const isStarred = starredOffers.has(cardName);
+    const next = new Set(starredOffers);
+    if (isStarred) {
+      next.delete(cardName);
+      setStarredOffers(next);
+      await supabase.from('starred_offers').delete().eq('user_id', user.id).eq('card_name', cardName);
+    } else {
+      next.add(cardName);
+      setStarredOffers(next);
+      const { error } = await supabase.from('starred_offers').insert({ user_id: user.id, card_name: cardName } as any);
+      if (error) toast.error('Failed to star offer');
+    }
+  };
 
   const eligibility = useMemo(() => {
     const now = new Date();
@@ -160,9 +190,10 @@ export default function EligibilityPage() {
       if (issuerFilter !== 'all' && e.issuer !== issuerFilter) return false;
       if (offerFilter === 'highest' && !e.isHighestOffer) return false;
       if (offerFilter === 'not-highest' && e.isHighestOffer) return false;
+      if (offerFilter === 'starred' && !starredOffers.has(e.cardName)) return false;
       return true;
     });
-  }, [eligibility, statusFilter, issuerFilter, offerFilter]);
+  }, [eligibility, statusFilter, issuerFilter, offerFilter, starredOffers]);
 
   const statusIcon = (s: EligibilityStatus) => {
     switch (s) {
@@ -257,6 +288,7 @@ export default function EligibilityPage() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Offers</SelectItem>
+            <SelectItem value="starred">⭐ Starred</SelectItem>
             <SelectItem value="highest">Highest Known Offer</SelectItem>
             <SelectItem value="not-highest">Below Historical High</SelectItem>
           </SelectContent>
@@ -295,7 +327,12 @@ export default function EligibilityPage() {
               key={item.cardName}
               className="flex items-start gap-3 p-3 rounded-lg border bg-card"
             >
-              <div className="mt-0.5">{statusIcon(item.status)}</div>
+              <div className="mt-0.5 flex flex-col items-center gap-1">
+                {statusIcon(item.status)}
+                <button onClick={() => toggleStar(item.cardName)} className="hover:scale-110 transition-transform">
+                  <Star className={cn("h-4 w-4", starredOffers.has(item.cardName) ? "fill-warning text-warning" : "text-muted-foreground/40 hover:text-muted-foreground")} />
+                </button>
+              </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2 flex-wrap">

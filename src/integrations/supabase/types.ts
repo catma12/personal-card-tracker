@@ -169,6 +169,27 @@ export type Database = {
         }
         Relationships: []
       }
+      starred_offers: {
+        Row: {
+          card_name: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          card_name: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          card_name?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_settings: {
         Row: {
           created_at: string
