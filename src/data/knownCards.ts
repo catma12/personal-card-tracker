@@ -268,7 +268,7 @@ export const knownCards: KnownCardInfo[] = [
     applyUrl: 'https://www.schwab.com/credit-cards/platinum-card',
     benefits: [],
     eligibilityRules: [
-      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule. Note: Schwab Platinum is treated as a separate product from the regular Platinum.' },
+      { type: 'once-per-lifetime', conflictCards: ['Amex Platinum for Schwab', 'Amex Platinum', 'Amex Gold', 'Amex Green', 'Amex Platinum for Morgan Stanley'], description: 'Amex once-per-lifetime rule. Schwab Platinum is a separate product but cross-restricted with other Amex charge cards.' },
     ],
   },
   {
