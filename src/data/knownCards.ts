@@ -579,6 +579,9 @@ export const knownCards: KnownCardInfo[] = [
     category: 'airline',
     benefits: [
       { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Delta flight credit after $10K spend.' },
+      { name: 'Delta Stays Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Delta Stays hotel credit.' },
+      { name: 'Resy Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 50, notes: '$50 Jan–Jun at U.S. Resy restaurants.' },
+      { name: 'Resy Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 50, notes: '$50 Jul–Dec at U.S. Resy restaurants.' },
       { name: 'Companion Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Domestic companion certificate after $25K spend.' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4.5 years.' },
     ],
@@ -594,6 +597,9 @@ export const knownCards: KnownCardInfo[] = [
     category: 'airline',
     benefits: [
       { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Delta flight credit.' },
+      { name: 'Delta Stays Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Delta Stays hotel credit.' },
+      { name: 'Resy Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Jan–Jun at U.S. Resy restaurants.' },
+      { name: 'Resy Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Jul–Dec at U.S. Resy restaurants.' },
       { name: 'Companion Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Domestic first class companion certificate.' },
       { name: 'Delta Sky Club Access', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Delta Sky Club access when flying Delta.' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4.5 years.' },
