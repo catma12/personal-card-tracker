@@ -12,6 +12,7 @@ import Credits from "./pages/Credits";
 import Chase524 from "./pages/Chase524";
 import CalendarPage from "./pages/CalendarPage";
 import SettingsPage from "./pages/SettingsPage";
+import EligibilityPage from "./pages/EligibilityPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
