@@ -248,6 +248,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 895,
     category: 'travel',
+    currentOffer: { amount: '80,000 points', spendRequirement: '$6,000 in 6 months' },
+    highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$6,000 in 6 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule. Note: Schwab Platinum is treated as a separate product from the regular Platinum.' },
