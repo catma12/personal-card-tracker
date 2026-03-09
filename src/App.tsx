@@ -16,6 +16,7 @@ import SettingsPage from "./pages/SettingsPage";
 import EligibilityPage from "./pages/EligibilityPage";
 import TransferPartners from "./pages/TransferPartners";
 import AuthPage from "./pages/AuthPage";
+import AdvisorPage from "./pages/AdvisorPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,6 +45,7 @@ function ProtectedRoutes() {
           <Route path="/eligibility" element={<EligibilityPage />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/transfer-partners" element={<TransferPartners />} />
+          <Route path="/advisor" element={<AdvisorPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

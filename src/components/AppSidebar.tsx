@@ -7,6 +7,7 @@ import {
   Settings,
   ShieldCheck,
   ArrowRightLeft,
+  Sparkles,
 } from 'lucide-react';
 import { NavLink } from '@/components/NavLink';
 import { useLocation } from 'react-router-dom';
@@ -31,6 +32,7 @@ const navItems = [
   { title: 'Calendar', url: '/calendar', icon: CalendarDays },
   { title: 'Welcome Bonus Eligibility', url: '/eligibility', icon: ShieldCheck },
   { title: 'Transfer Partners', url: '/transfer-partners', icon: ArrowRightLeft },
+  { title: 'Card Advisor', url: '/advisor', icon: Sparkles },
   { title: 'Settings', url: '/settings', icon: Settings },
 ];
 
