@@ -912,6 +912,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 95,
     category: 'travel',
+    currentOffer: { amount: '75,000 points', spendRequirement: '$4,000 in 3 months' },
+    highestHistoricalOffer: { amount: '80,000 points', spendRequirement: '$4,000 in 3 months' },
     benefits: [
       { name: 'Hotel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 annual hotel credit through Citi Travel portal.' },
     ],
