@@ -742,10 +742,11 @@ export const knownCards: KnownCardInfo[] = [
     benefits: [
       { name: 'United Club Membership', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Unlimited United Club lounge access.' },
       { name: 'Renowned Hotels Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 200, notes: 'Up to $200 for Renowned Hotels per anniversary year.' },
-      { name: 'Rideshare Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 12, notes: '$12/mo Jan–Nov, $18 Dec ($150/yr).' },
-      { name: 'Instacart+ Credits', creditType: 'monthly', valueType: 'dollar', totalAmount: 20, notes: '2x $10 Instacart+ credits/mo ($240/yr).' },
+      { name: 'Rideshare Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 12, notes: '$12/mo Jan–Nov, $18 Dec ($150/yr). Yearly opt-in required.' },
+      { name: 'Instacart Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 20, notes: '2x $10 Instacart credits/mo ($240/yr). Ends 12/31/27.' },
       { name: 'JSX Charter Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 200, notes: 'Up to $200 per anniversary year on JSX.' },
       { name: 'Avis/Budget Rental Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 100, notes: 'Up to $100 for Avis/Budget per anniversary year.' },
+      { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Up to $100 every 4 years.' },
     ],
   },
   {
