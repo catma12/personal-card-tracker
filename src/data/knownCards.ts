@@ -655,7 +655,7 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '75,000 points', spendRequirement: '$5,000 in 3 months' },
     applyUrl: 'https://creditcards.chase.com/business-credit-cards/world-of-hyatt/business',
     benefits: [
-      { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 15000, notes: 'Free night at any Category 1-4 Hyatt on anniversary.' },
+      { name: '15K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 15000, notes: 'Free night at any Category 1-4 Hyatt on anniversary.' },
     ],
   },
   {
