@@ -95,6 +95,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '$300 cash back', spendRequirement: '$500 in 3 months' },
+    highestHistoricalOffer: { amount: '$300 cash back', spendRequirement: '$500 in 3 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Freedom Unlimited bonus in the last 24 months.' },
