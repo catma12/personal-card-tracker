@@ -17,6 +17,9 @@ interface CardEligibility {
   status: EligibilityStatus;
   reasons: string[];
   rules: EligibilityRule[];
+  currentOffer?: WelcomeOffer;
+  highestHistoricalOffer?: WelcomeOffer;
+  isHighestOffer: boolean;
 }
 
 export default function EligibilityPage() {
