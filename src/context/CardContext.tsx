@@ -22,6 +22,7 @@ interface CardContextType {
   updateSettings: (settings: AppSettings) => void;
   getCardById: (id: string) => CreditCard | undefined;
   getBenefitsForCard: (cardId: string) => CardBenefit[];
+  syncBenefits: () => Promise<{ added: number; updated: number }>;
 }
 
 const CardContext = createContext<CardContextType | undefined>(undefined);
