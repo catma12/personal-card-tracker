@@ -30,9 +30,12 @@ export default function AuthPage() {
     } catch (err: any) {
       toast.error(err.message || 'Authentication failed');
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
+
+  if (authLoading) return null;
+  if (user) return <Navigate to="/" replace />;
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
