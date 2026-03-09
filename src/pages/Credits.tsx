@@ -265,6 +265,25 @@ export default function Credits() {
           });
         })()}
         {filtered.length === 0 && <p className="text-center py-8 text-muted-foreground">No benefits found</p>}
+        
+        {/* Cards without any benefits tracked */}
+        {(() => {
+          const cardIdsWithBenefits = new Set(benefits.map(b => b.cardId));
+          const cardsWithout = activeCards.filter(c => !cardIdsWithBenefits.has(c.id));
+          if (cardsWithout.length === 0) return null;
+          return (
+            <div className="mt-4 p-4 rounded-lg border border-dashed border-muted-foreground/30 bg-muted/20">
+              <p className="text-sm font-medium text-muted-foreground mb-2">Cards without tracked benefits</p>
+              <div className="flex flex-wrap gap-2">
+                {cardsWithout.map(c => (
+                  <Badge key={c.id} variant="outline" className="cursor-pointer hover:bg-accent" onClick={() => { setForm({...emptyBenefit, cardId: c.id}); setEditing(null); setDialogOpen(true); }}>
+                    + {c.name}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
