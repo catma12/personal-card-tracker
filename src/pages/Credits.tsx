@@ -13,7 +13,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
 import { Switch } from '@/components/ui/switch';
-import { Plus, Pencil, Trash2, Search, Check, X } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Plus, Pencil, Trash2, Search, Check, X, ChevronDown } from 'lucide-react';
 import { toast } from 'sonner';
 
 const emptyBenefit: Omit<CardBenefit, 'id'> = {
@@ -76,6 +77,12 @@ export default function Credits() {
   const [search, setSearch] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [filterType, setFilterType] = useState('all');
+  const [collapsedCards, setCollapsedCards] = useState<Record<string, boolean>>({});
+
+  const toggleCard = (cardId: string) => {
+    setCollapsedCards(prev => ({ ...prev, [cardId]: !prev[cardId] }));
+  };
+
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<CardBenefit | null>(null);
   const [form, setForm] = useState<Omit<CardBenefit, 'id'>>(emptyBenefit);
@@ -148,70 +155,91 @@ export default function Credits() {
         </Select>
       </div>
 
-      <div className="grid gap-3">
+      <div className="space-y-2">
         {(() => {
-          let lastCardId = '';
-          return filtered.map(b => {
+          // Group benefits by card
+          const groups: { cardId: string; cardName: string; issuer: string; openDate: string; benefits: typeof filtered }[] = [];
+          for (const b of filtered) {
             const card = getCardById(b.cardId);
-            const status = getBenefitStatus(b);
-            const isDollar = b.valueType === 'dollar';
-            const isRedeemable = b.valueType === 'certificate' || b.valueType === 'points';
-            const pct = isDollar && b.totalAmount > 0 ? Math.round((b.amountUsed / b.totalAmount) * 100) : (b.amountUsed > 0 ? 100 : 0);
-            const resetDate = getNextResetDate(b, card?.openDate);
-            const showCardHeader = card && card.id !== lastCardId;
-            if (card) lastCardId = card.id;
+            if (!card) continue;
+            let group = groups.find(g => g.cardId === card.id);
+            if (!group) {
+              group = { cardId: card.id, cardName: card.name, issuer: card.issuer, openDate: card.openDate, benefits: [] };
+              groups.push(group);
+            }
+            group.benefits.push(b);
+          }
+
+          return groups.map(group => {
+            const isOpen = collapsedCards[group.cardId] !== true;
             return (
-              <div key={b.id}>
-                {showCardHeader && (
-                  <div className="mt-4 mb-2 first:mt-0">
-                    <h3 className="text-sm font-semibold text-foreground">{card.name}</h3>
-                    <p className="text-xs text-muted-foreground">{card.issuer} · Opened {formatDate(card.openDate, 'MMM yyyy')}</p>
-                  </div>
-                )}
-                <Card className="overflow-hidden">
-                  <CardContent className="p-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-medium">{b.name}</span>
-                          {statusBadge(status)}
-                          <Badge variant="outline" className="text-xs capitalize">{b.creditType}</Badge>
-                          {isRedeemable && (
-                            <Badge variant="secondary" className="text-xs">{formatBenefitValue(b)}</Badge>
-                          )}
-                        </div>
-                        <div className="mt-2 flex items-center gap-3">
-                          {isDollar ? (
-                            <>
-                              <Progress value={pct} className="flex-1 h-2" />
-                              <span className="text-sm font-mono whitespace-nowrap">
-                                ${b.amountUsed} / ${b.totalAmount}
-                              </span>
-                            </>
-                          ) : (
-                            <div className="flex items-center gap-2">
-                              {b.amountUsed > 0 ? (
-                                <span className="flex items-center gap-1 text-sm text-success font-medium"><Check className="h-4 w-4" /> Redeemed</span>
-                              ) : (
-                                <span className="flex items-center gap-1 text-sm text-muted-foreground"><X className="h-4 w-4" /> Not redeemed</span>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                        <div className="mt-1 flex flex-wrap gap-x-4 gap-y-0.5">
-                          {resetDate && <p className="text-xs text-muted-foreground">Resets {resetDate}</p>}
-                          {b.expirationDate && <p className="text-xs text-muted-foreground">Expires {formatDate(b.expirationDate)}</p>}
-                        </div>
-                        {b.notes && <p className="text-xs text-muted-foreground mt-1">{b.notes}</p>}
-                      </div>
-                      <div className="flex gap-1 shrink-0">
-                        <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(b)}><Pencil className="h-3 w-3" /></Button>
-                        <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={() => { deleteBenefit(b.id); toast.success('Deleted'); }}><Trash2 className="h-3 w-3" /></Button>
-                      </div>
+              <Collapsible key={group.cardId} open={isOpen} onOpenChange={() => toggleCard(group.cardId)}>
+                <CollapsibleTrigger className="w-full">
+                  <div className="flex items-center justify-between p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors cursor-pointer">
+                    <div className="text-left">
+                      <h3 className="text-sm font-semibold text-foreground">{group.cardName}</h3>
+                      <p className="text-xs text-muted-foreground">{group.issuer} · Opened {formatDate(group.openDate, 'MMM yyyy')} · {group.benefits.length} benefit{group.benefits.length !== 1 ? 's' : ''}</p>
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
+                    <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${isOpen ? '' : '-rotate-90'}`} />
+                  </div>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="grid gap-2 pl-2 mt-2">
+                    {group.benefits.map(b => {
+                      const status = getBenefitStatus(b);
+                      const isDollar = b.valueType === 'dollar';
+                      const isRedeemable = b.valueType === 'certificate' || b.valueType === 'points';
+                      const pct = isDollar && b.totalAmount > 0 ? Math.round((b.amountUsed / b.totalAmount) * 100) : (b.amountUsed > 0 ? 100 : 0);
+                      const resetDate = getNextResetDate(b, group.openDate);
+                      return (
+                        <Card key={b.id} className="overflow-hidden">
+                          <CardContent className="p-4">
+                            <div className="flex items-start justify-between gap-3">
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <span className="font-medium">{b.name}</span>
+                                  {statusBadge(status)}
+                                  <Badge variant="outline" className="text-xs capitalize">{b.creditType}</Badge>
+                                  {isRedeemable && (
+                                    <Badge variant="secondary" className="text-xs">{formatBenefitValue(b)}</Badge>
+                                  )}
+                                </div>
+                                <div className="mt-2 flex items-center gap-3">
+                                  {isDollar ? (
+                                    <>
+                                      <Progress value={pct} className="flex-1 h-2" />
+                                      <span className="text-sm font-mono whitespace-nowrap">
+                                        ${b.amountUsed} / ${b.totalAmount}
+                                      </span>
+                                    </>
+                                  ) : (
+                                    <div className="flex items-center gap-2">
+                                      {b.amountUsed > 0 ? (
+                                        <span className="flex items-center gap-1 text-sm text-success font-medium"><Check className="h-4 w-4" /> Redeemed</span>
+                                      ) : (
+                                        <span className="flex items-center gap-1 text-sm text-muted-foreground"><X className="h-4 w-4" /> Not redeemed</span>
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+                                <div className="mt-1 flex flex-wrap gap-x-4 gap-y-0.5">
+                                  {resetDate && <p className="text-xs text-muted-foreground">Resets {resetDate}</p>}
+                                  {b.expirationDate && <p className="text-xs text-muted-foreground">Expires {formatDate(b.expirationDate)}</p>}
+                                </div>
+                                {b.notes && <p className="text-xs text-muted-foreground mt-1">{b.notes}</p>}
+                              </div>
+                              <div className="flex gap-1 shrink-0">
+                                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={(e) => { e.stopPropagation(); openEdit(b); }}><Pencil className="h-3 w-3" /></Button>
+                                <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={(e) => { e.stopPropagation(); deleteBenefit(b.id); toast.success('Deleted'); }}><Trash2 className="h-3 w-3" /></Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
             );
           });
         })()}
