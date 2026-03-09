@@ -682,11 +682,14 @@ export const knownCards: KnownCardInfo[] = [
     applyUrl: 'https://creditcards.chase.com/travel-credit-cards/united/explorer',
     benefits: [
       { name: 'United Club Passes', creditType: 'annual', valueType: 'certificate', totalAmount: 2, notes: '2 United Club one-time passes per year.' },
-      { name: 'United Travel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 United travel credit after $10K spend.' },
-      { name: 'United Hotels Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 100, notes: 'Up to $100 annually for United Hotels bookings.' },
-      { name: 'Rideshare Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 5, notes: '$5/mo rideshare credit ($60/yr).' },
+      { name: 'United Travel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 United TravelBank cash after $10K spend each calendar year.' },
+      { name: '10K Award Flight Discount (Spend)', creditType: 'annual', valueType: 'points', totalAmount: 10000, notes: '10,000-mile award flight discount after $20K spend each calendar year.' },
+      { name: 'United Hotels Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 100, notes: 'Up to $100 annually for United Hotels bookings ($50 each on 1st & 2nd stay).' },
+      { name: 'Rideshare Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 5, notes: '$5/mo rideshare credit ($60/yr). Yearly opt-in required.' },
+      { name: 'Instacart Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo Instacart credit ($120/yr). Ends 12/31/27.' },
       { name: 'JSX Charter Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 100, notes: 'Up to $100 per anniversary year on JSX.' },
-      { name: 'Instacart+ Credits', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo Instacart+ credit ($120/yr).' },
+      { name: 'Avis/Budget Rental Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 50, notes: '$25 TravelBank cash per rental, up to $50/yr for Avis/Budget via cars.united.com.' },
+      { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Up to $100 every 4 years.' },
     ],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the United Explorer bonus in the last 24 months or currently hold this card.' },
