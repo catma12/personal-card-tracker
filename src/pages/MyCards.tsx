@@ -2,15 +2,15 @@ import { useState, useMemo } from 'react';
 import { useCards } from '@/context/CardContext';
 import { CreditCard as CreditCardType, CardNetwork, CardType, CardStatus, CardCategory, CardDecision } from '@/types/cards';
 import { formatDate, getMonthName } from '@/lib/dateUtils';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { knownCards, findKnownCard, KnownCardInfo } from '@/data/knownCards';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
-import { Switch } from '@/components/ui/switch';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Plus, Pencil, Trash2, Search, Download } from 'lucide-react';
 import { toast } from 'sonner';
@@ -22,13 +22,14 @@ const emptyCard: Omit<CreditCardType, 'id'> = {
 };
 
 export default function MyCards() {
-  const { cards, addCard, updateCard, deleteCard } = useCards();
+  const { cards, addCard, updateCard, deleteCard, addBenefit } = useCards();
   const [search, setSearch] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | CardStatus>('all');
   const [filterType, setFilterType] = useState<'all' | CardType>('all');
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<CreditCardType | null>(null);
   const [form, setForm] = useState<Omit<CreditCardType, 'id'>>(emptyCard);
+  const [selectedKnown, setSelectedKnown] = useState<string>('');
 
   const filtered = useMemo(() => {
     return cards.filter(c => {
@@ -39,14 +40,32 @@ export default function MyCards() {
     });
   }, [cards, search, filterStatus, filterType]);
 
+  function prefillFromKnown(cardName: string) {
+    const known = findKnownCard(cardName);
+    if (known) {
+      setForm({
+        ...emptyCard,
+        name: known.name,
+        issuer: known.issuer,
+        network: known.network,
+        annualFee: known.annualFee,
+        category: known.category,
+        openDate: form.openDate,
+      });
+    }
+    setSelectedKnown(cardName);
+  }
+
   function openAdd() {
     setEditing(null);
     setForm(emptyCard);
+    setSelectedKnown('');
     setDialogOpen(true);
   }
   function openEdit(card: CreditCardType) {
     setEditing(card);
     setForm({ ...card });
+    setSelectedKnown('');
     setDialogOpen(true);
   }
   function handleSave() {
@@ -55,8 +74,27 @@ export default function MyCards() {
       updateCard({ ...form, id: editing.id });
       toast.success('Card updated');
     } else {
-      addCard({ ...form, id: crypto.randomUUID() });
-      toast.success('Card added');
+      const newId = crypto.randomUUID();
+      addCard({ ...form, id: newId });
+      // Auto-add benefits from known cards database
+      const known = findKnownCard(form.name);
+      if (known && known.benefits.length > 0) {
+        known.benefits.forEach(kb => {
+          addBenefit({
+            id: crypto.randomUUID(),
+            cardId: newId,
+            name: kb.name,
+            creditType: kb.creditType,
+            valueType: kb.valueType,
+            totalAmount: kb.totalAmount,
+            amountUsed: 0,
+            notes: kb.notes,
+          });
+        });
+        toast.success(`Card added with ${known.benefits.length} benefits`);
+      } else {
+        toast.success('Card added');
+      }
     }
     setDialogOpen(false);
   }
@@ -65,8 +103,8 @@ export default function MyCards() {
     toast.success('Card deleted');
   }
   function exportCSV() {
-    const headers = ['Name', 'Issuer', 'Network', 'Type', 'Status', 'Open Date', 'Annual Fee', 'Fee Month', '5/24', 'Category', 'Decision', 'Notes'];
-    const rows = cards.map(c => [c.name, c.issuer, c.network, c.cardType, c.status, c.openDate, c.annualFee, c.annualFeeMonth, c.countsToward524, c.category, c.decision, c.notes]);
+    const headers = ['Name', 'Issuer', 'Network', 'Type', 'Status', 'Open Date', 'Annual Fee', 'Fee Month', 'Category', 'Decision', 'Notes'];
+    const rows = cards.map(c => [c.name, c.issuer, c.network, c.cardType, c.status, c.openDate, c.annualFee, c.annualFeeMonth, c.category, c.decision, c.notes]);
     const csv = [headers, ...rows].map(r => r.map(v => `"${v}"`).join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
@@ -133,7 +171,6 @@ export default function MyCards() {
                   <TableHead>Type</TableHead>
                   <TableHead>Opened</TableHead>
                   <TableHead>Annual Fee</TableHead>
-                  <TableHead>5/24</TableHead>
                   <TableHead>Decision</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead className="w-[80px]"></TableHead>
@@ -148,7 +185,6 @@ export default function MyCards() {
                     <TableCell className="capitalize">{card.cardType}</TableCell>
                     <TableCell className="font-mono text-xs">{formatDate(card.openDate, 'MMM yyyy')}</TableCell>
                     <TableCell>${card.annualFee}{card.annualFee > 0 && <span className="text-xs text-muted-foreground ml-1">/{getMonthName(card.annualFeeMonth).slice(0,3)}</span>}</TableCell>
-                    <TableCell>{card.countsToward524 ? <Badge variant="outline" className="text-xs">Yes</Badge> : '—'}</TableCell>
                     <TableCell><span className={`text-xs px-2 py-0.5 rounded-full font-medium ${decisionColor(card.decision)}`}>{card.decision}</span></TableCell>
                     <TableCell><Badge variant={card.status === 'active' ? 'default' : 'secondary'}>{card.status}</Badge></TableCell>
                     <TableCell>
@@ -160,7 +196,7 @@ export default function MyCards() {
                   </TableRow>
                 ))}
                 {filtered.length === 0 && (
-                  <TableRow><TableCell colSpan={10} className="text-center py-8 text-muted-foreground">No cards found</TableCell></TableRow>
+                  <TableRow><TableCell colSpan={9} className="text-center py-8 text-muted-foreground">No cards found</TableCell></TableRow>
                 )}
               </TableBody>
             </Table>
@@ -175,6 +211,20 @@ export default function MyCards() {
             <DialogTitle>{editing ? 'Edit Card' : 'Add Card'}</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-2">
+            {/* Card picker for pre-fill (only when adding) */}
+            {!editing && (
+              <div>
+                <Label>Quick Select (auto-fills details)</Label>
+                <Select value={selectedKnown} onValueChange={prefillFromKnown}>
+                  <SelectTrigger><SelectValue placeholder="Choose a known card..." /></SelectTrigger>
+                  <SelectContent>
+                    {knownCards.map(c => (
+                      <SelectItem key={c.name} value={c.name}>{c.name} — {c.issuer} (${c.annualFee}/yr)</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
             <div className="grid grid-cols-2 gap-3">
               <div><Label>Card Name</Label><Input value={form.name} onChange={e => setForm({...form, name: e.target.value})} /></div>
               <div><Label>Issuer</Label><Input value={form.issuer} onChange={e => setForm({...form, issuer: e.target.value})} /></div>
@@ -245,12 +295,8 @@ export default function MyCards() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="flex items-end gap-2 pb-1">
-                <Switch checked={form.countsToward524} onCheckedChange={v => setForm({...form, countsToward524: v})} />
-                <Label>Counts toward 5/24</Label>
-              </div>
+              <div><Label>Signup Bonus Date</Label><Input type="date" value={form.signupBonusDate || ''} onChange={e => setForm({...form, signupBonusDate: e.target.value || undefined})} /></div>
             </div>
-            <div><Label>Signup Bonus Date</Label><Input type="date" value={form.signupBonusDate || ''} onChange={e => setForm({...form, signupBonusDate: e.target.value || undefined})} /></div>
             <div><Label>Notes</Label><Textarea value={form.notes} onChange={e => setForm({...form, notes: e.target.value})} rows={3} /></div>
           </div>
           <div className="flex justify-end gap-2">

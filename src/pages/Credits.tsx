@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useCards } from '@/context/CardContext';
-import { CardBenefit, CreditResetType } from '@/types/cards';
+import { CardBenefit, CreditResetType, BenefitValueType } from '@/types/cards';
 import { getBenefitStatus, formatDate } from '@/lib/dateUtils';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,11 +11,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
-import { Plus, Pencil, Trash2, Search } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Plus, Pencil, Trash2, Search, Check, X } from 'lucide-react';
 import { toast } from 'sonner';
 
 const emptyBenefit: Omit<CardBenefit, 'id'> = {
-  cardId: '', name: '', creditType: 'monthly', totalAmount: 0, amountUsed: 0, notes: '',
+  cardId: '', name: '', creditType: 'monthly', valueType: 'dollar', totalAmount: 0, amountUsed: 0, notes: '',
 };
 
 const statusBadge = (status: string) => {
@@ -26,6 +27,29 @@ const statusBadge = (status: string) => {
     default: return <Badge className="bg-success/10 text-success border-success/20">Unused</Badge>;
   }
 };
+
+function formatBenefitValue(b: CardBenefit) {
+  if (b.valueType === 'certificate') {
+    if (b.totalAmount >= 1000) {
+      return `${(b.totalAmount / 1000).toFixed(0)}K pts`;
+    }
+    return `${b.totalAmount}`;
+  }
+  if (b.valueType === 'points') {
+    if (b.totalAmount >= 1000) {
+      return `${(b.totalAmount / 1000).toFixed(0)}K pts`;
+    }
+    return `${b.totalAmount} pts`;
+  }
+  return `$${b.totalAmount}`;
+}
+
+function formatBenefitProgress(b: CardBenefit) {
+  if (b.valueType === 'certificate' || b.valueType === 'points') {
+    return b.amountUsed > 0 ? 'Redeemed' : 'Not redeemed';
+  }
+  return `$${b.amountUsed} / $${b.totalAmount}`;
+}
 
 export default function Credits() {
   const { cards, benefits, addBenefit, updateBenefit, deleteBenefit, getCardById } = useCards();
@@ -102,7 +126,9 @@ export default function Credits() {
         {filtered.map(b => {
           const card = getCardById(b.cardId);
           const status = getBenefitStatus(b);
-          const pct = b.totalAmount > 0 ? Math.round((b.amountUsed / b.totalAmount) * 100) : 0;
+          const isDollar = b.valueType === 'dollar';
+          const isRedeemable = b.valueType === 'certificate' || b.valueType === 'points';
+          const pct = isDollar && b.totalAmount > 0 ? Math.round((b.amountUsed / b.totalAmount) * 100) : (b.amountUsed > 0 ? 100 : 0);
           return (
             <Card key={b.id} className="overflow-hidden">
               <CardContent className="p-4">
@@ -112,13 +138,28 @@ export default function Credits() {
                       <span className="font-medium">{b.name}</span>
                       {statusBadge(status)}
                       <Badge variant="outline" className="text-xs capitalize">{b.creditType}</Badge>
+                      {isRedeemable && (
+                        <Badge variant="secondary" className="text-xs">{formatBenefitValue(b)}</Badge>
+                      )}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">{card?.name || 'Unknown card'}</p>
                     <div className="mt-2 flex items-center gap-3">
-                      <Progress value={pct} className="flex-1 h-2" />
-                      <span className="text-sm font-mono whitespace-nowrap">
-                        ${b.amountUsed} / ${b.totalAmount}
-                      </span>
+                      {isDollar ? (
+                        <>
+                          <Progress value={pct} className="flex-1 h-2" />
+                          <span className="text-sm font-mono whitespace-nowrap">
+                            ${b.amountUsed} / ${b.totalAmount}
+                          </span>
+                        </>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          {b.amountUsed > 0 ? (
+                            <span className="flex items-center gap-1 text-sm text-success font-medium"><Check className="h-4 w-4" /> Redeemed</span>
+                          ) : (
+                            <span className="flex items-center gap-1 text-sm text-muted-foreground"><X className="h-4 w-4" /> Not redeemed</span>
+                          )}
+                        </div>
+                      )}
                     </div>
                     {b.expirationDate && <p className="text-xs text-muted-foreground mt-1">Expires {formatDate(b.expirationDate)}</p>}
                     {b.notes && <p className="text-xs text-muted-foreground mt-1">{b.notes}</p>}
@@ -157,12 +198,41 @@ export default function Credits() {
                   </SelectContent>
                 </Select>
               </div>
-              <div><Label>Total Amount ($)</Label><Input type="number" value={form.totalAmount} onChange={e => setForm({...form, totalAmount: Number(e.target.value)})} /></div>
+              <div>
+                <Label>Value Type</Label>
+                <Select value={form.valueType} onValueChange={v => setForm({...form, valueType: v as BenefitValueType})}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="dollar">Dollar ($)</SelectItem>
+                    <SelectItem value="points">Points/Miles</SelectItem>
+                    <SelectItem value="certificate">Certificate</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div><Label>Amount Used ($)</Label><Input type="number" value={form.amountUsed} onChange={e => setForm({...form, amountUsed: Number(e.target.value)})} /></div>
-              <div><Label>Expiration Date</Label><Input type="date" value={form.expirationDate || ''} onChange={e => setForm({...form, expirationDate: e.target.value || undefined})} /></div>
-            </div>
+            {form.valueType === 'dollar' ? (
+              <div className="grid grid-cols-2 gap-3">
+                <div><Label>Total Amount ($)</Label><Input type="number" value={form.totalAmount} onChange={e => setForm({...form, totalAmount: Number(e.target.value)})} /></div>
+                <div><Label>Amount Used ($)</Label><Input type="number" value={form.amountUsed} onChange={e => setForm({...form, amountUsed: Number(e.target.value)})} /></div>
+              </div>
+            ) : form.valueType === 'points' ? (
+              <div className="grid grid-cols-2 gap-3">
+                <div><Label>Points/Miles Amount</Label><Input type="number" value={form.totalAmount} onChange={e => setForm({...form, totalAmount: Number(e.target.value)})} /></div>
+                <div className="flex items-end gap-2 pb-1">
+                  <Switch checked={form.amountUsed > 0} onCheckedChange={v => setForm({...form, amountUsed: v ? form.totalAmount : 0})} />
+                  <Label>Redeemed</Label>
+                </div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-3">
+                <div><Label>Point Value (if applicable)</Label><Input type="number" value={form.totalAmount} onChange={e => setForm({...form, totalAmount: Number(e.target.value)})} placeholder="e.g. 35000" /></div>
+                <div className="flex items-end gap-2 pb-1">
+                  <Switch checked={form.amountUsed > 0} onCheckedChange={v => setForm({...form, amountUsed: v ? 1 : 0})} />
+                  <Label>Redeemed</Label>
+                </div>
+              </div>
+            )}
+            <div><Label>Expiration Date</Label><Input type="date" value={form.expirationDate || ''} onChange={e => setForm({...form, expirationDate: e.target.value || undefined})} /></div>
             <div><Label>Notes</Label><Textarea value={form.notes} onChange={e => setForm({...form, notes: e.target.value})} rows={2} /></div>
           </div>
           <div className="flex justify-end gap-2">
