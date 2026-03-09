@@ -4,15 +4,33 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Bot, User, Send, Sparkles, Trash2, Plus } from 'lucide-react';
+import { Bot, User, Send, Sparkles, Trash2, ImagePlus, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import CardImportBlock from '@/components/CardImportBlock';
 
-type Message = { role: 'user' | 'assistant'; content: string };
+type MessageContent =
+  | string
+  | Array<{ type: 'text'; text: string } | { type: 'image_url'; image_url: { url: string } }>;
+
+type Message = { role: 'user' | 'assistant'; content: MessageContent };
+
+function getTextContent(content: MessageContent): string {
+  if (typeof content === 'string') return content;
+  return content
+    .filter((p): p is { type: 'text'; text: string } => p.type === 'text')
+    .map(p => p.text)
+    .join('');
+}
+
+function getImages(content: MessageContent): string[] {
+  if (typeof content === 'string') return [];
+  return content
+    .filter((p): p is { type: 'image_url'; image_url: { url: string } } => p.type === 'image_url')
+    .map(p => p.image_url.url);
+}
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/card-advisor`;
 
@@ -24,13 +42,24 @@ const SUGGESTIONS = [
   "Should I downgrade or cancel my card before the annual fee hits?",
 ];
 
+function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
 export default function AdvisorPage() {
   const { cards } = useCards();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
+  const [pendingImages, setPendingImages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -129,12 +158,29 @@ export default function AdvisorPage() {
 
   const send = async (text?: string) => {
     const messageText = text || input.trim();
-    if (!messageText || isLoading) return;
+    if ((!messageText && pendingImages.length === 0) || isLoading) return;
 
-    const userMsg: Message = { role: 'user', content: messageText };
+    let userContent: MessageContent;
+    if (pendingImages.length > 0) {
+      const parts: MessageContent = [];
+      if (messageText) {
+        parts.push({ type: 'text', text: messageText });
+      } else {
+        parts.push({ type: 'text', text: 'Please analyze this image and extract any credit card information you can find.' });
+      }
+      for (const img of pendingImages) {
+        parts.push({ type: 'image_url', image_url: { url: img } });
+      }
+      userContent = parts;
+    } else {
+      userContent = messageText;
+    }
+
+    const userMsg: Message = { role: 'user', content: userContent };
     const newMessages = [...messages, userMsg];
     setMessages(newMessages);
     setInput('');
+    setPendingImages([]);
     setIsLoading(true);
 
     try {
@@ -142,7 +188,6 @@ export default function AdvisorPage() {
     } catch (e) {
       console.error(e);
       toast.error(e instanceof Error ? e.message : 'Failed to get response');
-      // Remove the user message if we failed
       setMessages(prev => {
         if (prev[prev.length - 1]?.role === 'assistant' && prev[prev.length - 1]?.content === '') {
           return prev.slice(0, -1);
@@ -161,9 +206,48 @@ export default function AdvisorPage() {
     }
   };
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
+
+    for (const file of Array.from(files)) {
+      if (!file.type.startsWith('image/')) {
+        toast.error('Only image files are supported');
+        continue;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        toast.error('Image must be under 10MB');
+        continue;
+      }
+      const base64 = await fileToBase64(file);
+      setPendingImages(prev => [...prev, base64]);
+    }
+    // Reset input so the same file can be selected again
+    e.target.value = '';
+  };
+
+  const handlePaste = async (e: React.ClipboardEvent) => {
+    const items = e.clipboardData.items;
+    for (const item of Array.from(items)) {
+      if (item.type.startsWith('image/')) {
+        e.preventDefault();
+        const file = item.getAsFile();
+        if (file) {
+          const base64 = await fileToBase64(file);
+          setPendingImages(prev => [...prev, base64]);
+        }
+      }
+    }
+  };
+
+  const removeImage = (index: number) => {
+    setPendingImages(prev => prev.filter((_, i) => i !== index));
+  };
+
   const clearChat = () => {
     setMessages([]);
     setInput('');
+    setPendingImages([]);
   };
 
   return (
@@ -196,7 +280,7 @@ export default function AdvisorPage() {
               </div>
               <h2 className="text-lg font-semibold">Card Strategy Advisor</h2>
               <p className="text-sm text-muted-foreground max-w-md">
-                Ask me about your next card, upgrade/downgrade strategies, eligibility, or paste your card list to import.
+                Ask me about your next card, upgrade/downgrade strategies, eligibility, or upload a screenshot of your credit report to import cards.
               </p>
             </div>
             <div className="flex flex-wrap gap-2 justify-center max-w-lg">
@@ -252,11 +336,27 @@ export default function AdvisorPage() {
                       },
                     }}
                   >
-                    {msg.content || '...'}
+                    {getTextContent(msg.content) || '...'}
                   </ReactMarkdown>
                 </div>
               ) : (
-                <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                <div>
+                  {getImages(msg.content).length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      {getImages(msg.content).map((img, j) => (
+                        <img
+                          key={j}
+                          src={img}
+                          alt="Uploaded"
+                          className="max-h-40 rounded-md border border-primary-foreground/20"
+                        />
+                      ))}
+                    </div>
+                  )}
+                  {getTextContent(msg.content) && (
+                    <p className="text-sm whitespace-pre-wrap">{getTextContent(msg.content)}</p>
+                  )}
+                </div>
               )}
             </Card>
           </div>
@@ -280,19 +380,54 @@ export default function AdvisorPage() {
 
       {/* Input */}
       <div className="shrink-0 border-t pt-4">
+        {/* Pending image previews */}
+        {pendingImages.length > 0 && (
+          <div className="flex flex-wrap gap-2 max-w-3xl mx-auto mb-2">
+            {pendingImages.map((img, i) => (
+              <div key={i} className="relative group">
+                <img src={img} alt="Upload preview" className="h-16 rounded-md border" />
+                <button
+                  onClick={() => removeImage(i)}
+                  className="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full bg-destructive text-destructive-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
         <div className="flex gap-2 max-w-3xl mx-auto">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            multiple
+            className="hidden"
+            onChange={handleImageUpload}
+          />
+          <Button
+            variant="outline"
+            size="icon"
+            className="shrink-0 h-[44px] w-[44px]"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={isLoading}
+            title="Upload image"
+          >
+            <ImagePlus className="h-4 w-4" />
+          </Button>
           <Textarea
             ref={textareaRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask about card strategy, paste card data to import, or get recommendations..."
+            onPaste={handlePaste}
+            placeholder="Ask about card strategy, paste an image, or get recommendations..."
             className="min-h-[44px] max-h-[120px] resize-none"
             rows={1}
           />
           <Button
             onClick={() => send()}
-            disabled={!input.trim() || isLoading}
+            disabled={(!input.trim() && pendingImages.length === 0) || isLoading}
             size="icon"
             className="shrink-0 h-[44px] w-[44px]"
           >

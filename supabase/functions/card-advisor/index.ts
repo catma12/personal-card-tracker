@@ -1,5 +1,4 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -12,9 +11,10 @@ const SYSTEM_PROMPT = `You are an expert credit card strategy advisor. You have 
 ## Your Capabilities
 1. **Card Recommendations**: Suggest the next best card based on the user's current holdings, eligibility, 5/24 status, and current offers.
 2. **Strategy Planning**: Advise on upgrade/downgrade paths, product changes, timing for applications, and how to maximize value.
-3. **Card Import**: When users paste card information (from credit reports, bank dashboards, spreadsheets), extract card details and format them for import.
-4. **Eligibility Analysis**: Explain why a user is or isn't eligible for a card based on issuer rules.
-5. **General Q&A**: Answer questions about credit card benefits, transfer partners, point valuations, etc.
+3. **Card Import from Images**: When users share screenshots of credit reports, bank dashboards, or card lists, extract all card details you can see and format them for import.
+4. **Card Import from Text**: When users paste card information, extract card details and format them for import.
+5. **Eligibility Analysis**: Explain why a user is or isn't eligible for a card based on issuer rules.
+6. **General Q&A**: Answer questions about credit card benefits, transfer partners, point valuations, etc.
 
 ## Key Issuer Rules You Know
 
@@ -51,10 +51,10 @@ const SYSTEM_PROMPT = `You are an expert credit card strategy advisor. You have 
 - Always mention if a card has annual fee and whether credits offset it
 
 ## Card Import Instructions
-When the user pastes card data, extract:
+When the user pastes card data OR shares a screenshot/image of their cards, extract:
 - Card name (match to known cards when possible)
 - Issuer
-- Open date
+- Open date (use YYYY-MM-DD format; estimate if only month/year visible)
 - Annual fee
 - Status (active/closed)
 - Card type (personal/business)
@@ -65,6 +65,8 @@ Format extracted cards as a JSON array wrapped in a code block tagged \`\`\`card
   {"name": "Chase Sapphire Preferred", "issuer": "Chase", "network": "Visa", "openDate": "2024-01-15", "annualFee": 95, "cardType": "personal", "status": "active", "category": "travel"}
 ]
 \`\`\`
+
+**Important for image extraction**: Even if the image is blurry or partially visible, do your best to identify cards. If you're unsure about a detail, make your best guess and note the uncertainty. Always output the card-import block so the user can review and import.
 
 ## Response Style
 - Be concise and actionable
@@ -81,12 +83,6 @@ serve(async (req) => {
   try {
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
-
-    const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
-    const SUPABASE_PUBLISHABLE_KEY = Deno.env.get("SUPABASE_PUBLISHABLE_KEY")!;
-
-    // Get auth token from request
-    const authHeader = req.headers.get("Authorization");
 
     const { messages, userCards } = await req.json();
 
@@ -132,6 +128,15 @@ serve(async (req) => {
 
     const systemWithContext = SYSTEM_PROMPT + cardContext;
 
+    // Check if any message contains images — use multimodal model
+    const hasImages = messages.some((m: any) =>
+      Array.isArray(m.content) && m.content.some((p: any) => p.type === "image_url")
+    );
+
+    const model = hasImages
+      ? "google/gemini-2.5-flash"  // multimodal capable
+      : "google/gemini-3-flash-preview";
+
     const response = await fetch(
       "https://ai.gateway.lovable.dev/v1/chat/completions",
       {
@@ -141,7 +146,7 @@ serve(async (req) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "google/gemini-3-flash-preview",
+          model,
           messages: [
             { role: "system", content: systemWithContext },
             ...messages,
