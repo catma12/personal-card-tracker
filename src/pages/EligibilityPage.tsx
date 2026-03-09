@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react';
 import { useCards } from '@/context/CardContext';
-import { knownCards, EligibilityRule, WelcomeOffer } from '@/data/knownCards';
+import { knownCards, EligibilityRule, WelcomeOffer, OFFER_DATA_LAST_UPDATED } from '@/data/knownCards';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Shield, ShieldCheck, ShieldX, ShieldAlert, Info, Gift, TrendingUp } from 'lucide-react';
-import { differenceInMonths, parseISO } from 'date-fns';
+import { Shield, ShieldCheck, ShieldX, ShieldAlert, Info, Gift, TrendingUp, ExternalLink } from 'lucide-react';
+import { differenceInMonths, parseISO, format } from 'date-fns';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
 
 type EligibilityStatus = 'eligible' | 'ineligible' | 'warning' | 'unknown';
 
@@ -20,6 +21,7 @@ interface CardEligibility {
   currentOffer?: WelcomeOffer;
   highestHistoricalOffer?: WelcomeOffer;
   isHighestOffer: boolean;
+  applyUrl?: string;
 }
 
 export default function EligibilityPage() {
@@ -48,6 +50,7 @@ export default function EligibilityPage() {
           currentOffer: known.currentOffer,
           highestHistoricalOffer: known.highestHistoricalOffer,
           isHighestOffer: !!(known.currentOffer && known.highestHistoricalOffer && known.currentOffer.amount === known.highestHistoricalOffer.amount),
+          applyUrl: known.applyUrl,
         });
         continue;
       }
@@ -130,6 +133,7 @@ export default function EligibilityPage() {
         currentOffer: known.currentOffer,
         highestHistoricalOffer: known.highestHistoricalOffer,
         isHighestOffer: !!(known.currentOffer && known.highestHistoricalOffer && known.currentOffer.amount === known.highestHistoricalOffer.amount),
+        applyUrl: known.applyUrl,
       });
     }
 
@@ -182,10 +186,15 @@ export default function EligibilityPage() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div>
-        <h1 className="text-2xl font-bold">Bonus Eligibility</h1>
-        <p className="text-sm text-muted-foreground">
-          Check whether you're eligible for signup bonuses based on your current cards and issuer rules
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Bonus Eligibility</h1>
+          <p className="text-sm text-muted-foreground">
+            Check whether you're eligible for signup bonuses based on your current cards and issuer rules
+          </p>
+        </div>
+        <p className="text-xs text-muted-foreground">
+          Offers updated: {format(parseISO(OFFER_DATA_LAST_UPDATED), 'MMM d, yyyy')}
         </p>
       </div>
 
@@ -278,13 +287,27 @@ export default function EligibilityPage() {
             >
               <div className="mt-0.5">{statusIcon(item.status)}</div>
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-medium">{item.cardName}</span>
-                  <span className="text-xs text-muted-foreground">— {item.issuer}</span>
-                  {item.annualFee > 0 && (
-                    <span className="text-xs text-muted-foreground">${item.annualFee}/yr</span>
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="font-medium">{item.cardName}</span>
+                    <span className="text-xs text-muted-foreground">— {item.issuer}</span>
+                    {item.annualFee > 0 && (
+                      <span className="text-xs text-muted-foreground">${item.annualFee}/yr</span>
+                    )}
+                    {statusBadge(item.status)}
+                  </div>
+                  {item.applyUrl && (
+                    <a
+                      href={item.applyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <Button variant="outline" size="sm" className="gap-1 shrink-0 text-xs">
+                        Apply <ExternalLink className="h-3 w-3" />
+                      </Button>
+                    </a>
                   )}
-                  {statusBadge(item.status)}
                 </div>
                 {item.currentOffer && (
                   <div className="mt-2 flex items-center gap-2 p-2 rounded-md bg-muted/50">
