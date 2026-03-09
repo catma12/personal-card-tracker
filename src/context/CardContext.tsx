@@ -131,7 +131,37 @@ export function CardProvider({ children }: { children: React.ReactNode }) {
         ]);
 
         if (cardsRes.data) setCards(cardsRes.data.map(dbToCard));
-        if (benefitsRes.data) setBenefits(benefitsRes.data.map(dbToBenefit));
+        if (benefitsRes.data) {
+          const loadedCards = cardsRes.data?.map(dbToCard) || [];
+          const loadedBenefits = benefitsRes.data.map(dbToBenefit);
+          
+          // Auto-reset benefits whose period has rolled over
+          const benefitsToReset: CardBenefit[] = [];
+          const updatedBenefits = loadedBenefits.map(b => {
+            const card = loadedCards.find(c => c.id === b.cardId);
+            if (shouldResetBenefit(b, card?.openDate)) {
+              const reset = { ...b, amountUsed: 0, resetDate: format(new Date(), 'yyyy-MM-dd') };
+              benefitsToReset.push(reset);
+              return reset;
+            }
+            return b;
+          });
+          
+          setBenefits(updatedBenefits);
+          
+          // Batch update reset benefits in DB
+          for (const b of benefitsToReset) {
+            supabase.from('benefits').update({
+              amount_used: 0,
+              reset_date: b.resetDate,
+            } as any).eq('id', b.id).then(({ error }) => {
+              if (error) console.error('Failed to auto-reset benefit:', error);
+            });
+          }
+          if (benefitsToReset.length > 0) {
+            console.log(`Auto-reset ${benefitsToReset.length} benefit(s) for new period`);
+          }
+        }
         if (settingsRes.data) {
           setSettings({
             reminderDays: settingsRes.data.reminder_days,
