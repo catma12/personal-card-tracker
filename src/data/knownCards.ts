@@ -41,6 +41,8 @@ export const knownCards: KnownCardInfo[] = [
     category: 'travel',
     benefits: [
       { name: '$50 Hotel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 50, notes: '$50 annual hotel credit through Chase Travel.' },
+      { name: 'DoorDash DashPass', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary DashPass membership.' },
+      { name: 'DoorDash Credits', creditType: 'monthly', valueType: 'dollar', totalAmount: 5, notes: '$5/mo DoorDash credit on restaurants ($60/yr).' },
     ],
     eligibilityRules: [
       { type: 'product-family', conflictCards: ['Chase Sapphire Preferred', 'Chase Sapphire Reserve'], cooldownMonths: 48, description: 'Not eligible if you received a Sapphire bonus in the last 48 months or currently hold any Sapphire card.' },
@@ -53,7 +55,20 @@ export const knownCards: KnownCardInfo[] = [
     annualFee: 795,
     category: 'travel',
     benefits: [
-      { name: 'Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, notes: '$300 annual travel credit, resets on card anniversary.' },
+      { name: 'Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, notes: '$300 annual travel credit, auto-applied to travel purchases.' },
+      { name: 'The Edit Hotel Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 250, notes: '$250 Jan–Jun for The Edit by Chase Travel hotel stays (2-night min).' },
+      { name: 'The Edit Hotel Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 250, notes: '$250 Jul–Dec for The Edit by Chase Travel hotel stays (2-night min).' },
+      { name: 'Dining Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Jan–Jun at Sapphire Reserve Exclusive Tables restaurants.' },
+      { name: 'Dining Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Jul–Dec at Sapphire Reserve Exclusive Tables restaurants.' },
+      { name: 'StubHub/Viagogo Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Jan–Jun for tickets on StubHub or Viagogo.' },
+      { name: 'StubHub/Viagogo Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Jul–Dec for tickets on StubHub or Viagogo.' },
+      { name: 'DoorDash Non-Restaurant Promo', creditType: 'monthly', valueType: 'dollar', totalAmount: 20, notes: '2x $10/mo DoorDash non-restaurant promos ($240/yr).' },
+      { name: 'DoorDash Restaurant Promo', creditType: 'monthly', valueType: 'dollar', totalAmount: 5, notes: '$5/mo DoorDash restaurant promo ($60/yr).' },
+      { name: 'Apple Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 288, notes: '$288 Apple credit (activation required).' },
+      { name: 'Peloton Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo Peloton membership credit ($120/yr).' },
+      { name: 'Lyft Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo Lyft in-app credit ($120/yr).' },
+      { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 120, notes: 'Up to $120 every 4 years.' },
+      { name: 'DoorDash DashPass', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary DashPass membership.' },
     ],
     eligibilityRules: [
       { type: 'product-family', conflictCards: ['Chase Sapphire Preferred', 'Chase Sapphire Reserve'], cooldownMonths: 48, description: 'Not eligible if you received a Sapphire bonus in the last 48 months or currently hold any Sapphire card.' },
