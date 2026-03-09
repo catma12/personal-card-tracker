@@ -14,7 +14,176 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      benefits: {
+        Row: {
+          amount_used: number
+          card_id: string
+          created_at: string
+          credit_type: string
+          expiration_date: string | null
+          id: string
+          last_used_date: string | null
+          name: string
+          notes: string
+          reset_date: string | null
+          total_amount: number
+          user_id: string
+          value_type: string
+        }
+        Insert: {
+          amount_used?: number
+          card_id: string
+          created_at?: string
+          credit_type?: string
+          expiration_date?: string | null
+          id?: string
+          last_used_date?: string | null
+          name: string
+          notes?: string
+          reset_date?: string | null
+          total_amount?: number
+          user_id: string
+          value_type?: string
+        }
+        Update: {
+          amount_used?: number
+          card_id?: string
+          created_at?: string
+          credit_type?: string
+          expiration_date?: string | null
+          id?: string
+          last_used_date?: string | null
+          name?: string
+          notes?: string
+          reset_date?: string | null
+          total_amount?: number
+          user_id?: string
+          value_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "benefits_card_id_fkey"
+            columns: ["card_id"]
+            isOneToOne: false
+            referencedRelation: "cards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cards: {
+        Row: {
+          annual_fee: number
+          annual_fee_month: number
+          card_type: string
+          category: string
+          counts_toward_524: boolean
+          created_at: string
+          decision: string
+          id: string
+          issuer: string
+          last_annual_fee_date: string | null
+          name: string
+          network: string
+          notes: string
+          open_date: string
+          product_change_date: string | null
+          signup_bonus_date: string | null
+          status: string
+          tags: string[]
+          user_id: string
+        }
+        Insert: {
+          annual_fee?: number
+          annual_fee_month?: number
+          card_type?: string
+          category?: string
+          counts_toward_524?: boolean
+          created_at?: string
+          decision?: string
+          id?: string
+          issuer: string
+          last_annual_fee_date?: string | null
+          name: string
+          network?: string
+          notes?: string
+          open_date: string
+          product_change_date?: string | null
+          signup_bonus_date?: string | null
+          status?: string
+          tags?: string[]
+          user_id: string
+        }
+        Update: {
+          annual_fee?: number
+          annual_fee_month?: number
+          card_type?: string
+          category?: string
+          counts_toward_524?: boolean
+          created_at?: string
+          decision?: string
+          id?: string
+          issuer?: string
+          last_annual_fee_date?: string | null
+          name?: string
+          network?: string
+          notes?: string
+          open_date?: string
+          product_change_date?: string | null
+          signup_bonus_date?: string | null
+          status?: string
+          tags?: string[]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name: string
+          id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      user_settings: {
+        Row: {
+          created_at: string
+          custom_tags: string[]
+          date_format: string
+          default_hide_business: boolean
+          id: string
+          reminder_days: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          custom_tags?: string[]
+          date_format?: string
+          default_hide_business?: boolean
+          id?: string
+          reminder_days?: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          custom_tags?: string[]
+          date_format?: string
+          default_hide_business?: boolean
+          id?: string
+          reminder_days?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
