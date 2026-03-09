@@ -842,6 +842,7 @@ export const knownCards: KnownCardInfo[] = [
     ],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+      { type: 'product-family', conflictCards: ['Delta SkyMiles Reserve', 'Delta SkyMiles Reserve Business'], description: 'Not eligible for Delta Platinum bonus if you hold or have held Delta Reserve. Higher-tier blocks lower-tier.' },
     ],
   },
   {
