@@ -108,7 +108,6 @@ export function CardProvider({ children }: { children: React.ReactNode }) {
   const [settings, setSettings] = useState<AppSettings>(defaultSettings);
   const [loading, setLoading] = useState(true);
 
-  // Load data from Supabase when user changes
   useEffect(() => {
     if (!user) {
       setCards([]);
@@ -137,7 +136,6 @@ export function CardProvider({ children }: { children: React.ReactNode }) {
             customTags: settingsRes.data.custom_tags || [],
           });
         } else {
-          // Create default settings for new user
           await supabase.from('user_settings').insert({
             user_id: user.id,
             reminder_days: defaultSettings.reminderDays,

@@ -21,7 +21,7 @@ export function getNextAnnualFee(cards: CreditCard[]): CreditCard | null {
   const today = new Date();
   const currentMonth = today.getMonth() + 1;
   const activeCards = cards.filter(c => c.status === 'active' && c.annualFee > 0);
-  
+
   const upcoming = activeCards
     .map(c => {
       let feeMonth = c.annualFeeMonth;
@@ -34,7 +34,7 @@ export function getNextAnnualFee(cards: CreditCard[]): CreditCard | null {
       return { card: c, feeDate };
     })
     .sort((a, b) => a.feeDate.getTime() - b.feeDate.getTime());
-  
+
   return upcoming[0]?.card || null;
 }
 
@@ -53,12 +53,12 @@ export function getUnusedCreditsThisYear(benefits: CardBenefit[]): number {
 export function getBenefitStatus(b: CardBenefit): 'fully-used' | 'partially-used' | 'unused' | 'expiring-soon' {
   const remaining = b.totalAmount - b.amountUsed;
   if (remaining <= 0) return 'fully-used';
-  
+
   if (b.expirationDate) {
     const daysUntil = differenceInDays(new Date(b.expirationDate), new Date());
     if (daysUntil <= 7 && remaining > 0) return 'expiring-soon';
   }
-  
+
   if (b.amountUsed > 0) return 'partially-used';
   return 'unused';
 }

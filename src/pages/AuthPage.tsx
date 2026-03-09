@@ -56,48 +56,23 @@ export default function AuthPage() {
             {isSignUp && (
               <div>
                 <Label htmlFor="displayName">Display Name</Label>
-                <Input
-                  id="displayName"
-                  value={displayName}
-                  onChange={e => setDisplayName(e.target.value)}
-                  placeholder="e.g. JH or CM"
-                  required
-                />
+                <Input id="displayName" value={displayName} onChange={e => setDisplayName(e.target.value)} placeholder="e.g. JH or CM" required />
               </div>
             )}
             <div>
               <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                required
-              />
+              <Input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" required />
             </div>
             <div>
               <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                placeholder="••••••••"
-                minLength={6}
-                required
-              />
+              <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" minLength={6} required />
             </div>
             <Button type="submit" className="w-full" disabled={submitting}>
               {submitting ? 'Loading...' : isSignUp ? 'Create Account' : 'Sign In'}
             </Button>
           </form>
           <div className="mt-4 text-center">
-            <button
-              type="button"
-              className="text-sm text-muted-foreground hover:text-foreground underline"
-              onClick={() => setIsSignUp(!isSignUp)}
-            >
+            <button type="button" className="text-sm text-muted-foreground hover:text-foreground underline" onClick={() => setIsSignUp(!isSignUp)}>
               {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
             </button>
           </div>

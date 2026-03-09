@@ -11,12 +11,12 @@ export interface CreditCard {
   name: string;
   issuer: string;
   network: CardNetwork;
-  openDate: string; // ISO date
+  openDate: string;
   productChangeDate?: string;
   cardType: CardType;
   status: CardStatus;
   annualFee: number;
-  annualFeeMonth: number; // 1-12
+  annualFeeMonth: number;
   lastAnnualFeeDate?: string;
   countsToward524: boolean;
   signupBonusDate?: string;
