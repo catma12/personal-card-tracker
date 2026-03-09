@@ -433,6 +433,7 @@ export const knownCards: KnownCardInfo[] = [
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+      { type: 'product-family', conflictCards: ['Amex Blue Cash Preferred'], description: 'Not eligible for Blue Cash Everyday bonus if you hold or have held the Blue Cash Preferred. Higher-tier blocks lower-tier.' },
     ],
   },
   {
