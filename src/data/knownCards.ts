@@ -253,7 +253,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: '85K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 85000, notes: 'Free night certificate up to 85K points on anniversary.' },
     ],
     eligibilityRules: [
-      { type: 'product-family', conflictCards: ['Chase Ritz-Carlton', 'Amex Brilliant'], cooldownMonths: 24, description: 'Subject to Marriott cross-issuer family rules with Amex Marriott cards.' },
+      { type: 'product-family', conflictCards: ['Chase Ritz-Carlton', 'Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Marriott Bonvoy Bold', 'Amex Brilliant', 'Marriott Bonvoy Bevy', 'Marriott Bonvoy Business'], cooldownMonths: 24, description: 'Marriott cross-issuer: Cannot hold a Chase Marriott card and an Amex Marriott card at the same time. Must close one before applying for the other issuer. Also, 24-month bonus cooldown across all Marriott cards from any issuer.' },
     ],
   },
 
@@ -283,7 +283,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4 years.' },
     ],
     eligibilityRules: [
-      { type: 'once-per-lifetime', conflictCards: ['Amex Platinum', 'Amex Gold', 'Amex Green', 'Amex Platinum for Schwab', 'Amex Platinum for Morgan Stanley'], description: 'Amex once-per-lifetime rule. Also ineligible if you have or have had the Gold Card, Green Card, Schwab Platinum, or Morgan Stanley Platinum.' },
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule for the Platinum Card. Each Amex charge card (Platinum, Gold, Green, Schwab Platinum, Morgan Stanley Platinum) has its own independent once-per-lifetime rule.' },
     ],
   },
   {
@@ -311,7 +311,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4 years.' },
     ],
     eligibilityRules: [
-      { type: 'once-per-lifetime', conflictCards: ['Amex Platinum for Schwab', 'Amex Platinum', 'Amex Gold', 'Amex Green', 'Amex Platinum for Morgan Stanley'], description: 'Amex once-per-lifetime rule. Schwab Platinum is a separate product but cross-restricted with other Amex charge cards.' },
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule for the Schwab Platinum. This is a separate product with its own independent once-per-lifetime bonus.' },
     ],
   },
   {
@@ -339,7 +339,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4 years.' },
     ],
     eligibilityRules: [
-      { type: 'once-per-lifetime', conflictCards: ['Amex Platinum for Morgan Stanley', 'Amex Platinum', 'Amex Gold', 'Amex Green', 'Amex Platinum for Schwab'], description: 'Amex once-per-lifetime rule. Morgan Stanley Platinum is cross-restricted with other Amex charge cards.' },
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule for the Morgan Stanley Platinum. This is a separate product with its own independent once-per-lifetime bonus.' },
     ],
   },
   {
@@ -359,7 +359,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Resy Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 50, notes: '$50 Jul–Dec at U.S. Resy restaurants.' },
     ],
     eligibilityRules: [
-      { type: 'once-per-lifetime', conflictCards: ['Amex Gold', 'Amex Platinum', 'Amex Platinum for Schwab', 'Amex Platinum for Morgan Stanley'], description: 'Amex once-per-lifetime rule. Also ineligible if you have or have had the Platinum Card, Schwab Platinum, or Morgan Stanley Platinum (confirmed per official offer terms).' },
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule for the Gold Card. Each Amex charge card has its own independent once-per-lifetime rule.' },
     ],
   },
   {
@@ -375,7 +375,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'CLEAR Plus Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 189, notes: 'CLEAR Plus membership credit.' },
     ],
     eligibilityRules: [
-      { type: 'once-per-lifetime', conflictCards: ['Amex Green', 'Amex Platinum', 'Amex Gold', 'Amex Platinum for Schwab', 'Amex Platinum for Morgan Stanley'], description: 'Amex once-per-lifetime rule. Cross-restricted with other Amex charge cards.' },
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule for the Green Card. Each Amex charge card has its own independent once-per-lifetime rule.' },
     ],
   },
   {
@@ -486,7 +486,7 @@ export const knownCards: KnownCardInfo[] = [
     ],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
-      { type: 'product-family', conflictCards: ['Amex Brilliant', 'Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Chase Ritz-Carlton'], cooldownMonths: 24, description: 'Marriott cross-issuer family rules: not eligible if you received a bonus on any Marriott co-brand card in the last 24 months.' },
+      { type: 'product-family', conflictCards: ['Amex Brilliant', 'Marriott Bonvoy Bevy', 'Marriott Bonvoy Business', 'Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Marriott Bonvoy Bold', 'Chase Ritz-Carlton'], cooldownMonths: 24, description: 'Marriott cross-issuer: Cannot hold an Amex Marriott card and a Chase Marriott card at the same time. Must close the Chase card before applying. Also, 24-month bonus cooldown across all Marriott cards from any issuer.' },
     ],
   },
   {
@@ -503,7 +503,7 @@ export const knownCards: KnownCardInfo[] = [
     ],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
-      { type: 'product-family', conflictCards: ['Marriott Bonvoy Bevy', 'Amex Brilliant', 'Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Chase Ritz-Carlton'], cooldownMonths: 24, description: 'Marriott cross-issuer family rules apply.' },
+      { type: 'product-family', conflictCards: ['Marriott Bonvoy Bevy', 'Amex Brilliant', 'Marriott Bonvoy Business', 'Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Marriott Bonvoy Bold', 'Chase Ritz-Carlton'], cooldownMonths: 24, description: 'Marriott cross-issuer: Cannot hold an Amex Marriott card and a Chase Marriott card at the same time. 24-month bonus cooldown across all Marriott cards from any issuer.' },
     ],
   },
   {
@@ -519,7 +519,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: '35K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 35000, notes: 'Free night certificate up to 35K points. Awarded on anniversary.' },
     ],
     eligibilityRules: [
-      { type: 'product-family', conflictCards: ['Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Amex Brilliant', 'Chase Ritz-Carlton'], cooldownMonths: 24, description: 'Marriott cross-issuer family rules apply.' },
+      { type: 'product-family', conflictCards: ['Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Marriott Bonvoy Bold', 'Chase Ritz-Carlton', 'Amex Brilliant', 'Marriott Bonvoy Bevy', 'Marriott Bonvoy Business'], cooldownMonths: 24, description: 'Marriott cross-issuer: Cannot hold a Chase Marriott card and an Amex Marriott card at the same time. 24-month bonus cooldown across all Marriott cards from any issuer.' },
     ],
   },
   {
@@ -532,6 +532,9 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '60,000 points', spendRequirement: '$2,000 in 3 months' },
     applyUrl: 'https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bold',
     benefits: [],
+    eligibilityRules: [
+      { type: 'product-family', conflictCards: ['Marriott Bonvoy Bold', 'Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Chase Ritz-Carlton', 'Amex Brilliant', 'Marriott Bonvoy Bevy', 'Marriott Bonvoy Business'], cooldownMonths: 24, description: 'Marriott cross-issuer: Cannot hold a Chase Marriott card and an Amex Marriott card at the same time. 24-month bonus cooldown across all Marriott cards from any issuer.' },
+    ],
   },
   {
     name: 'Marriott Bonvoy Bountiful',
@@ -546,7 +549,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: '50K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 50000, notes: 'Free night certificate up to 50K points. Awarded on anniversary.' },
     ],
     eligibilityRules: [
-      { type: 'product-family', conflictCards: ['Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Amex Brilliant', 'Chase Ritz-Carlton'], cooldownMonths: 24, description: 'Marriott cross-issuer family rules apply.' },
+      { type: 'product-family', conflictCards: ['Marriott Bonvoy Bountiful', 'Marriott Bonvoy Boundless', 'Marriott Bonvoy Bold', 'Chase Ritz-Carlton', 'Amex Brilliant', 'Marriott Bonvoy Bevy', 'Marriott Bonvoy Business'], cooldownMonths: 24, description: 'Marriott cross-issuer: Cannot hold a Chase Marriott card and an Amex Marriott card at the same time. 24-month bonus cooldown across all Marriott cards from any issuer.' },
     ],
   },
   {
@@ -563,6 +566,7 @@ export const knownCards: KnownCardInfo[] = [
     ],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+      { type: 'product-family', conflictCards: ['Marriott Bonvoy Business', 'Amex Brilliant', 'Marriott Bonvoy Bevy', 'Marriott Bonvoy Boundless', 'Marriott Bonvoy Bountiful', 'Marriott Bonvoy Bold', 'Chase Ritz-Carlton'], cooldownMonths: 24, description: 'Marriott cross-issuer: Cannot hold an Amex Marriott card and a Chase Marriott card at the same time. 24-month bonus cooldown across all Marriott cards from any issuer.' },
     ],
   },
   {
