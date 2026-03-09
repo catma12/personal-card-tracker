@@ -283,7 +283,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4 years.' },
     ],
     eligibilityRules: [
-      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule for the Platinum Card. Each Amex charge card (Platinum, Gold, Green, Schwab Platinum, Morgan Stanley Platinum) has its own independent once-per-lifetime rule.' },
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule for the Platinum Card.' },
     ],
   },
   {
@@ -311,7 +311,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4 years.' },
     ],
     eligibilityRules: [
-      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule for the Schwab Platinum. This is a separate product with its own independent once-per-lifetime bonus.' },
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule for the Schwab Platinum.' },
     ],
   },
   {
@@ -339,7 +339,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 4 years.' },
     ],
     eligibilityRules: [
-      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule for the Morgan Stanley Platinum. This is a separate product with its own independent once-per-lifetime bonus.' },
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule for the Morgan Stanley Platinum.' },
     ],
   },
   {
@@ -359,7 +359,8 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'Resy Credit (H2)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 50, notes: '$50 Jul–Dec at U.S. Resy restaurants.' },
     ],
     eligibilityRules: [
-      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule for the Gold Card. Each Amex charge card has its own independent once-per-lifetime rule.' },
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule for the Gold Card.' },
+      { type: 'product-family', conflictCards: ['Amex Platinum', 'Amex Platinum for Schwab', 'Amex Platinum for Morgan Stanley'], description: 'Not eligible for the Gold welcome bonus if you currently hold or have previously held the Amex Platinum (any variant). Higher-tier blocks lower-tier.' },
     ],
   },
   {
@@ -375,7 +376,8 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'CLEAR Plus Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 189, notes: 'CLEAR Plus membership credit.' },
     ],
     eligibilityRules: [
-      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule for the Green Card. Each Amex charge card has its own independent once-per-lifetime rule.' },
+      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule for the Green Card.' },
+      { type: 'product-family', conflictCards: ['Amex Platinum', 'Amex Platinum for Schwab', 'Amex Platinum for Morgan Stanley', 'Amex Gold'], description: 'Not eligible for the Green welcome bonus if you currently hold or have previously held the Amex Platinum (any variant) or Gold Card. Higher-tier blocks lower-tier.' },
     ],
   },
   {
@@ -431,6 +433,7 @@ export const knownCards: KnownCardInfo[] = [
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+      { type: 'product-family', conflictCards: ['Amex Blue Cash Preferred'], description: 'Not eligible for Blue Cash Everyday bonus if you hold or have held the Blue Cash Preferred. Higher-tier blocks lower-tier.' },
     ],
   },
   {
@@ -604,6 +607,7 @@ export const knownCards: KnownCardInfo[] = [
     ],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+      { type: 'product-family', conflictCards: ['Hilton Honors Aspire', 'Hilton Honors Surpass'], description: 'Not eligible for Hilton Surpass bonus if you hold or have held the Aspire. Higher-tier blocks lower-tier.' },
     ],
   },
   {
@@ -618,6 +622,7 @@ export const knownCards: KnownCardInfo[] = [
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+      { type: 'product-family', conflictCards: ['Hilton Honors Aspire', 'Hilton Honors Surpass'], description: 'Not eligible for base Hilton Honors bonus if you hold or have held the Aspire or Surpass. Higher-tier blocks lower-tier.' },
     ],
   },
   {
@@ -817,6 +822,7 @@ export const knownCards: KnownCardInfo[] = [
     ],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+      { type: 'product-family', conflictCards: ['Delta SkyMiles Platinum', 'Delta SkyMiles Reserve', 'Delta SkyMiles Reserve Business'], description: 'Not eligible for Delta Gold bonus if you hold or have held Delta Platinum or Reserve. Higher-tier blocks lower-tier.' },
     ],
   },
   {
@@ -839,6 +845,7 @@ export const knownCards: KnownCardInfo[] = [
     ],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
+      { type: 'product-family', conflictCards: ['Delta SkyMiles Reserve', 'Delta SkyMiles Reserve Business'], description: 'Not eligible for Delta Platinum bonus if you hold or have held Delta Reserve. Higher-tier blocks lower-tier.' },
     ],
   },
   {
