@@ -16,6 +16,7 @@ import SettingsPage from "./pages/SettingsPage";
 import EligibilityPage from "./pages/EligibilityPage";
 import TransferPartners from "./pages/TransferPartners";
 import AuthPage from "./pages/AuthPage";
+import AdvisorPage from "./pages/AdvisorPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
