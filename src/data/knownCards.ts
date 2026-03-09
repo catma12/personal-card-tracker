@@ -55,7 +55,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'travel',
-    currentOffer: { amount: '60,000 points', spendRequirement: '$4,000 in 3 months' },
+    currentOffer: { amount: '75,000 points', spendRequirement: '$5,000 in 3 months' },
     highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$4,000 in 3 months' },
     applyUrl: 'https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred',
     benefits: [
