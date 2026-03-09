@@ -54,21 +54,41 @@ function formatBenefitProgress(b: CardBenefit) {
 }
 
 function getNextResetDate(b: CardBenefit, cardOpenDate?: string): string | null {
+  if (b.creditType === 'one-time') return null;
+  const { getNextPeriodStart: getNext } = require('@/lib/dateUtils');
+  const next = getNext(b.creditType, cardOpenDate);
+  return format(next, 'MMM d, yyyy');
+}
+
+function getAutoExpirationDate(creditType: CreditResetType, cardOpenDate?: string): string | null {
   const now = new Date();
-  const currentYear = now.getFullYear();
-
-  if (b.creditType === 'anniversary-year' && cardOpenDate) {
-    const open = parseISO(cardOpenDate);
-    const anniversaryMonth = open.getMonth();
-    const anniversaryDay = open.getDate();
-    let next = new Date(currentYear, anniversaryMonth, anniversaryDay);
-    if (next <= now) next = new Date(currentYear + 1, anniversaryMonth, anniversaryDay);
-    return format(next, 'MMM d, yyyy');
+  switch (creditType) {
+    case 'monthly':
+      return format(endOfMonth(now), 'yyyy-MM-dd');
+    case 'quarterly':
+      return format(endOfQuarter(now), 'yyyy-MM-dd');
+    case 'semi-annual': {
+      const month = now.getMonth();
+      const year = now.getFullYear();
+      return month < 6 ? format(new Date(year, 5, 30), 'yyyy-MM-dd') : format(new Date(year, 11, 31), 'yyyy-MM-dd');
+    }
+    case 'annual':
+      return format(new Date(now.getFullYear(), 11, 31), 'yyyy-MM-dd');
+    case 'anniversary-year': {
+      if (!cardOpenDate) return format(new Date(now.getFullYear(), 11, 31), 'yyyy-MM-dd');
+      const open = parseISO(cardOpenDate);
+      let anniv = new Date(now.getFullYear(), open.getMonth(), open.getDate());
+      if (anniv <= now) anniv = new Date(now.getFullYear() + 1, open.getMonth(), open.getDate());
+      // Day before anniversary = expiration
+      const exp = new Date(anniv);
+      exp.setDate(exp.getDate() - 1);
+      return format(exp, 'yyyy-MM-dd');
+    }
+    case 'one-time':
+      return null;
+    default:
+      return format(endOfMonth(now), 'yyyy-MM-dd');
   }
-
-  if (b.resetDate) return format(parseISO(b.resetDate), 'MMM d, yyyy');
-
-  return null;
 }
 
 export default function Credits() {
