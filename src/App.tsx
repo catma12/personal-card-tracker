@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CardProvider } from "@/context/CardContext";
 import { Layout } from "@/components/Layout";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import Dashboard from "./pages/Dashboard";
 import MyCards from "./pages/MyCards";
 import Credits from "./pages/Credits";
@@ -16,8 +17,9 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
+  <ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
       <Toaster />
       <Sonner />
       <CardProvider>
@@ -35,8 +37,9 @@ const App = () => (
           </Layout>
         </BrowserRouter>
       </CardProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ThemeProvider>
 );
 
 export default App;
