@@ -285,12 +285,88 @@ export function CardProvider({ children }: { children: React.ReactNode }) {
   const getCardById = useCallback((id: string) => cards.find(c => c.id === id), [cards]);
   const getBenefitsForCard = useCallback((cardId: string) => benefits.filter(b => b.cardId === cardId), [benefits]);
 
+  const syncBenefits = useCallback(async () => {
+    if (!user) return { added: 0, updated: 0 };
+    let added = 0;
+    let updated = 0;
+    const newBenefitsToAdd: CardBenefit[] = [];
+    const benefitsToUpdate: CardBenefit[] = [];
+
+    for (const card of cards) {
+      if (card.status !== 'active') continue;
+      const known = knownCards.find(k => k.name.toLowerCase() === card.name.toLowerCase());
+      if (!known || known.benefits.length === 0) continue;
+
+      const cardBenefits = benefits.filter(b => b.cardId === card.id);
+
+      for (const kb of known.benefits) {
+        const existing = cardBenefits.find(b => b.name.toLowerCase() === kb.name.toLowerCase());
+        if (!existing) {
+          // Add missing benefit
+          const newBenefit: CardBenefit = {
+            id: crypto.randomUUID(),
+            cardId: card.id,
+            name: kb.name,
+            creditType: kb.creditType,
+            valueType: kb.valueType,
+            totalAmount: kb.totalAmount,
+            amountUsed: 0,
+            resetDate: format(new Date(), 'yyyy-MM-dd'),
+            notes: kb.notes,
+          };
+          newBenefitsToAdd.push(newBenefit);
+          added++;
+        } else if (
+          existing.creditType !== kb.creditType ||
+          existing.valueType !== kb.valueType ||
+          existing.totalAmount !== kb.totalAmount
+        ) {
+          // Update benefit metadata (preserve amountUsed)
+          const updatedBenefit: CardBenefit = {
+            ...existing,
+            creditType: kb.creditType,
+            valueType: kb.valueType,
+            totalAmount: kb.totalAmount,
+            notes: kb.notes,
+          };
+          benefitsToUpdate.push(updatedBenefit);
+          updated++;
+        }
+      }
+    }
+
+    // Batch insert new benefits
+    if (newBenefitsToAdd.length > 0) {
+      const inserts = newBenefitsToAdd.map(b => benefitToDb(b, user.id));
+      const { error } = await supabase.from('benefits').insert(inserts as any);
+      if (error) { console.error('Sync insert error:', error); toast.error('Failed to add some benefits'); }
+    }
+
+    // Batch update changed benefits
+    for (const b of benefitsToUpdate) {
+      const { id, ...rest } = benefitToDb(b, user.id);
+      await supabase.from('benefits').update(rest as any).eq('id', b.id);
+    }
+
+    // Update local state
+    setBenefits(prev => {
+      let result = [...prev, ...newBenefitsToAdd];
+      for (const upd of benefitsToUpdate) {
+        result = result.map(b => b.id === upd.id ? upd : b);
+      }
+      return result;
+    });
+
+    return { added, updated };
+  }, [user, cards, benefits]);
+
   return (
     <CardContext.Provider value={{
       cards, benefits, settings, loading,
       addCard, updateCard, deleteCard,
       addBenefit, updateBenefit, deleteBenefit,
       updateSettings, getCardById, getBenefitsForCard,
+      syncBenefits,
     }}>
       {children}
     </CardContext.Provider>
