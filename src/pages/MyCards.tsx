@@ -179,7 +179,7 @@ export default function MyCards() {
                   <TableRow key={card.id}>
                     <TableCell className="font-medium">{card.name}</TableCell>
                     <TableCell>{card.issuer}</TableCell>
-                    <TableCell><Badge variant="secondary">{card.network}</Badge></TableCell>
+                    
                     <TableCell className="capitalize">{card.cardType}</TableCell>
                     <TableCell className="font-mono text-xs">{formatDate(card.openDate, 'MMM yyyy')}</TableCell>
                     <TableCell>${card.annualFee}{card.annualFee > 0 && <span className="text-xs text-muted-foreground ml-1">/{getMonthName(card.annualFeeMonth).slice(0,3)}</span>}</TableCell>
