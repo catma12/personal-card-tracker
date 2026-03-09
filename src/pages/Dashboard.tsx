@@ -39,6 +39,7 @@ export default function Dashboard() {
   const chase524 = getChase524Count(cards);
   const nextFeeCard = getNextAnnualFee(cards);
   const monthlyCredits = getMonthlyCreditsAvailable(benefits);
+  const monthlyUnused = getMonthlyCreditsUnused(benefits);
   const unusedCredits = getUnusedCreditsThisYear(benefits);
   const expiringBenefits = getExpiringBenefits(benefits, 30);
   const upcomingFees = getUpcomingAnnualFees(cards, 30);
