@@ -386,6 +386,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 650,
     category: 'hotel',
+    currentOffer: { amount: '85,000 points', spendRequirement: '$6,000 in 6 months' },
+    highestHistoricalOffer: { amount: '150,000 points', spendRequirement: '$6,000 in 6 months' },
     benefits: [
       { name: 'Marriott Statement Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 25, notes: '$25/mo at Marriott properties ($300/yr).' },
       { name: '85K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 85000, notes: 'Free night certificate up to 85K points. Awarded on anniversary.' },
