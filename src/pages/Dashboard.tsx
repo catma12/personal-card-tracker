@@ -101,15 +101,16 @@ export default function Dashboard() {
             <span className="stat-label">Monthly Credits</span>
           </div>
           <div className="stat-value">${monthlyCredits}</div>
+          <p className="text-xs text-muted-foreground mt-1">${monthlyUnused} unused this month</p>
         </button>
 
         <div className="stat-card">
           <div className="flex items-center gap-2 mb-2">
             <Clock className="h-4 w-4 text-accent-foreground" />
-            <span className="stat-label">Unused Credits</span>
+            <span className="stat-label">Unused Credits (YTD)</span>
           </div>
           <div className="stat-value">${unusedCredits}</div>
-          <p className="text-xs text-muted-foreground mt-1">dollar credits only</p>
+          <p className="text-xs text-muted-foreground mt-1">all dollar credits</p>
         </div>
       </div>
 
