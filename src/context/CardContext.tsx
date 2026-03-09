@@ -213,8 +213,10 @@ export function CardProvider({ children }: { children: React.ReactNode }) {
 
   const addBenefit = useCallback(async (b: CardBenefit) => {
     if (!user) return;
-    setBenefits(prev => [...prev, b]);
-    const { error } = await supabase.from('benefits').insert(benefitToDb(b, user.id) as any);
+    // Set reset_date to today if not already set, so auto-reset can track periods
+    const benefitWithReset = { ...b, resetDate: b.resetDate || format(new Date(), 'yyyy-MM-dd') };
+    setBenefits(prev => [...prev, benefitWithReset]);
+    const { error } = await supabase.from('benefits').insert(benefitToDb(benefitWithReset, user.id) as any);
     if (error) { toast.error('Failed to save benefit'); console.error(error); }
   }, [user]);
 
