@@ -1,5 +1,90 @@
-import { CreditCard, CardBenefit, Chase524Entry } from '@/types/cards';
-import { addMonths, differenceInDays, format, isAfter, isBefore, startOfMonth, endOfMonth, addDays } from 'date-fns';
+import { CreditCard, CardBenefit, Chase524Entry, CreditResetType } from '@/types/cards';
+import { addMonths, differenceInDays, format, isAfter, isBefore, startOfMonth, endOfMonth, addDays, startOfQuarter, startOfYear, parseISO } from 'date-fns';
+
+/**
+ * Calculates the next reset date for a benefit based on its credit type.
+ * Returns the start of the current period (the date when the current cycle began).
+ */
+export function getCurrentPeriodStart(creditType: CreditResetType, cardOpenDate?: string): Date {
+  const now = new Date();
+
+  switch (creditType) {
+    case 'monthly':
+      return startOfMonth(now);
+    case 'quarterly': {
+      const q = startOfQuarter(now);
+      return q;
+    }
+    case 'semi-annual': {
+      const month = now.getMonth();
+      const year = now.getFullYear();
+      return month < 6 ? new Date(year, 0, 1) : new Date(year, 6, 1);
+    }
+    case 'annual':
+      return startOfYear(now);
+    case 'anniversary-year': {
+      if (!cardOpenDate) return startOfYear(now);
+      const open = parseISO(cardOpenDate);
+      const annivMonth = open.getMonth();
+      const annivDay = open.getDate();
+      let start = new Date(now.getFullYear(), annivMonth, annivDay);
+      if (start > now) start = new Date(now.getFullYear() - 1, annivMonth, annivDay);
+      return start;
+    }
+    case 'one-time':
+      return new Date(0); // never resets
+    default:
+      return startOfMonth(now);
+  }
+}
+
+/**
+ * Checks if a benefit needs to be auto-reset based on its reset_date and credit type.
+ * Returns true if the benefit's amountUsed should be reset to 0.
+ */
+export function shouldResetBenefit(benefit: CardBenefit, cardOpenDate?: string): boolean {
+  if (benefit.creditType === 'one-time') return false;
+  if (benefit.amountUsed === 0) return false;
+
+  const periodStart = getCurrentPeriodStart(benefit.creditType, cardOpenDate);
+
+  // If no reset date recorded, we can't know — don't auto-reset
+  if (!benefit.resetDate) return false;
+
+  const lastReset = parseISO(benefit.resetDate);
+  // If the last reset was before the current period started, it needs resetting
+  return isBefore(lastReset, periodStart);
+}
+
+/**
+ * Calculates the next reset date (start of next period) for display.
+ */
+export function getNextPeriodStart(creditType: CreditResetType, cardOpenDate?: string): Date {
+  const now = new Date();
+
+  switch (creditType) {
+    case 'monthly':
+      return addMonths(startOfMonth(now), 1);
+    case 'quarterly':
+      return addMonths(startOfQuarter(now), 3);
+    case 'semi-annual': {
+      const month = now.getMonth();
+      const year = now.getFullYear();
+      return month < 6 ? new Date(year, 6, 1) : new Date(year + 1, 0, 1);
+    }
+    case 'annual':
+      return new Date(now.getFullYear() + 1, 0, 1);
+    case 'anniversary-year': {
+      if (!cardOpenDate) return new Date(now.getFullYear() + 1, 0, 1);
+      const open = parseISO(cardOpenDate);
+      let next = new Date(now.getFullYear(), open.getMonth(), open.getDate());
+      if (next <= now) next = new Date(now.getFullYear() + 1, open.getMonth(), open.getDate());
+      return next;
+    }
+    default:
+      return addMonths(startOfMonth(now), 1);
+  }
+}
 
 export function getChase524Cards(cards: CreditCard[]): Chase524Entry[] {
   const cutoff = addMonths(new Date(), -24);

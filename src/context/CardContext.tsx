@@ -4,6 +4,8 @@ import { defaultSettings } from '@/data/sampleData';
 import { useAuth } from '@/context/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { shouldResetBenefit } from '@/lib/dateUtils';
+import { format } from 'date-fns';
 
 interface CardContextType {
   cards: CreditCard[];
@@ -129,7 +131,37 @@ export function CardProvider({ children }: { children: React.ReactNode }) {
         ]);
 
         if (cardsRes.data) setCards(cardsRes.data.map(dbToCard));
-        if (benefitsRes.data) setBenefits(benefitsRes.data.map(dbToBenefit));
+        if (benefitsRes.data) {
+          const loadedCards = cardsRes.data?.map(dbToCard) || [];
+          const loadedBenefits = benefitsRes.data.map(dbToBenefit);
+          
+          // Auto-reset benefits whose period has rolled over
+          const benefitsToReset: CardBenefit[] = [];
+          const updatedBenefits = loadedBenefits.map(b => {
+            const card = loadedCards.find(c => c.id === b.cardId);
+            if (shouldResetBenefit(b, card?.openDate)) {
+              const reset = { ...b, amountUsed: 0, resetDate: format(new Date(), 'yyyy-MM-dd') };
+              benefitsToReset.push(reset);
+              return reset;
+            }
+            return b;
+          });
+          
+          setBenefits(updatedBenefits);
+          
+          // Batch update reset benefits in DB
+          for (const b of benefitsToReset) {
+            supabase.from('benefits').update({
+              amount_used: 0,
+              reset_date: b.resetDate,
+            } as any).eq('id', b.id).then(({ error }) => {
+              if (error) console.error('Failed to auto-reset benefit:', error);
+            });
+          }
+          if (benefitsToReset.length > 0) {
+            console.log(`Auto-reset ${benefitsToReset.length} benefit(s) for new period`);
+          }
+        }
         if (settingsRes.data) {
           setSettings({
             reminderDays: settingsRes.data.reminder_days,
@@ -181,8 +213,10 @@ export function CardProvider({ children }: { children: React.ReactNode }) {
 
   const addBenefit = useCallback(async (b: CardBenefit) => {
     if (!user) return;
-    setBenefits(prev => [...prev, b]);
-    const { error } = await supabase.from('benefits').insert(benefitToDb(b, user.id) as any);
+    // Set reset_date to today if not already set, so auto-reset can track periods
+    const benefitWithReset = { ...b, resetDate: b.resetDate || format(new Date(), 'yyyy-MM-dd') };
+    setBenefits(prev => [...prev, benefitWithReset]);
+    const { error } = await supabase.from('benefits').insert(benefitToDb(benefitWithReset, user.id) as any);
     if (error) { toast.error('Failed to save benefit'); console.error(error); }
   }, [user]);
 
