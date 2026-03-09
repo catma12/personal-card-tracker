@@ -318,7 +318,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'CLEAR Plus Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 189, notes: 'CLEAR Plus membership credit.' },
     ],
     eligibilityRules: [
-      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule: not eligible if you have ever received the welcome bonus on this card.' },
+      { type: 'once-per-lifetime', conflictCards: ['Amex Green', 'Amex Platinum', 'Amex Gold', 'Amex Platinum for Schwab', 'Amex Platinum for Morgan Stanley'], description: 'Amex once-per-lifetime rule. Cross-restricted with other Amex charge cards.' },
     ],
   },
   {
