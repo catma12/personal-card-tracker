@@ -91,7 +91,8 @@ function getAutoExpirationDate(creditType: CreditResetType, cardOpenDate?: strin
 }
 
 export default function Credits() {
-  const { cards, benefits, addBenefit, updateBenefit, deleteBenefit, getCardById } = useCards();
+  const { cards, benefits, addBenefit, updateBenefit, deleteBenefit, getCardById, syncBenefits } = useCards();
+  const [syncing, setSyncing] = useState(false);
   const [search, setSearch] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [filterType, setFilterType] = useState('all');
