@@ -83,7 +83,7 @@ export const knownCards: KnownCardInfo[] = [
       { name: 'DoorDash DashPass', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary DashPass membership.' },
     ],
     eligibilityRules: [
-      { type: 'product-family', conflictCards: ['Chase Sapphire Preferred', 'Chase Sapphire Reserve'], cooldownMonths: 48, description: 'Not eligible if you received a Sapphire bonus in the last 48 months or currently hold any Sapphire card.' },
+      { type: 'once-per-lifetime', description: 'Chase once-per-lifetime Sapphire rule (as of Jan 2026): You can only earn the Sapphire Reserve bonus once ever. You CAN hold both CSP and CSR simultaneously.' },
     ],
   },
   {

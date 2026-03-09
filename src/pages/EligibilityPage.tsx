@@ -335,7 +335,7 @@ export default function EligibilityPage() {
                 <Info className="h-4 w-4 text-muted-foreground" />
               </TooltipTrigger>
               <TooltipContent className="max-w-sm">
-                <p>Eligibility is determined by your current cards, signup bonus dates, and issuer-specific rules (e.g., Chase 48-month Sapphire rule, Amex once-per-lifetime, Citi 48-month rule). Add signup bonus dates to your cards for more accurate results.</p>
+                <p>Eligibility is determined by your current cards, signup bonus dates, and issuer-specific rules (e.g., Chase once-per-lifetime Sapphire rule, Amex once-per-lifetime, Citi 48-month rule). Add signup bonus dates to your cards for more accurate results.</p>
               </TooltipContent>
             </Tooltip>
           </CardTitle>
