@@ -159,9 +159,11 @@ export default function EligibilityPage() {
     return eligibility.filter(e => {
       if (statusFilter !== 'all' && e.status !== statusFilter) return false;
       if (issuerFilter !== 'all' && e.issuer !== issuerFilter) return false;
+      if (offerFilter === 'highest' && !e.isHighestOffer) return false;
+      if (offerFilter === 'not-highest' && e.isHighestOffer) return false;
       return true;
     });
-  }, [eligibility, statusFilter, issuerFilter]);
+  }, [eligibility, statusFilter, issuerFilter, offerFilter]);
 
   const statusIcon = (s: EligibilityStatus) => {
     switch (s) {
