@@ -337,8 +337,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 695,
     category: 'business',
-    currentOffer: { amount: '120,000 points', spendRequirement: '$15,000 in 3 months' },
-    highestHistoricalOffer: { amount: '170,000 points', spendRequirement: '$15,000 in 3 months' },
+    currentOffer: { amount: '200,000 points', spendRequirement: '$15,000 in 3 months' },
+    highestHistoricalOffer: { amount: '200,000 points', spendRequirement: '$15,000 in 3 months' },
     applyUrl: 'https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-platinum-credit-card-amex/',
     benefits: [
       { name: 'Airline Incidental Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 airline incidental credit per calendar year.' },
