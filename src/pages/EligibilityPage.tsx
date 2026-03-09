@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
 import { useCards } from '@/context/CardContext';
-import { knownCards, EligibilityRule } from '@/data/knownCards';
+import { knownCards, EligibilityRule, WelcomeOffer } from '@/data/knownCards';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Shield, ShieldCheck, ShieldX, ShieldAlert, Info } from 'lucide-react';
+import { Shield, ShieldCheck, ShieldX, ShieldAlert, Info, Gift, TrendingUp } from 'lucide-react';
 import { differenceInMonths, parseISO } from 'date-fns';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -17,6 +17,9 @@ interface CardEligibility {
   status: EligibilityStatus;
   reasons: string[];
   rules: EligibilityRule[];
+  currentOffer?: WelcomeOffer;
+  highestHistoricalOffer?: WelcomeOffer;
+  isHighestOffer: boolean;
 }
 
 export default function EligibilityPage() {
@@ -42,6 +45,9 @@ export default function EligibilityPage() {
           status: 'eligible',
           reasons,
           rules: [],
+          currentOffer: known.currentOffer,
+          highestHistoricalOffer: known.highestHistoricalOffer,
+          isHighestOffer: !!(known.currentOffer && known.highestHistoricalOffer && known.currentOffer.amount === known.highestHistoricalOffer.amount),
         });
         continue;
       }
@@ -121,6 +127,9 @@ export default function EligibilityPage() {
         status,
         reasons,
         rules: known.eligibilityRules,
+        currentOffer: known.currentOffer,
+        highestHistoricalOffer: known.highestHistoricalOffer,
+        isHighestOffer: !!(known.currentOffer && known.highestHistoricalOffer && known.currentOffer.amount === known.highestHistoricalOffer.amount),
       });
     }
 
@@ -277,6 +286,39 @@ export default function EligibilityPage() {
                   )}
                   {statusBadge(item.status)}
                 </div>
+                {item.currentOffer && (
+                  <div className="mt-2 flex items-center gap-2 p-2 rounded-md bg-muted/50">
+                    <Gift className="h-4 w-4 text-primary shrink-0" />
+                    <div className="flex items-center gap-2 flex-wrap text-sm">
+                      <span className="font-medium text-foreground">{item.currentOffer.amount}</span>
+                      {item.currentOffer.spendRequirement && (
+                        <span className="text-muted-foreground">after {item.currentOffer.spendRequirement}</span>
+                      )}
+                      {item.isHighestOffer && (
+                        <Badge className="bg-primary/15 text-primary border-primary/30 text-xs gap-1">
+                          <TrendingUp className="h-3 w-3" />
+                          Highest Known
+                        </Badge>
+                      )}
+                      {!item.isHighestOffer && item.highestHistoricalOffer && (
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Badge variant="outline" className="text-xs gap-1 text-muted-foreground">
+                              <TrendingUp className="h-3 w-3" />
+                              Historical: {item.highestHistoricalOffer.amount}
+                            </Badge>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>The highest known offer was {item.highestHistoricalOffer.amount}
+                              {item.highestHistoricalOffer.spendRequirement && ` after ${item.highestHistoricalOffer.spendRequirement}`}.
+                              Current offer may not be the best time to apply.
+                            </p>
+                          </TooltipContent>
+                        </Tooltip>
+                      )}
+                    </div>
+                  </div>
+                )}
                 <div className="mt-1 space-y-1">
                   {item.reasons.map((reason, i) => (
                     <p key={i} className="text-sm text-muted-foreground">{reason}</p>

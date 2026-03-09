@@ -1,5 +1,12 @@
 import { CardNetwork, CardCategory, BenefitValueType, CreditResetType } from '@/types/cards';
 
+export interface WelcomeOffer {
+  /** e.g. "60,000 points" or "$300 cash back" */
+  amount: string;
+  /** Spend requirement, e.g. "$4,000 in 3 months" */
+  spendRequirement?: string;
+}
+
 export interface KnownCardInfo {
   name: string;
   issuer: string;
@@ -9,6 +16,10 @@ export interface KnownCardInfo {
   benefits: KnownBenefitInfo[];
   /** Eligibility rules for signup bonus */
   eligibilityRules?: EligibilityRule[];
+  /** Current publicly available welcome offer */
+  currentOffer?: WelcomeOffer;
+  /** Highest known historical welcome offer */
+  highestHistoricalOffer?: WelcomeOffer;
 }
 
 export interface KnownBenefitInfo {
@@ -39,6 +50,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'travel',
+    currentOffer: { amount: '60,000 points', spendRequirement: '$4,000 in 3 months' },
+    highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$4,000 in 3 months' },
     benefits: [
       { name: '$50 Hotel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 50, notes: '$50 annual hotel credit through Chase Travel.' },
       { name: 'DoorDash DashPass', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary DashPass membership.' },
@@ -54,6 +67,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 795,
     category: 'travel',
+    currentOffer: { amount: '60,000 points', spendRequirement: '$4,000 in 3 months' },
+    highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$4,000 in 3 months' },
     benefits: [
       { name: 'Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, notes: '$300 annual travel credit, auto-applied to travel purchases.' },
       { name: 'The Edit Hotel Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 250, notes: '$250 Jan–Jun for The Edit by Chase Travel hotel stays (2-night min).' },
@@ -80,6 +95,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '$300 cash back', spendRequirement: '$500 in 3 months' },
+    highestHistoricalOffer: { amount: '$300 cash back', spendRequirement: '$500 in 3 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Freedom Unlimited bonus in the last 24 months.' },
@@ -91,6 +108,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '$200 cash back', spendRequirement: '$500 in 3 months' },
+    highestHistoricalOffer: { amount: '$200 cash back', spendRequirement: '$500 in 3 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Freedom Flex bonus in the last 24 months.' },
@@ -110,6 +129,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'business',
+    currentOffer: { amount: '100,000 points', spendRequirement: '$8,000 in 3 months' },
+    highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$8,000 in 3 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Ink Business Preferred bonus in the last 24 months.' },
@@ -121,6 +142,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'business',
+    currentOffer: { amount: '$350 cash back', spendRequirement: '$3,000 in 3 months' },
+    highestHistoricalOffer: { amount: '$750 cash back', spendRequirement: '$6,000 in 3 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Ink Business Cash bonus in the last 24 months.' },
@@ -132,6 +155,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'business',
+    currentOffer: { amount: '$500 cash back', spendRequirement: '$3,000 in 3 months' },
+    highestHistoricalOffer: { amount: '$900 cash back', spendRequirement: '$6,000 in 3 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Ink Business Unlimited bonus in the last 24 months.' },
@@ -197,6 +222,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 895,
     category: 'travel',
+    currentOffer: { amount: '80,000 points', spendRequirement: '$8,000 in 6 months' },
+    highestHistoricalOffer: { amount: '150,000 points', spendRequirement: '$6,000 in 6 months' },
     benefits: [
       { name: 'Uber Cash Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 15, notes: '$15/mo, $20 in December ($200/yr total).' },
       { name: 'Digital Entertainment Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 25, notes: '$25/mo for Disney+, Hulu, ESPN+, Peacock, NYT, WSJ, YouTube Premium/TV, Paramount+.' },
@@ -221,6 +248,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 895,
     category: 'travel',
+    currentOffer: { amount: '80,000 points', spendRequirement: '$6,000 in 6 months' },
+    highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$6,000 in 6 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule. Note: Schwab Platinum is treated as a separate product from the regular Platinum.' },
@@ -243,6 +272,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 325,
     category: 'travel',
+    currentOffer: { amount: '60,000 points', spendRequirement: '$6,000 in 6 months' },
+    highestHistoricalOffer: { amount: '90,000 points', spendRequirement: '$4,000 in 6 months' },
     benefits: [
       { name: 'Uber Cash Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo Uber Cash ($120/yr).' },
       { name: 'Dining Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo at Grubhub, Seamless, The Cheesecake Factory, Goldbelly, Wine.com, Five Guys.' },
@@ -260,6 +291,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 150,
     category: 'travel',
+    currentOffer: { amount: '40,000 points', spendRequirement: '$3,000 in 6 months' },
+    highestHistoricalOffer: { amount: '60,000 points', spendRequirement: '$3,000 in 6 months' },
     benefits: [
       { name: 'CLEAR Plus Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 189, notes: 'CLEAR Plus membership credit.' },
     ],
@@ -273,6 +306,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 695,
     category: 'business',
+    currentOffer: { amount: '120,000 points', spendRequirement: '$15,000 in 3 months' },
+    highestHistoricalOffer: { amount: '170,000 points', spendRequirement: '$15,000 in 3 months' },
     benefits: [
       { name: 'Airline Incidental Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 airline incidental credit per calendar year.' },
       { name: 'Dell Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Jan–Jun Dell credit.' },
@@ -291,6 +326,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 375,
     category: 'business',
+    currentOffer: { amount: '70,000 points', spendRequirement: '$10,000 in 3 months' },
+    highestHistoricalOffer: { amount: '70,000 points', spendRequirement: '$10,000 in 3 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
@@ -302,6 +339,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 95,
     category: 'cashback',
+    currentOffer: { amount: '$250 cash back', spendRequirement: '$3,000 in 6 months' },
+    highestHistoricalOffer: { amount: '$400 cash back', spendRequirement: '$3,000 in 6 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
@@ -313,6 +352,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '$200 cash back', spendRequirement: '$2,000 in 6 months' },
+    highestHistoricalOffer: { amount: '$250 cash back', spendRequirement: '$2,000 in 6 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
@@ -345,6 +386,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 650,
     category: 'hotel',
+    currentOffer: { amount: '85,000 points', spendRequirement: '$6,000 in 6 months' },
+    highestHistoricalOffer: { amount: '150,000 points', spendRequirement: '$6,000 in 6 months' },
     benefits: [
       { name: 'Marriott Statement Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 25, notes: '$25/mo at Marriott properties ($300/yr).' },
       { name: '85K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 85000, notes: 'Free night certificate up to 85K points. Awarded on anniversary.' },
@@ -361,6 +404,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'hotel',
+    currentOffer: { amount: '3 free nights (up to 50K each)', spendRequirement: '$3,000 in 3 months' },
+    highestHistoricalOffer: { amount: '5 free nights (up to 50K each)', spendRequirement: '$5,000 in 3 months' },
     benefits: [
       { name: '35K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 35000, notes: 'Free night certificate up to 35K points. Awarded on anniversary.' },
     ],
@@ -408,6 +453,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 550,
     category: 'hotel',
+    currentOffer: { amount: '175,000 points', spendRequirement: '$6,000 in 6 months' },
+    highestHistoricalOffer: { amount: '175,000 points', spendRequirement: '$6,000 in 6 months' },
     benefits: [
       { name: 'Hilton Resort Credit', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 100, notes: '$100 per half at Hilton resorts ($200/yr).' },
       { name: 'Hilton Airline Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 airline incidental credit.' },
@@ -424,6 +471,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 150,
     category: 'hotel',
+    currentOffer: { amount: '130,000 points', spendRequirement: '$3,000 in 6 months' },
+    highestHistoricalOffer: { amount: '150,000 points', spendRequirement: '$3,000 in 6 months' },
     benefits: [
       { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Free night certificate after $15K spend. Up to 2 per year.' },
       { name: 'Gold Status', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary Hilton Honors Gold status.' },
@@ -438,6 +487,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 0,
     category: 'hotel',
+    currentOffer: { amount: '80,000 points', spendRequirement: '$2,000 in 6 months' },
+    highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$2,000 in 6 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
@@ -449,6 +500,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 99,
     category: 'hotel',
+    currentOffer: { amount: '140,000 points', spendRequirement: '$3,000 in 3 months' },
+    highestHistoricalOffer: { amount: '175,000 points', spendRequirement: '$3,000 in 3 months' },
     benefits: [
       { name: '40K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 40000, notes: 'Free night up to 40K points on anniversary.' },
     ],
@@ -470,6 +523,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'hotel',
+    currentOffer: { amount: '60,000 points', spendRequirement: '$6,000 in 6 months' },
+    highestHistoricalOffer: { amount: '60,000 points', spendRequirement: '$6,000 in 6 months' },
     benefits: [
       { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 15000, notes: 'Free night at any Category 1-4 Hyatt on anniversary.' },
     ],
@@ -503,6 +558,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 150,
     category: 'airline',
+    currentOffer: { amount: '60,000 miles', spendRequirement: '$3,000 in 3 months' },
+    highestHistoricalOffer: { amount: '70,000 miles', spendRequirement: '$3,000 in 3 months' },
     benefits: [
       { name: 'United Club Passes', creditType: 'annual', valueType: 'certificate', totalAmount: 2, notes: '2 United Club one-time passes per year.' },
       { name: 'United Travel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 United travel credit after $10K spend.' },
@@ -521,6 +578,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 350,
     category: 'airline',
+    currentOffer: { amount: '70,000 miles', spendRequirement: '$4,000 in 3 months' },
+    highestHistoricalOffer: { amount: '80,000 miles', spendRequirement: '$4,000 in 3 months' },
     benefits: [
       { name: 'United Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 200, notes: '$200 United travel credit on each anniversary.' },
       { name: '10K Award Flight Discount', creditType: 'annual', valueType: 'points', totalAmount: 10000, notes: '10,000-mile award flight discount on anniversary.' },
@@ -563,6 +622,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 150,
     category: 'airline',
+    currentOffer: { amount: '50,000 miles', spendRequirement: '$3,000 in 6 months' },
+    highestHistoricalOffer: { amount: '70,000 miles', spendRequirement: '$2,000 in 6 months' },
     benefits: [
       { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Delta flight credit after $10K spend.' },
       { name: 'Delta Stays Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Delta Stays hotel credit.' },
@@ -577,6 +638,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 350,
     category: 'airline',
+    currentOffer: { amount: '60,000 miles', spendRequirement: '$4,000 in 6 months' },
+    highestHistoricalOffer: { amount: '90,000 miles', spendRequirement: '$4,000 in 6 months' },
     benefits: [
       { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Delta flight credit after $10K spend.' },
       { name: 'Delta Stays Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Delta Stays hotel credit.' },
@@ -595,6 +658,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 650,
     category: 'airline',
+    currentOffer: { amount: '70,000 miles', spendRequirement: '$5,000 in 6 months' },
+    highestHistoricalOffer: { amount: '110,000 miles', spendRequirement: '$5,000 in 6 months' },
     benefits: [
       { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Delta flight credit.' },
       { name: 'Delta Stays Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Delta Stays hotel credit.' },
@@ -614,6 +679,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 229,
     category: 'airline',
+    currentOffer: { amount: '50,000 points', spendRequirement: '$1,000 in 3 months' },
+    highestHistoricalOffer: { amount: '75,000 points', spendRequirement: '$3,000 in 3 months' },
     benefits: [
       { name: 'Southwest Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 75, notes: '$75 Southwest travel credit per anniversary year.' },
       { name: 'Upgraded Boardings', creditType: 'quarterly', valueType: 'certificate', totalAmount: 4, notes: '4 upgraded boardings per year when available.' },
@@ -629,6 +696,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 99,
     category: 'airline',
+    currentOffer: { amount: '50,000 points', spendRequirement: '$1,000 in 3 months' },
+    highestHistoricalOffer: { amount: '75,000 points', spendRequirement: '$3,000 in 3 months' },
     benefits: [
       { name: '3,000 Anniversary Points', creditType: 'annual', valueType: 'points', totalAmount: 3000, notes: '3,000 anniversary points.' },
     ],
@@ -642,6 +711,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 149,
     category: 'airline',
+    currentOffer: { amount: '50,000 points', spendRequirement: '$1,000 in 3 months' },
+    highestHistoricalOffer: { amount: '75,000 points', spendRequirement: '$3,000 in 3 months' },
     benefits: [
       { name: '6,000 Anniversary Points', creditType: 'annual', valueType: 'points', totalAmount: 6000, notes: '6,000 anniversary points.' },
     ],
@@ -655,6 +726,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 595,
     category: 'airline',
+    currentOffer: { amount: '70,000 miles', spendRequirement: '$7,000 in 3 months' },
+    highestHistoricalOffer: { amount: '70,000 miles', spendRequirement: '$7,000 in 3 months' },
     benefits: [
       { name: 'Admirals Club Membership', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Admirals Club membership for primary + authorized users.' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 5 years.' },
@@ -669,6 +742,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 99,
     category: 'airline',
+    currentOffer: { amount: '60,000 miles', spendRequirement: '$3,000 in 3 months' },
+    highestHistoricalOffer: { amount: '75,000 miles', spendRequirement: '$3,500 in 4 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 48, description: 'Citi 48-month rule: not eligible if you received any Citi AAdvantage bonus in the last 48 months.' },
@@ -780,6 +855,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 395,
     category: 'travel',
+    currentOffer: { amount: '75,000 miles', spendRequirement: '$4,000 in 3 months' },
+    highestHistoricalOffer: { amount: '90,000 miles', spendRequirement: '$4,000 in 3 months' },
     benefits: [
       { name: 'Travel Portal Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, notes: '$300 credit for Capital One Travel bookings.' },
       { name: '10K Anniversary Bonus Miles', creditType: 'annual', valueType: 'points', totalAmount: 10000, notes: '10,000 bonus miles on anniversary.' },
@@ -796,6 +873,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'travel',
+    currentOffer: { amount: '75,000 miles', spendRequirement: '$4,000 in 3 months' },
+    highestHistoricalOffer: { amount: '75,000 miles', spendRequirement: '$4,000 in 3 months' },
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 48, description: 'Not eligible if you received a Venture or Venture X bonus in the last 48 months.' },
@@ -833,6 +912,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 95,
     category: 'travel',
+    currentOffer: { amount: '75,000 points', spendRequirement: '$4,000 in 3 months' },
+    highestHistoricalOffer: { amount: '80,000 points', spendRequirement: '$4,000 in 3 months' },
     benefits: [
       { name: 'Hotel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 annual hotel credit through Citi Travel portal.' },
     ],
