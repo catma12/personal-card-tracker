@@ -190,9 +190,10 @@ export default function EligibilityPage() {
       if (issuerFilter !== 'all' && e.issuer !== issuerFilter) return false;
       if (offerFilter === 'highest' && !e.isHighestOffer) return false;
       if (offerFilter === 'not-highest' && e.isHighestOffer) return false;
+      if (offerFilter === 'starred' && !starredOffers.has(e.cardName)) return false;
       return true;
     });
-  }, [eligibility, statusFilter, issuerFilter, offerFilter]);
+  }, [eligibility, statusFilter, issuerFilter, offerFilter, starredOffers]);
 
   const statusIcon = (s: EligibilityStatus) => {
     switch (s) {
