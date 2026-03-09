@@ -22,8 +22,14 @@ export default function TransferPartners() {
   const [showAll, setShowAll] = useState(false);
   const { cards } = useCards();
 
+  // Map card issuer names to transfer partner issuer names
+  const ISSUER_MAP: Record<string, string> = {
+    'American Express': 'Amex',
+    'Bilt (Column N.A.)': 'Bilt',
+  };
+
   const userIssuers = useMemo(() => {
-    const issuers = new Set(cards.map(c => c.issuer));
+    const issuers = new Set(cards.map(c => ISSUER_MAP[c.issuer] || c.issuer));
     return issuers;
   }, [cards]);
 
