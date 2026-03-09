@@ -658,6 +658,8 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 650,
     category: 'airline',
+    currentOffer: { amount: '70,000 miles', spendRequirement: '$5,000 in 6 months' },
+    highestHistoricalOffer: { amount: '110,000 miles', spendRequirement: '$5,000 in 6 months' },
     benefits: [
       { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Delta flight credit.' },
       { name: 'Delta Stays Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Delta Stays hotel credit.' },
