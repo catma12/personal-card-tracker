@@ -639,7 +639,7 @@ export const knownCards: KnownCardInfo[] = [
     highestHistoricalOffer: { amount: '60,000 points', spendRequirement: '$6,000 in 6 months' },
     applyUrl: 'https://creditcards.chase.com/travel-credit-cards/world-of-hyatt/credit-card',
     benefits: [
-      { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 15000, notes: 'Free night at any Category 1-4 Hyatt on anniversary.' },
+      { name: '15K Free Night Certificate', creditType: 'anniversary-year', valueType: 'certificate', totalAmount: 15000, notes: 'Free night at any Category 1-4 Hyatt on anniversary.' },
     ],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the World of Hyatt bonus in the last 24 months.' },
