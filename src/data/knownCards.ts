@@ -57,6 +57,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'travel',
     currentOffer: { amount: '60,000 points', spendRequirement: '$4,000 in 3 months' },
     highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$4,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred',
     benefits: [
       { name: '$50 Hotel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 50, notes: '$50 annual hotel credit through Chase Travel.' },
       { name: 'DoorDash DashPass', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary DashPass membership.' },
@@ -74,6 +75,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'travel',
     currentOffer: { amount: '60,000 points', spendRequirement: '$4,000 in 3 months' },
     highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$4,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve',
     benefits: [
       { name: 'Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, notes: '$300 annual travel credit, auto-applied to travel purchases.' },
       { name: 'The Edit Hotel Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 250, notes: '$250 Jan–Jun for The Edit by Chase Travel hotel stays (2-night min).' },
@@ -102,6 +104,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'cashback',
     currentOffer: { amount: '$300 cash back', spendRequirement: '$500 in 3 months' },
     highestHistoricalOffer: { amount: '$300 cash back', spendRequirement: '$500 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/cash-back-credit-cards/freedom/unlimited',
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Freedom Unlimited bonus in the last 24 months.' },
@@ -115,6 +118,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'cashback',
     currentOffer: { amount: '$200 cash back', spendRequirement: '$500 in 3 months' },
     highestHistoricalOffer: { amount: '$200 cash back', spendRequirement: '$500 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/cash-back-credit-cards/freedom/flex',
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Freedom Flex bonus in the last 24 months.' },
@@ -126,6 +130,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'cashback',
+    applyUrl: 'https://creditcards.chase.com/cash-back-credit-cards/freedom/rise',
     benefits: [],
   },
   {
@@ -136,6 +141,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'business',
     currentOffer: { amount: '100,000 points', spendRequirement: '$8,000 in 3 months' },
     highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$8,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/business-credit-cards/ink/business-preferred',
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Ink Business Preferred bonus in the last 24 months.' },
@@ -149,6 +155,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'business',
     currentOffer: { amount: '$350 cash back', spendRequirement: '$3,000 in 3 months' },
     highestHistoricalOffer: { amount: '$750 cash back', spendRequirement: '$6,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/business-credit-cards/ink/cash',
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Ink Business Cash bonus in the last 24 months.' },
@@ -162,6 +169,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'business',
     currentOffer: { amount: '$500 cash back', spendRequirement: '$3,000 in 3 months' },
     highestHistoricalOffer: { amount: '$900 cash back', spendRequirement: '$6,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/business-credit-cards/ink/unlimited',
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Ink Business Unlimited bonus in the last 24 months.' },
@@ -173,6 +181,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'airline',
+    currentOffer: { amount: '70,000 points', spendRequirement: '$4,000 in 3 months' },
+    highestHistoricalOffer: { amount: '80,000 points', spendRequirement: '$4,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/travel-credit-cards/aeroplan/card',
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the Aeroplan bonus in the last 24 months.' },
@@ -184,6 +195,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'airline',
+    currentOffer: { amount: '75,000 Avios', spendRequirement: '$5,000 in 3 months' },
+    highestHistoricalOffer: { amount: '100,000 Avios', spendRequirement: '$5,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/travel-credit-cards/british-airways/visa-signature',
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the British Airways bonus in the last 24 months.' },
@@ -195,6 +209,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'other',
+    applyUrl: 'https://creditcards.chase.com/disney-credit-cards',
     benefits: [],
   },
   {
@@ -203,6 +218,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '$200 Amazon gift card', spendRequirement: 'Upon approval' },
+    highestHistoricalOffer: { amount: '$200 Amazon gift card', spendRequirement: 'Upon approval' },
+    applyUrl: 'https://www.amazon.com/dp/B007URFTYI',
     benefits: [],
   },
   {
@@ -211,6 +229,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 550,
     category: 'hotel',
+    applyUrl: 'https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/ritz-carlton',
     benefits: [
       { name: 'Airline Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 300, notes: '$300 annual airline credit.' },
       { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 85000, notes: 'Free night certificate up to 85K points on anniversary.' },
@@ -229,6 +248,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'travel',
     currentOffer: { amount: '80,000 points', spendRequirement: '$8,000 in 6 months' },
     highestHistoricalOffer: { amount: '150,000 points', spendRequirement: '$6,000 in 6 months' },
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/platinum/',
     benefits: [
       { name: 'Uber Cash Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 15, notes: '$15/mo, $20 in December ($200/yr total).' },
       { name: 'Digital Entertainment Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 25, notes: '$25/mo for Disney+, Hulu, ESPN+, Peacock, NYT, WSJ, YouTube Premium/TV, Paramount+.' },
@@ -255,6 +275,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'travel',
     currentOffer: { amount: '80,000 points', spendRequirement: '$6,000 in 6 months' },
     highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$6,000 in 6 months' },
+    applyUrl: 'https://www.schwab.com/credit-cards/platinum-card',
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule. Note: Schwab Platinum is treated as a separate product from the regular Platinum.' },
@@ -266,6 +287,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 895,
     category: 'travel',
+    currentOffer: { amount: '80,000 points', spendRequirement: '$8,000 in 6 months' },
+    highestHistoricalOffer: { amount: '125,000 points', spendRequirement: '$6,000 in 6 months' },
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/platinum-morgan-stanley/',
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule. Note: Morgan Stanley Platinum is treated as a separate product from the regular Platinum.' },
@@ -279,6 +303,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'travel',
     currentOffer: { amount: '60,000 points', spendRequirement: '$6,000 in 6 months' },
     highestHistoricalOffer: { amount: '90,000 points', spendRequirement: '$4,000 in 6 months' },
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/gold-card/',
     benefits: [
       { name: 'Uber Cash Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo Uber Cash ($120/yr).' },
       { name: 'Dining Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 10, notes: '$10/mo at Grubhub, Seamless, The Cheesecake Factory, Goldbelly, Wine.com, Five Guys.' },
@@ -298,6 +323,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'travel',
     currentOffer: { amount: '40,000 points', spendRequirement: '$3,000 in 6 months' },
     highestHistoricalOffer: { amount: '60,000 points', spendRequirement: '$3,000 in 6 months' },
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/green/',
     benefits: [
       { name: 'CLEAR Plus Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 189, notes: 'CLEAR Plus membership credit.' },
     ],
@@ -313,6 +339,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'business',
     currentOffer: { amount: '120,000 points', spendRequirement: '$15,000 in 3 months' },
     highestHistoricalOffer: { amount: '170,000 points', spendRequirement: '$15,000 in 3 months' },
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-platinum-credit-card-amex/',
     benefits: [
       { name: 'Airline Incidental Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 airline incidental credit per calendar year.' },
       { name: 'Dell Credit (H1)', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Jan–Jun Dell credit.' },
@@ -333,6 +360,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'business',
     currentOffer: { amount: '70,000 points', spendRequirement: '$10,000 in 3 months' },
     highestHistoricalOffer: { amount: '70,000 points', spendRequirement: '$10,000 in 3 months' },
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/american-express-business-gold-card-amex/',
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
@@ -346,6 +374,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'cashback',
     currentOffer: { amount: '$250 cash back', spendRequirement: '$3,000 in 6 months' },
     highestHistoricalOffer: { amount: '$400 cash back', spendRequirement: '$3,000 in 6 months' },
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/blue-cash-preferred/',
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
@@ -359,6 +388,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'cashback',
     currentOffer: { amount: '$200 cash back', spendRequirement: '$2,000 in 6 months' },
     highestHistoricalOffer: { amount: '$250 cash back', spendRequirement: '$2,000 in 6 months' },
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/blue-cash-everyday/',
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
@@ -370,6 +400,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 95,
     category: 'other',
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/amex-everyday-preferred/',
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
@@ -381,6 +412,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 0,
     category: 'cashback',
+    applyUrl: 'https://www.rakuten.com/credit-card.htm',
     benefits: [],
   },
 
@@ -393,6 +425,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'hotel',
     currentOffer: { amount: '85,000 points', spendRequirement: '$6,000 in 6 months' },
     highestHistoricalOffer: { amount: '150,000 points', spendRequirement: '$6,000 in 6 months' },
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/',
     benefits: [
       { name: 'Marriott Statement Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 25, notes: '$25/mo at Marriott properties ($300/yr).' },
       { name: '85K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 85000, notes: 'Free night certificate up to 85K points. Awarded on anniversary.' },
@@ -411,6 +444,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'hotel',
     currentOffer: { amount: '3 free nights (up to 50K each)', spendRequirement: '$3,000 in 3 months' },
     highestHistoricalOffer: { amount: '5 free nights (up to 50K each)', spendRequirement: '$5,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless',
     benefits: [
       { name: '35K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 35000, notes: 'Free night certificate up to 35K points. Awarded on anniversary.' },
     ],
@@ -424,6 +458,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'hotel',
+    currentOffer: { amount: '30,000 points', spendRequirement: '$1,500 in 3 months' },
+    highestHistoricalOffer: { amount: '60,000 points', spendRequirement: '$2,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bold',
     benefits: [],
   },
   {
@@ -432,6 +469,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 250,
     category: 'hotel',
+    currentOffer: { amount: '85,000 points', spendRequirement: '$4,000 in 3 months' },
+    highestHistoricalOffer: { amount: '85,000 points', spendRequirement: '$4,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/bountiful',
     benefits: [
       { name: '50K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 50000, notes: 'Free night certificate up to 50K points. Awarded on anniversary.' },
     ],
@@ -445,6 +485,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 125,
     category: 'hotel',
+    currentOffer: { amount: '75,000 points', spendRequirement: '$4,000 in 6 months' },
+    highestHistoricalOffer: { amount: '125,000 points', spendRequirement: '$5,000 in 3 months' },
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/business/business-credit-cards/marriott-bonvoy-business-credit-card-amex/',
     benefits: [
       { name: '35K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 35000, notes: 'Free night certificate up to 35K points. Awarded on anniversary.' },
     ],
@@ -460,6 +503,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'hotel',
     currentOffer: { amount: '175,000 points', spendRequirement: '$6,000 in 6 months' },
     highestHistoricalOffer: { amount: '175,000 points', spendRequirement: '$6,000 in 6 months' },
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/hilton-honors-aspire/',
     benefits: [
       { name: 'Hilton Resort Credit', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 100, notes: '$100 per half at Hilton resorts ($200/yr).' },
       { name: 'Hilton Airline Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 airline incidental credit.' },
@@ -478,6 +522,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'hotel',
     currentOffer: { amount: '130,000 points', spendRequirement: '$3,000 in 6 months' },
     highestHistoricalOffer: { amount: '150,000 points', spendRequirement: '$3,000 in 6 months' },
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/hilton-honors-surpass/',
     benefits: [
       { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Free night certificate after $15K spend. Up to 2 per year.' },
       { name: 'Gold Status', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Complimentary Hilton Honors Gold status.' },
@@ -494,6 +539,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'hotel',
     currentOffer: { amount: '80,000 points', spendRequirement: '$2,000 in 6 months' },
     highestHistoricalOffer: { amount: '100,000 points', spendRequirement: '$2,000 in 6 months' },
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/hilton-honors/',
     benefits: [],
     eligibilityRules: [
       { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule.' },
@@ -507,6 +553,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'hotel',
     currentOffer: { amount: '140,000 points', spendRequirement: '$3,000 in 3 months' },
     highestHistoricalOffer: { amount: '175,000 points', spendRequirement: '$3,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/travel-credit-cards/ihg-one-rewards/premier',
     benefits: [
       { name: '40K Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 40000, notes: 'Free night up to 40K points on anniversary.' },
     ],
@@ -520,6 +567,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 0,
     category: 'hotel',
+    currentOffer: { amount: '60,000 points', spendRequirement: '$2,000 in 3 months' },
+    highestHistoricalOffer: { amount: '80,000 points', spendRequirement: '$2,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/travel-credit-cards/ihg-one-rewards/traveler',
     benefits: [],
   },
   {
@@ -530,6 +580,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'hotel',
     currentOffer: { amount: '60,000 points', spendRequirement: '$6,000 in 6 months' },
     highestHistoricalOffer: { amount: '60,000 points', spendRequirement: '$6,000 in 6 months' },
+    applyUrl: 'https://creditcards.chase.com/travel-credit-cards/world-of-hyatt/credit-card',
     benefits: [
       { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 15000, notes: 'Free night at any Category 1-4 Hyatt on anniversary.' },
     ],
@@ -543,6 +594,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 199,
     category: 'hotel',
+    currentOffer: { amount: '60,000 points', spendRequirement: '$5,000 in 3 months' },
+    highestHistoricalOffer: { amount: '75,000 points', spendRequirement: '$5,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/business-credit-cards/world-of-hyatt/business',
     benefits: [
       { name: 'Free Night Certificate', creditType: 'annual', valueType: 'certificate', totalAmount: 15000, notes: 'Free night at any Category 1-4 Hyatt on anniversary.' },
     ],
@@ -553,6 +607,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 0,
     category: 'hotel',
+    currentOffer: { amount: '30,000 points', spendRequirement: '$1,000 in 3 months' },
+    highestHistoricalOffer: { amount: '40,000 points', spendRequirement: '$1,000 in 3 months' },
+    applyUrl: 'https://creditcards.wellsfargo.com/cards/choice-privileges/',
     benefits: [],
   },
 
@@ -565,6 +622,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'airline',
     currentOffer: { amount: '60,000 miles', spendRequirement: '$3,000 in 3 months' },
     highestHistoricalOffer: { amount: '70,000 miles', spendRequirement: '$3,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/travel-credit-cards/united/explorer',
     benefits: [
       { name: 'United Club Passes', creditType: 'annual', valueType: 'certificate', totalAmount: 2, notes: '2 United Club one-time passes per year.' },
       { name: 'United Travel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 United travel credit after $10K spend.' },
@@ -585,6 +643,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'airline',
     currentOffer: { amount: '70,000 miles', spendRequirement: '$4,000 in 3 months' },
     highestHistoricalOffer: { amount: '80,000 miles', spendRequirement: '$4,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/travel-credit-cards/united/quest',
     benefits: [
       { name: 'United Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 200, notes: '$200 United travel credit on each anniversary.' },
       { name: '10K Award Flight Discount', creditType: 'annual', valueType: 'points', totalAmount: 10000, notes: '10,000-mile award flight discount on anniversary.' },
@@ -604,6 +663,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'airline',
+    currentOffer: { amount: '20,000 miles', spendRequirement: '$1,000 in 3 months' },
+    highestHistoricalOffer: { amount: '30,000 miles', spendRequirement: '$1,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/travel-credit-cards/united/gateway',
     benefits: [],
   },
   {
@@ -612,6 +674,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 695,
     category: 'airline',
+    currentOffer: { amount: '80,000 miles', spendRequirement: '$5,000 in 3 months' },
+    highestHistoricalOffer: { amount: '100,000 miles', spendRequirement: '$5,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/travel-credit-cards/united/club-infinite',
     benefits: [
       { name: 'United Club Membership', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Unlimited United Club lounge access.' },
       { name: 'Renowned Hotels Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 200, notes: 'Up to $200 for Renowned Hotels per anniversary year.' },
@@ -629,6 +694,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'airline',
     currentOffer: { amount: '50,000 miles', spendRequirement: '$3,000 in 6 months' },
     highestHistoricalOffer: { amount: '70,000 miles', spendRequirement: '$2,000 in 6 months' },
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/',
     benefits: [
       { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Delta flight credit after $10K spend.' },
       { name: 'Delta Stays Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 Delta Stays hotel credit.' },
@@ -645,6 +711,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'airline',
     currentOffer: { amount: '60,000 miles', spendRequirement: '$4,000 in 6 months' },
     highestHistoricalOffer: { amount: '90,000 miles', spendRequirement: '$4,000 in 6 months' },
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-platinum-american-express-card/',
     benefits: [
       { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Delta flight credit after $10K spend.' },
       { name: 'Delta Stays Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 150, notes: '$150 Delta Stays hotel credit.' },
@@ -665,6 +732,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'airline',
     currentOffer: { amount: '70,000 miles', spendRequirement: '$5,000 in 6 months' },
     highestHistoricalOffer: { amount: '110,000 miles', spendRequirement: '$5,000 in 6 months' },
+    applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-reserve-american-express-card/',
     benefits: [
       { name: 'Delta Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Delta flight credit.' },
       { name: 'Delta Stays Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 Delta Stays hotel credit.' },
@@ -686,6 +754,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'airline',
     currentOffer: { amount: '50,000 points', spendRequirement: '$1,000 in 3 months' },
     highestHistoricalOffer: { amount: '75,000 points', spendRequirement: '$3,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/travel-credit-cards/southwest/priority',
     benefits: [
       { name: 'Southwest Travel Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 75, notes: '$75 Southwest travel credit per anniversary year.' },
       { name: 'Upgraded Boardings', creditType: 'quarterly', valueType: 'certificate', totalAmount: 4, notes: '4 upgraded boardings per year when available.' },
@@ -703,6 +772,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'airline',
     currentOffer: { amount: '50,000 points', spendRequirement: '$1,000 in 3 months' },
     highestHistoricalOffer: { amount: '75,000 points', spendRequirement: '$3,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/travel-credit-cards/southwest/plus',
     benefits: [
       { name: '3,000 Anniversary Points', creditType: 'annual', valueType: 'points', totalAmount: 3000, notes: '3,000 anniversary points.' },
     ],
@@ -718,6 +788,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'airline',
     currentOffer: { amount: '50,000 points', spendRequirement: '$1,000 in 3 months' },
     highestHistoricalOffer: { amount: '75,000 points', spendRequirement: '$3,000 in 3 months' },
+    applyUrl: 'https://creditcards.chase.com/travel-credit-cards/southwest/premier',
     benefits: [
       { name: '6,000 Anniversary Points', creditType: 'annual', valueType: 'points', totalAmount: 6000, notes: '6,000 anniversary points.' },
     ],
@@ -733,6 +804,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'airline',
     currentOffer: { amount: '70,000 miles', spendRequirement: '$7,000 in 3 months' },
     highestHistoricalOffer: { amount: '70,000 miles', spendRequirement: '$7,000 in 3 months' },
+    applyUrl: 'https://www.citi.com/credit-cards/citi-aadvantage-executive-world-elite-mastercard',
     benefits: [
       { name: 'Admirals Club Membership', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Admirals Club membership for primary + authorized users.' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 5 years.' },
@@ -749,6 +821,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'airline',
     currentOffer: { amount: '60,000 miles', spendRequirement: '$3,000 in 3 months' },
     highestHistoricalOffer: { amount: '75,000 miles', spendRequirement: '$3,500 in 4 months' },
+    applyUrl: 'https://www.citi.com/credit-cards/citi-aadvantage-platinum-select-world-elite-mastercard',
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 48, description: 'Citi 48-month rule: not eligible if you received any Citi AAdvantage bonus in the last 48 months.' },
@@ -760,6 +833,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 250,
     category: 'airline',
+    currentOffer: { amount: '70,000 miles', spendRequirement: '$4,000 in 3 months' },
+    highestHistoricalOffer: { amount: '70,000 miles', spendRequirement: '$4,000 in 3 months' },
+    applyUrl: 'https://www.citi.com/credit-cards/citi-aadvantage-globe-world-elite-mastercard',
     benefits: [
       { name: 'AAdvantage Flight Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 American Airlines flight discount after $15K spend.' },
       { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Every 5 years.' },
@@ -774,6 +850,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'airline',
+    currentOffer: { amount: '70,000 miles', spendRequirement: '$3,000 in 90 days' },
+    highestHistoricalOffer: { amount: '70,000 miles', spendRequirement: '$3,000 in 90 days' },
+    applyUrl: 'https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/',
     benefits: [
       { name: 'Companion Fare', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Annual companion fare from $122 ($99 + taxes/fees) on Alaska Airlines.' },
     ],
@@ -784,6 +863,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 395,
     category: 'airline',
+    currentOffer: { amount: '100,000 miles', spendRequirement: '$5,000 in 90 days' },
+    highestHistoricalOffer: { amount: '100,000 miles', spendRequirement: '$5,000 in 90 days' },
+    applyUrl: 'https://www.bankofamerica.com/credit-cards/products/alaska-airlines-summit-credit-card/',
     benefits: [
       { name: '25K Global Companion Award', creditType: 'annual', valueType: 'certificate', totalAmount: 25000, notes: '25,000-point Global Companion Award on anniversary (no spend required).' },
       { name: '100K Global Companion Award', creditType: 'annual', valueType: 'certificate', totalAmount: 100000, notes: '100,000-point Global Companion Award after $60K spend in anniversary year.' },
@@ -798,6 +880,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 95,
     category: 'airline',
+    currentOffer: { amount: '60,000 miles', spendRequirement: '$2,000 in 90 days' },
+    highestHistoricalOffer: { amount: '60,000 miles', spendRequirement: '$2,000 in 90 days' },
+    applyUrl: 'https://www.bankofamerica.com/credit-cards/products/air-france-klm-credit-card/',
     benefits: [],
   },
   {
@@ -806,6 +891,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 0,
     category: 'airline',
+    currentOffer: { amount: '50,000 points', spendRequirement: '$1,000 in 90 days' },
+    highestHistoricalOffer: { amount: '60,000 points', spendRequirement: '$1,000 in 90 days' },
+    applyUrl: 'https://www.bankofamerica.com/credit-cards/products/spirit-airlines-credit-card/',
     benefits: [],
   },
   {
@@ -814,6 +902,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 99,
     category: 'airline',
+    currentOffer: { amount: '60,000 points', spendRequirement: '$1,000 in 90 days' },
+    highestHistoricalOffer: { amount: '80,000 points', spendRequirement: '$1,000 in 90 days' },
+    applyUrl: 'https://cards.barclaycardus.com/banking/cards/jetblue-plus-card/',
     benefits: [
       { name: 'Anniversary Points', creditType: 'annual', valueType: 'points', totalAmount: 5000, notes: '5,000 bonus TrueBlue points on anniversary.' },
     ],
@@ -824,6 +915,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 99,
     category: 'airline',
+    currentOffer: { amount: '60,000 miles', spendRequirement: '$2,000 in 90 days' },
+    highestHistoricalOffer: { amount: '60,000 miles', spendRequirement: '$2,000 in 90 days' },
+    applyUrl: 'https://cards.barclaycardus.com/banking/cards/hawaiian-airlines-world-elite-mastercard/',
     benefits: [
       { name: 'Companion Discount', creditType: 'annual', valueType: 'certificate', totalAmount: 1, notes: 'Annual 50% off companion discount on Hawaiian Airlines.' },
     ],
@@ -834,6 +928,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 79,
     category: 'airline',
+    currentOffer: { amount: '20,000 points', spendRequirement: '$1,000 in 90 days' },
+    highestHistoricalOffer: { amount: '40,000 points', spendRequirement: '$1,000 in 90 days' },
+    applyUrl: 'https://www.amtrak.com/amtrak-guest-rewards-preferred-mastercard',
     benefits: [],
   },
   {
@@ -842,6 +939,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 299,
     category: 'airline',
+    currentOffer: { amount: '100,000 Avios', spendRequirement: '$5,000 in 3 months' },
+    highestHistoricalOffer: { amount: '100,000 Avios', spendRequirement: '$5,000 in 3 months' },
+    applyUrl: 'https://cardless.com/cards/qatar-airways',
     benefits: [],
   },
   {
@@ -850,6 +950,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 0,
     category: 'airline',
+    currentOffer: { amount: '10,000 points', spendRequirement: '$500 in 3 months' },
+    highestHistoricalOffer: { amount: '10,000 points', spendRequirement: '$500 in 3 months' },
+    applyUrl: 'https://www.virgin.com/virgin-red/credit-card',
     benefits: [],
   },
 
@@ -862,6 +965,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'travel',
     currentOffer: { amount: '75,000 miles', spendRequirement: '$4,000 in 3 months' },
     highestHistoricalOffer: { amount: '90,000 miles', spendRequirement: '$4,000 in 3 months' },
+    applyUrl: 'https://www.capitalone.com/credit-cards/venture-x/',
     benefits: [
       { name: 'Travel Portal Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 300, notes: '$300 credit for Capital One Travel bookings.' },
       { name: '10K Anniversary Bonus Miles', creditType: 'annual', valueType: 'points', totalAmount: 10000, notes: '10,000 bonus miles on anniversary.' },
@@ -880,6 +984,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'travel',
     currentOffer: { amount: '75,000 miles', spendRequirement: '$4,000 in 3 months' },
     highestHistoricalOffer: { amount: '75,000 miles', spendRequirement: '$4,000 in 3 months' },
+    applyUrl: 'https://www.capitalone.com/credit-cards/venture/',
     benefits: [],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 48, description: 'Not eligible if you received a Venture or Venture X bonus in the last 48 months.' },
@@ -891,6 +996,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'travel',
+    currentOffer: { amount: '20,000 miles', spendRequirement: '$500 in 3 months' },
+    highestHistoricalOffer: { amount: '20,000 miles', spendRequirement: '$500 in 3 months' },
+    applyUrl: 'https://www.capitalone.com/credit-cards/ventureone/',
     benefits: [],
   },
   {
@@ -899,6 +1007,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '$200 cash back', spendRequirement: '$500 in 3 months' },
+    highestHistoricalOffer: { amount: '$300 cash back', spendRequirement: '$3,000 in 3 months' },
+    applyUrl: 'https://www.capitalone.com/credit-cards/savor-one/',
     benefits: [],
   },
   {
@@ -907,6 +1018,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '$200 cash back', spendRequirement: '$500 in 3 months' },
+    highestHistoricalOffer: { amount: '$200 cash back', spendRequirement: '$500 in 3 months' },
+    applyUrl: 'https://www.capitalone.com/credit-cards/quicksilver/',
     benefits: [],
   },
 
@@ -919,6 +1033,7 @@ export const knownCards: KnownCardInfo[] = [
     category: 'travel',
     currentOffer: { amount: '75,000 points', spendRequirement: '$4,000 in 3 months' },
     highestHistoricalOffer: { amount: '80,000 points', spendRequirement: '$4,000 in 3 months' },
+    applyUrl: 'https://www.citi.com/credit-cards/citi-strata-premier-credit-card',
     benefits: [
       { name: 'Hotel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 annual hotel credit through Citi Travel portal.' },
     ],
@@ -932,6 +1047,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 595,
     category: 'travel',
+    currentOffer: { amount: '75,000 points', spendRequirement: '$5,000 in 3 months' },
+    highestHistoricalOffer: { amount: '75,000 points', spendRequirement: '$5,000 in 3 months' },
+    applyUrl: 'https://www.citi.com/credit-cards/citi-strata-elite-credit-card',
     benefits: [
       { name: 'Hotel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 300, notes: '$300 off a hotel stay of 2+ nights via Citi Travel.' },
       { name: 'Splurge Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 annual credit at 1stDibs, AA, Best Buy, Future, Live Nation.' },
@@ -949,6 +1067,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '$200 cash back', spendRequirement: '$1,500 in 6 months' },
+    highestHistoricalOffer: { amount: '$200 cash back', spendRequirement: '$1,500 in 6 months' },
+    applyUrl: 'https://www.citi.com/credit-cards/citi-strata-credit-card',
     benefits: [],
   },
   {
@@ -957,6 +1078,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '$200 cash back', spendRequirement: '$1,500 in 6 months' },
+    highestHistoricalOffer: { amount: '$200 cash back', spendRequirement: '$1,500 in 6 months' },
+    applyUrl: 'https://www.citi.com/credit-cards/citi-double-cash-credit-card',
     benefits: [],
   },
   {
@@ -965,6 +1089,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '$200 cash back', spendRequirement: '$1,500 in 6 months' },
+    highestHistoricalOffer: { amount: '$200 cash back', spendRequirement: '$1,500 in 6 months' },
+    applyUrl: 'https://www.citi.com/credit-cards/citi-custom-cash-credit-card',
     benefits: [],
   },
 
@@ -975,6 +1102,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'travel',
+    currentOffer: { amount: '20,000 points', spendRequirement: '$1,000 in 3 months' },
+    highestHistoricalOffer: { amount: '30,000 points', spendRequirement: '$1,500 in 3 months' },
+    applyUrl: 'https://creditcards.wellsfargo.com/cards/autograph-visa-credit-card/',
     benefits: [],
   },
   {
@@ -983,6 +1113,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'travel',
+    currentOffer: { amount: '60,000 points', spendRequirement: '$4,000 in 3 months' },
+    highestHistoricalOffer: { amount: '60,000 points', spendRequirement: '$4,000 in 3 months' },
+    applyUrl: 'https://creditcards.wellsfargo.com/cards/autograph-journey-visa-credit-card/',
     benefits: [
       { name: 'Airline Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 50, notes: '$50 annual airline incidental credit.' },
     ],
@@ -993,6 +1126,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'travel',
+    currentOffer: { amount: '20,000 points', spendRequirement: '$1,000 in 3 months' },
+    highestHistoricalOffer: { amount: '30,000 points', spendRequirement: '$1,000 in 3 months' },
+    applyUrl: 'https://creditcards.wellsfargo.com/cards/premier-autograph/',
     benefits: [],
   },
   {
@@ -1001,6 +1137,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '$200 cash back', spendRequirement: '$500 in 3 months' },
+    highestHistoricalOffer: { amount: '$200 cash back', spendRequirement: '$500 in 3 months' },
+    applyUrl: 'https://creditcards.wellsfargo.com/cards/active-cash-credit-card/',
     benefits: [],
   },
 
@@ -1011,6 +1150,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 0,
     category: 'other',
+    applyUrl: 'https://www.biltrewards.com/card',
     benefits: [],
   },
   {
@@ -1019,6 +1159,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 95,
     category: 'other',
+    applyUrl: 'https://www.biltrewards.com/card',
     benefits: [
       { name: 'Hotel Credit', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 50, notes: '$50 semi-annual Bilt Travel portal hotel credit ($100/yr).' },
     ],
@@ -1029,6 +1170,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 495,
     category: 'travel',
+    applyUrl: 'https://www.biltrewards.com/card',
     benefits: [
       { name: 'Hotel Credit', creditType: 'semi-annual', valueType: 'dollar', totalAmount: 200, notes: '$200 semi-annual Bilt Travel portal hotel credit ($400/yr).' },
       { name: 'Annual Bilt Cash', creditType: 'annual', valueType: 'dollar', totalAmount: 200, notes: '$200 in Bilt Cash annually.' },
@@ -1042,6 +1184,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '$200 cash back', spendRequirement: '$1,000 in 120 days' },
+    highestHistoricalOffer: { amount: '$200 cash back', spendRequirement: '$1,000 in 120 days' },
+    applyUrl: 'https://www.usbank.com/credit-cards/smartly-visa-signature-credit-card.html',
     benefits: [],
   },
   {
@@ -1050,6 +1195,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'travel',
+    currentOffer: { amount: '50,000 points', spendRequirement: '$2,000 in 120 days' },
+    highestHistoricalOffer: { amount: '50,000 points', spendRequirement: '$2,000 in 120 days' },
+    applyUrl: 'https://www.usbank.com/credit-cards/altitude-connect-visa-signature-credit-card.html',
     benefits: [],
   },
   {
@@ -1058,6 +1206,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '25,000 points', spendRequirement: '$1,000 in 90 days' },
+    highestHistoricalOffer: { amount: '25,000 points', spendRequirement: '$1,000 in 90 days' },
+    applyUrl: 'https://www.usbank.com/credit-cards/altitude-go-visa-signature-credit-card.html',
     benefits: [],
   },
 
@@ -1068,6 +1219,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 550,
     category: 'travel',
+    currentOffer: { amount: '75,000 points', spendRequirement: '$5,000 in 90 days' },
+    highestHistoricalOffer: { amount: '75,000 points', spendRequirement: '$5,000 in 90 days' },
+    applyUrl: 'https://www.bankofamerica.com/credit-cards/products/premium-rewards-elite-credit-card/',
     benefits: [
       { name: 'Airline Incidental Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 300, notes: '$300 annual airline incidental credit.' },
       { name: 'Lifestyle Credit', creditType: 'quarterly', valueType: 'dollar', totalAmount: 75, notes: '$75/quarter for select lifestyle purchases ($300/yr).' },
@@ -1080,6 +1234,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 95,
     category: 'travel',
+    currentOffer: { amount: '60,000 points', spendRequirement: '$4,000 in 90 days' },
+    highestHistoricalOffer: { amount: '75,000 points', spendRequirement: '$4,000 in 90 days' },
+    applyUrl: 'https://www.bankofamerica.com/credit-cards/products/premium-rewards-credit-card/',
     benefits: [
       { name: 'Airline Incidental Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 100, notes: '$100 annual airline incidental credit.' },
     ],
@@ -1090,6 +1247,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '$200 cash back', spendRequirement: '$1,000 in 90 days' },
+    highestHistoricalOffer: { amount: '$200 cash back', spendRequirement: '$1,000 in 90 days' },
+    applyUrl: 'https://www.bankofamerica.com/credit-cards/products/customized-cash-rewards-credit-card/',
     benefits: [],
   },
   {
@@ -1098,6 +1258,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '$200 cash back', spendRequirement: '$1,000 in 90 days' },
+    highestHistoricalOffer: { amount: '$200 cash back', spendRequirement: '$1,000 in 90 days' },
+    applyUrl: 'https://www.bankofamerica.com/credit-cards/products/unlimited-cash-rewards-credit-card/',
     benefits: [],
   },
 
@@ -1108,6 +1271,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 95,
     category: 'travel',
+    currentOffer: { amount: '60,000 miles', spendRequirement: '$3,000 in 90 days' },
+    highestHistoricalOffer: { amount: '70,000 miles', spendRequirement: '$3,000 in 90 days' },
+    applyUrl: 'https://cards.barclaycardus.com/banking/cards/barclays-arrival-plus-world-elite-mastercard/',
     benefits: [],
   },
   {
@@ -1116,6 +1282,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 1199,
     category: 'travel',
+    applyUrl: 'https://www.luxurycard.com/goldcard',
     benefits: [],
   },
   {
@@ -1124,6 +1291,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 699,
     category: 'travel',
+    applyUrl: 'https://www.luxurycard.com/blackcard',
     benefits: [],
   },
   {
@@ -1132,6 +1300,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 299,
     category: 'travel',
+    applyUrl: 'https://www.luxurycard.com/titaniumcard',
     benefits: [],
   },
 
@@ -1142,6 +1311,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Discover',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: 'Cashback Match (doubles first year)', spendRequirement: 'No minimum' },
+    highestHistoricalOffer: { amount: 'Cashback Match (doubles first year)', spendRequirement: 'No minimum' },
+    applyUrl: 'https://www.discover.com/credit-cards/cash-back/it-card.html',
     benefits: [],
   },
   {
@@ -1150,6 +1322,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Discover',
     annualFee: 0,
     category: 'travel',
+    currentOffer: { amount: 'Miles Match (doubles first year)', spendRequirement: 'No minimum' },
+    highestHistoricalOffer: { amount: 'Miles Match (doubles first year)', spendRequirement: 'No minimum' },
+    applyUrl: 'https://www.discover.com/credit-cards/travel/it-miles.html',
     benefits: [],
   },
 
@@ -1160,6 +1335,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 695,
     category: 'travel',
+    applyUrl: 'https://robinhood.com/creditcard/',
     benefits: [
       { name: 'Hotel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 500, notes: '$500 annual hotel credit (booked through Robinhood app).' },
       { name: 'Travel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 300, notes: '$300 annual travel credit.' },
@@ -1181,6 +1357,9 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Mastercard',
     annualFee: 0,
     category: 'cashback',
+    currentOffer: { amount: '$250 cash back', spendRequirement: '$1,500 in 3 months' },
+    highestHistoricalOffer: { amount: '$250 cash back', spendRequirement: '$1,500 in 3 months' },
+    applyUrl: 'https://www.sofi.com/credit-card/',
     benefits: [],
   },
   {
@@ -1189,6 +1368,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Amex',
     annualFee: 0,
     category: 'cashback',
+    applyUrl: 'https://www.coinbase.com/card',
     benefits: [],
   },
   {
@@ -1197,6 +1377,7 @@ export const knownCards: KnownCardInfo[] = [
     network: 'Visa',
     annualFee: 0,
     category: 'cashback',
+    applyUrl: 'https://www.shopyourway.com/credit-card',
     benefits: [],
   },
 ];
