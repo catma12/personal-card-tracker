@@ -760,6 +760,10 @@ export const knownCards: KnownCardInfo[] = [
     applyUrl: 'https://creditcards.chase.com/business-credit-cards/united/business',
     benefits: [
       { name: 'United Travel Credit', creditType: 'annual', valueType: 'dollar', totalAmount: 125, notes: '$125 United travel credit after 5 flights of $100+ each calendar year.' },
+      { name: 'United Hotels Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 100, notes: 'Up to $100 annually for United Hotels bookings ($50 each on 1st & 2nd stay).' },
+      { name: 'Rideshare Credit', creditType: 'monthly', valueType: 'dollar', totalAmount: 8, notes: '$8/mo rideshare credit ($100/yr). Yearly opt-in required.' },
+      { name: 'Avis/Budget Rental Credit', creditType: 'anniversary-year', valueType: 'dollar', totalAmount: 50, notes: 'Up to $50 for Avis/Budget via cars.united.com per anniversary year.' },
+      { name: 'Global Entry / TSA PreCheck Credit', creditType: 'one-time', valueType: 'dollar', totalAmount: 100, notes: 'Up to $100 every 4 years.' },
     ],
     eligibilityRules: [
       { type: 'same-card-bonus', cooldownMonths: 24, description: 'Not eligible if you received the United Business bonus in the last 24 months.' },
