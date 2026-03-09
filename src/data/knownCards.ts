@@ -282,7 +282,7 @@ export const knownCards: KnownCardInfo[] = [
     applyUrl: 'https://www.americanexpress.com/us/credit-cards/card/platinum-morgan-stanley/',
     benefits: [],
     eligibilityRules: [
-      { type: 'once-per-lifetime', description: 'Amex once-per-lifetime rule. Note: Morgan Stanley Platinum is treated as a separate product from the regular Platinum.' },
+      { type: 'once-per-lifetime', conflictCards: ['Amex Platinum for Morgan Stanley', 'Amex Platinum', 'Amex Gold', 'Amex Green', 'Amex Platinum for Schwab'], description: 'Amex once-per-lifetime rule. Morgan Stanley Platinum is cross-restricted with other Amex charge cards.' },
     ],
   },
   {
