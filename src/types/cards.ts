@@ -54,3 +54,21 @@ export interface Chase524Entry {
   card: CreditCard;
   dropOffDate: Date;
 }
+
+export type GoalType = 'signup' | 'retention' | 'other';
+export type GoalStatus = 'in_progress' | 'completed' | 'expired' | 'not_started';
+export type BonusValueType = 'points' | 'dollars' | 'miles';
+
+export interface SpendingGoal {
+  id: string;
+  cardId: string;
+  name: string;
+  type: GoalType;
+  spendRequired: number;
+  spendCurrent: number;
+  deadline?: string;
+  bonusValue?: number;
+  bonusValueType: BonusValueType;
+  status: GoalStatus;
+  notes: string;
+}

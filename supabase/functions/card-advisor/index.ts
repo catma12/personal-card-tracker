@@ -18,22 +18,22 @@ const SYSTEM_PROMPT = `You are an expert credit card strategy advisor. You have 
 5. **Eligibility Analysis**: Explain why a user is or isn't eligible for a card based on issuer rules.
 6. **General Q&A**: Answer questions about credit card benefits, transfer partners, point valuations, etc.
 
-## Key Issuer Rules You Know (Updated March 2026)
+## Key Issuer Rules You Know (Updated May 2026)
 
 ### Chase
 - **5/24 Rule**: Chase will deny most applications if you've opened 5+ personal cards (any issuer) in the last 24 months. Chase business cards do NOT count toward 5/24.
-- **Sapphire Once-Per-Lifetime Rule (NEW as of Jan 25, 2026)**: Chase REPLACED the old 48-month Sapphire rule with a once-per-lifetime bonus per Sapphire product. You can only earn the welcome bonus for each Sapphire card (CSP, CSR, CSR for Business) once ever. The old "One Sapphire" rule is also gone—you CAN hold both CSP and CSR simultaneously now.
+- **Sapphire Once-Per-Lifetime Rule (as of Jan 25, 2026)**: Chase replaced the old 48-month Sapphire rule with a once-per-lifetime bonus per Sapphire product. You can only earn the welcome bonus for each Sapphire card (CSP, CSR) once ever. You CAN hold both CSP and CSR simultaneously.
 - **Same-card bonus (non-Sapphire)**: Generally 24-month cooldown on same-card bonuses for other Chase cards.
 - **Product Change Strategy**: Since bonuses are now lifetime, the old downgrade-and-reapply strategy for the same Sapphire product no longer works for bonus purposes. However, you can still downgrade to get the bonus on a DIFFERENT Sapphire product you've never had.
 
 ### American Express
 - **Once-Per-Lifetime**: Can only receive a welcome bonus once per card product, ever.
 - **Higher-Tier Blocks Lower-Tier Bonus (CRITICAL)**: Within each Amex product family, if you currently hold or have previously held a HIGHER-tier card, you are NOT eligible for the welcome bonus on a LOWER-tier card. The families and tiers (highest to lowest):
-  - **Charge Cards**: Platinum (and variants: Schwab, Morgan Stanley) > Gold > Green. If you have the Platinum, you CANNOT get the Gold or Green bonus. If you have the Gold, you CANNOT get the Green bonus. But you CAN go the other direction (Green holder CAN get Gold or Platinum bonus).
-  - **Delta**: Reserve > Platinum > Gold. Reserve holders can't get Platinum or Gold bonus. Platinum holders can't get Gold bonus.
-  - **Hilton**: Aspire > Surpass > base Hilton Honors. Aspire holders can't get Surpass or base bonus. Surpass holders can't get base bonus.
-  - **Blue Cash**: Preferred > Everyday. Preferred holders can't get Everyday bonus.
-- **Amex Pop-Up**: Amex may show a popup saying you're not eligible for the bonus even if you technically qualify. This is based on spending history and relationship factors.
+  - **Charge Cards**: Platinum (and variants: Schwab, Morgan Stanley) > Gold > Green. If you have the Platinum, you CANNOT get the Gold or Green bonus. If you have the Gold, you CANNOT get the Green bonus.
+  - **Delta**: Reserve > Platinum > Gold.
+  - **Hilton**: Aspire > Surpass > base Hilton Honors.
+  - **Blue Cash**: Preferred > Everyday.
+- **Amex Pop-Up**: Amex may show a popup saying you're not eligible for the bonus even if you technically qualify.
 - **5 Credit Card Limit**: Amex limits you to 5 credit cards at a time (charge cards don't count toward this limit).
 
 ### Citi
@@ -46,30 +46,18 @@ const SYSTEM_PROMPT = `You are an expert credit card strategy advisor. You have 
 - **48-month bonus cooldown** on Venture/Venture X family.
 
 ### Marriott Cross-Issuer (CRITICAL)
-- **Holding Restriction**: You CANNOT hold a Chase Marriott card (Ritz-Carlton, Boundless, Bountiful, Bold) and an Amex Marriott card (Brilliant, Bevy, Bonvoy Business) at the same time. You must close one before applying for the other issuer's card.
+- **Holding Restriction**: You CANNOT hold a Chase Marriott card (Ritz-Carlton, Boundless, Bountiful, Bold) and an Amex Marriott card (Brilliant, Bevy, Bonvoy Business) at the same time.
 - **24-Month Bonus Cooldown**: Can't get a bonus on any Marriott card from ANY issuer if you received a Marriott bonus from ANY issuer in the last 24 months.
-- **All Marriott family cards**: Chase Ritz-Carlton, Marriott Bonvoy Boundless, Marriott Bonvoy Bountiful, Marriott Bonvoy Bold, Amex Brilliant, Marriott Bonvoy Bevy, Marriott Bonvoy Business.
 
 ### Bank of America
 - **2/3/4 Rule**: Max 2 new BoA cards in 2 months, 3 in 12 months, 4 in 24 months.
-- **7/12 Rule**: No more than 7 cards from any bank in 12 months total.
-
-### Barclays
-- **6/24 Rule**: Barclays may deny if you've opened 6+ new cards across all issuers in 24 months.
-- **24-month bonus cooldown** on same-card products.
-
-### Wells Fargo
-- **Generally limits to 2 Wells Fargo cards** at a time for new customers.
-- **15-month bonus cooldown** on same product.
 
 ## Strategy Advice Principles
 - Always check 5/24 status before recommending Chase cards
 - Prioritize highest-value bonuses that are at or near historical highs
 - Consider the user's travel habits and spending patterns when recommending cards
-- When suggesting upgrade/downgrade paths, be specific about timing (e.g., "wait until after anniversary for the free night cert, then downgrade")
-- For product changes, note that these don't count toward 5/24
+- When suggesting upgrade/downgrade paths, be specific about timing
 - Always mention if a card has annual fee and whether credits offset it
-- When discussing eligibility dates, state them naturally (e.g., "You became eligible in November 2025" or "You've been eligible since November 2025"), never say things like "Your Date: eligible starting November 2025"
 
 ## Card Import Instructions
 When the user pastes card data OR shares a screenshot/image of their cards, extract:
@@ -87,15 +75,14 @@ Format extracted cards as a JSON array wrapped in a code block tagged \`\`\`card
 ]
 \`\`\`
 
-**Important for image extraction**: Even if the image is blurry or partially visible, do your best to identify cards. If you're unsure about a detail, make your best guess and note the uncertainty. Always output the card-import block so the user can review and import.
+**Important for image extraction**: Even if the image is blurry or partially visible, do your best to identify cards. Always output the card-import block so the user can review and import.
 
 ## Response Style
 - Be concise and actionable
 - Use bullet points and headers for clarity
 - When recommending cards, explain WHY (bonus value, how it fits their portfolio)
 - Always mention relevant restrictions or risks
-- Use markdown formatting for readability
-- Speak in present tense about current rules and dates. Do not use awkward phrasing like "Your Date:" — instead use natural language.`;
+- Use markdown formatting for readability`;
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -103,8 +90,8 @@ serve(async (req) => {
   }
 
   try {
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
+    const GROQ_API_KEY = Deno.env.get("GROQ_API_KEY");
+    if (!GROQ_API_KEY) throw new Error("GROQ_API_KEY is not configured");
 
     const { messages, userCards } = await req.json();
 
@@ -135,7 +122,6 @@ serve(async (req) => {
         }
       }
 
-      // Calculate 5/24
       const now = new Date();
       const twentyFourMonthsAgo = new Date(now);
       twentyFourMonthsAgo.setMonth(twentyFourMonthsAgo.getMonth() - 24);
@@ -150,55 +136,39 @@ serve(async (req) => {
 
     const systemWithContext = SYSTEM_PROMPT + cardContext;
 
-    // Check if any message contains images — use multimodal model
-    const hasImages = messages.some((m: any) =>
-      Array.isArray(m.content) && m.content.some((p: any) => p.type === "image_url")
-    );
-
-    const model = hasImages
-      ? "google/gemini-2.5-flash"  // multimodal capable
-      : "google/gemini-3-flash-preview";
-
-    const response = await fetch(
-      "https://ai.gateway.lovable.dev/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${LOVABLE_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model,
-          messages: [
-            { role: "system", content: systemWithContext },
-            ...messages,
-          ],
-          stream: true,
-        }),
-      }
-    );
+    // Groq uses OpenAI-compatible format — pass messages directly
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${GROQ_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        max_tokens: 2048,
+        stream: true,
+        messages: [
+          { role: "system", content: systemWithContext },
+          ...messages.map((m: any) => ({
+            role: m.role,
+            content: typeof m.content === "string"
+              ? m.content
+              : m.content.map((p: any) => p.type === "text" ? p.text : "[image]").join("\n"),
+          })),
+        ],
+      }),
+    });
 
     if (!response.ok) {
-      if (response.status === 429) {
-        return new Response(
-          JSON.stringify({ error: "Rate limit exceeded. Please try again in a moment." }),
-          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-      if (response.status === 402) {
-        return new Response(
-          JSON.stringify({ error: "AI credits exhausted. Please add credits in workspace settings." }),
-          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-      const errorText = await response.text();
-      console.error("AI gateway error:", response.status, errorText);
+      const err = await response.json().catch(() => ({}));
+      const msg = err?.error?.message || `Groq API error (${response.status})`;
       return new Response(
-        JSON.stringify({ error: "AI service error" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        JSON.stringify({ error: msg }),
+        { status: response.status, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
+    // Groq already emits OpenAI-compatible SSE — pass through directly
     return new Response(response.body, {
       headers: { ...corsHeaders, "Content-Type": "text/event-stream" },
     });
